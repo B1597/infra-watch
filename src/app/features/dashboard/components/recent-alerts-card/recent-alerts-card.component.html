@@ -1,0 +1,35 @@
+<div class="alerts-card">
+  <div class="alerts-card__header">
+    <div class="alerts-card__header-left">
+      <h3 class="alerts-card__title">Recent Alerts</h3>
+      <p class="alerts-card__subtitle">Latest system notifications</p>
+    </div>
+    <a mat-button routerLink="/alerts" class="alerts-card__view-all">
+      View All
+      <mat-icon iconPositionEnd>arrow_forward</mat-icon>
+    </a>
+  </div>
+
+  <div class="alert-list">
+    @for (alert of alerts().slice(0, 5); track alert.id) {
+      <div class="alert-item">
+        <mat-icon
+          class="alert-item__icon"
+          [class]="'alert-item__icon--' + alert.severity"
+        >{{ severityIcon(alert.severity) }}</mat-icon>
+
+        <div class="alert-item__body">
+          <p class="alert-item__title">{{ alert.title }}</p>
+          <div class="alert-item__meta">
+            <span class="alert-item__source">{{ alert.source }}</span>
+            <span class="alert-badge" [class]="'alert-badge--' + alert.severity">
+              {{ severityLabel(alert.severity) }}
+            </span>
+            <span class="alert-item__time">{{ alert.time }}</span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+</div>

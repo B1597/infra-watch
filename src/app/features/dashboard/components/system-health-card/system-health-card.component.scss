@@ -1,0 +1,77 @@
+.health-card {
+  background: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 24px;
+  height: 100%;
+
+  &__header {
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+  }
+
+  &__subtitle {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+  }
+}
+
+.health-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.health-item {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  &__icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+
+    &--orange { color: var(--color-warning); }
+    &--blue   { color: var(--color-primary); }
+  }
+
+  &__pct {
+    font-size: 13px;
+    font-weight: 600;
+
+    &--success { color: var(--color-success); }
+    &--warning { color: var(--color-warning); }
+    &--danger  { color: var(--color-danger);  }
+  }
+}
+
+::ng-deep {
+  .progress--success .mdc-linear-progress__primary-bar .mdc-linear-progress__bar-inner {
+    border-color: var(--color-success) !important;
+  }
+  .progress--warning .mdc-linear-progress__primary-bar .mdc-linear-progress__bar-inner {
+    border-color: var(--color-warning) !important;
+  }
+  .progress--danger .mdc-linear-progress__primary-bar .mdc-linear-progress__bar-inner {
+    border-color: var(--color-danger) !important;
+  }
+}

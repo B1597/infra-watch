@@ -1,0 +1,73 @@
+@use '@angular/material' as mat;
+
+@mixin overrides() {
+  :root {
+    @include mat.form-field-overrides((
+      container-height: 38px,
+      container-vertical-padding: 10px,
+      outlined-container-shape: 8px,
+      outlined-outline-color: #d1d5db,
+      outlined-hover-outline-color: #c7d2fe,
+      outlined-focus-outline-color: #d1d5db,
+      outlined-focus-outline-width: 1px,
+      outlined-input-text-placeholder-color: rgb(169, 169, 169),
+      outlined-input-text-color: #202020,
+      container-text-size: 14px,
+    ));
+  }
+
+  .mat-mdc-form-field .mat-mdc-text-field-wrapper {
+    border-radius: 8px;
+    transition: box-shadow 200ms ease-out 1ms, border-color 200ms ease-out 1ms;
+  }
+
+  .mat-mdc-form-field.mat-focused:not(.mat-mdc-form-field-invalid) .mat-mdc-text-field-wrapper {
+    box-shadow: 0 0 0 3px rgba(59, 131, 246, 0.175);
+  }
+
+  .mat-mdc-form-field.mat-mdc-form-field-invalid .mat-mdc-text-field-wrapper,
+  .mat-mdc-form-field .mdc-text-field--invalid {
+    box-shadow: none !important;
+  }
+
+  // .mat-mdc-form-field-subscript-wrapper {
+  //   height: 24px !important;
+  // }
+
+  .search-field-variant {
+    @include mat.form-field-overrides((
+      container-height: 40px,
+      outlined-container-shape: 20px,
+    ));
+  }
+
+  .search-field-variant .mat-mdc-text-field-wrapper {
+    border-radius: 20px;
+    transition: box-shadow 200ms ease-out 1ms, border-color 200ms ease-out 1ms;
+  }
+
+  .search-field-variant.mat-focused:not(.mat-mdc-form-field-invalid) .mat-mdc-text-field-wrapper {
+    box-shadow: 0 0 0 3px rgba(59, 131, 246, 0.175);
+    border-radius: 20px;
+  }
+
+  .search-field-variant--sm {
+    @include mat.form-field-overrides((
+      container-height: 30px,
+      container-vertical-padding: 8px,
+    ));
+  }
+
+  div.mat-mdc-select-panel {
+    border-radius: 10px !important;
+    margin: 8px 0 !important;
+    background-color: white !important;
+    border: 1px solid rgba(128, 128, 128, 0.305) !important;
+    box-shadow: 0 4px 4px -4px rgba(12, 12, 13, 0.05), 0 16px 16px -8px rgba(12, 12, 13, 0.1) !important;
+  }
+
+  mat-option {
+    font-size: 14px !important;
+    min-height: 38px !important;
+  }
+}

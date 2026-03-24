@@ -1,0 +1,25 @@
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__title {
+    font-size: 24px;
+  }
+
+  &__subtitle {
+    font-size: 16px;
+  }
+
+  &__bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .dashboard-page__bottom {
+    grid-template-columns: 1fr;
+  }
+}

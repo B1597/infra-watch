@@ -1,0 +1,25 @@
+<div class="dashboard-page">
+  <div class="dashboard-page__header">
+    <h1 class="dashboard-page__title">Dashboard</h1>
+    <p class="dashboard-page__subtitle">
+      Infrastructure overview and system health
+    </p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="dashboard-page__loading">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else {
+    <app-dashboard-stat-cards [stats]="stats()" />
+
+    <app-infrastructure-overview-card [stats]="stats()" />
+
+    <div class="dashboard-page__bottom">
+      <app-system-health-card [health]="health()" />
+      <app-recent-alerts-card
+        [alerts]="recentAlerts()"
+      />
+    </div>
+  }
+</div>

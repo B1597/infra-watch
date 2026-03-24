@@ -1,0 +1,41 @@
+<aside class="sidebar">
+  <div class="sidebar__logo">
+    <div class="sidebar__logo-square"></div>
+  </div>
+
+  <nav class="sidebar__nav">
+    @for (item of navItems; track item.route) {
+      <a
+        class="sidebar__nav-item"
+        [routerLink]="item.route"
+        routerLinkActive="sidebar__nav-item--active"
+        [matTooltip]="item.label"
+        matTooltipPosition="right"
+        matRipple
+        [matRippleColor]="'rgba(0,0,0,0.06)'"
+      >
+        <mat-icon>{{ item.icon }}</mat-icon>
+
+        @if (item.label === 'Alerts' && criticalCount() > 0) {
+          <span class="sidebar__badge">{{ criticalCount() }}</span>
+        }
+      </a>
+    }
+  </nav>
+
+  <div class="sidebar__bottom">
+    @for (item of bottomItems; track item.route) {
+      <a
+        class="sidebar__nav-item"
+        [routerLink]="item.route"
+        routerLinkActive="sidebar__nav-item--active"
+        [matTooltip]="item.label"
+        matTooltipPosition="right"
+        matRipple
+        [matRippleColor]="'rgba(0,0,0,0.06)'"
+      >
+        <mat-icon>{{ item.icon }}</mat-icon>
+      </a>
+    }
+  </div>
+</aside>

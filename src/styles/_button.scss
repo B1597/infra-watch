@@ -1,0 +1,27 @@
+@use '@angular/material' as mat;
+
+@mixin overrides() {
+  :root {
+    @include mat.button-overrides((
+      // Filled
+      filled-container-shape:    8px,
+      filled-container-height:   36px,
+      filled-horizontal-padding: 16px,
+      filled-container-color:    #3b82f6,
+      filled-label-text-color:   #ffffff,
+
+      // Stroked (outlined)
+      outlined-container-shape:  8px,
+      outlined-container-height: 36px,
+      outlined-horizontal-padding: 16px,
+      outlined-outline-color:    #d1d5db,
+      outlined-label-text-color: #444040,
+
+      // Text button
+      text-container-shape:      8px,
+      text-container-height:     36px,
+      text-horizontal-padding:   15px,
+      text-label-text-color:     #3b82f6,
+    ));
+  }
+}

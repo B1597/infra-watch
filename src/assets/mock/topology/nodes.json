@@ -1,0 +1,27 @@
+{
+  "nodes": [
+    { "id": "dc1", "name": "Datacenter 1", "type": "datacenter", "status": "online", "location": "New York" },
+    { "id": "dc2", "name": "Datacenter 2", "type": "datacenter", "status": "online", "location": "London" },
+    { "id": "dc3", "name": "Datacenter 3", "type": "datacenter", "status": "warning", "location": "Singapore" },
+    { "id": "rack1", "name": "DC1-RACK1", "type": "rack", "status": "online", "parent": "dc1" },
+    { "id": "rack2", "name": "DC1-RACK2", "type": "rack", "status": "warning", "parent": "dc1" },
+    { "id": "rack3", "name": "DC2-RACK1", "type": "rack", "status": "online", "parent": "dc2" },
+    { "id": "srv1", "name": "DC1-RACK1-SRV01", "type": "server", "status": "online", "parent": "rack1", "ip": "10.0.1.1" },
+    { "id": "srv2", "name": "DC1-RACK1-SRV02", "type": "server", "status": "online", "parent": "rack1", "ip": "10.0.1.2" },
+    { "id": "srv3", "name": "DC1-RACK2-SRV01", "type": "server", "status": "warning", "parent": "rack2", "ip": "10.0.2.1" },
+    { "id": "vm1", "name": "VM-PROD-01", "type": "vm", "status": "online", "parent": "srv1" },
+    { "id": "vm2", "name": "VM-PROD-02", "type": "vm", "status": "online", "parent": "srv1" },
+    { "id": "vm3", "name": "VM-STAGING-01", "type": "vm", "status": "offline", "parent": "srv2" }
+  ],
+  "connections": [
+    { "from": "dc1", "to": "rack1" },
+    { "from": "dc1", "to": "rack2" },
+    { "from": "dc2", "to": "rack3" },
+    { "from": "rack1", "to": "srv1" },
+    { "from": "rack1", "to": "srv2" },
+    { "from": "rack2", "to": "srv3" },
+    { "from": "srv1", "to": "vm1" },
+    { "from": "srv1", "to": "vm2" },
+    { "from": "srv2", "to": "vm3" }
+  ]
+}

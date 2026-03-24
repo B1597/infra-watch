@@ -1,0 +1,46 @@
+<header class="header">
+  <div class="header__breadcrumb">
+    <span class="header__app-name">Infrastructure Manager</span>
+    <mat-icon class="header__chevron">chevron_right</mat-icon>
+    <span class="header__page-name">{{ pageTitle() }}</span>
+  </div>
+
+  <mat-form-field
+    appearance="outline"
+    subscriptSizing="dynamic"
+    class="header__search"
+  >
+    <mat-icon matPrefix>search</mat-icon>
+    <input
+      matInput
+      placeholder="Search..."
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="onSearch($event)"
+    />
+  </mat-form-field>
+
+  <div class="header__actions">
+    <button
+      mat-icon-button
+      matTooltip="Notifications"
+      matTooltipPosition="below"
+      class="header__notif-btn"
+    >
+      <mat-icon
+        [matBadge]="alertCount()"
+        [matBadgeHidden]="alertCount() === 0"
+        matBadgeColor="warn"
+        matBadgeSize="small"
+      >notifications</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      matTooltip="Profile"
+      matTooltipPosition="below"
+      class="header__avatar-btn"
+    >
+      <mat-icon>person</mat-icon>
+    </button>
+  </div>
+</header>

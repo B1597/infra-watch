@@ -1,0 +1,61 @@
+@if (stats(); as s) {
+  <div class="stat-cards">
+
+    <div class="stat-card">
+      <div class="stat-card__content">
+        <p class="stat-card__label">Total Nodes</p>
+        <h2 class="stat-card__value">{{ s.totalNodes }}</h2>
+        <p class="stat-card__sub">Across all datacenters</p>
+        @if (s.trends?.totalNodes; as t) {
+          <p class="stat-card__trend" [class.stat-card__trend--up]="t.direction === 'up'" [class.stat-card__trend--down]="t.direction === 'down'">
+            <mat-icon>{{ t.direction === 'up' ? 'trending_up' : 'trending_down' }}</mat-icon>
+            {{ t.change }}% from last week
+          </p>
+        }
+      </div>
+      <div class="stat-card__icon stat-card__icon--blue">
+        <mat-icon>storage</mat-icon>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card__content">
+        <p class="stat-card__label">Online</p>
+        <h2 class="stat-card__value">{{ s.online }}</h2>
+        <p class="stat-card__sub">Systems operational</p>
+      </div>
+      <div class="stat-card__icon stat-card__icon--green">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card__content">
+        <p class="stat-card__label">Warnings</p>
+        <h2 class="stat-card__value">{{ s.warnings }}</h2>
+        <p class="stat-card__sub">Require attention</p>
+        @if (s.trends?.warnings; as t) {
+          <p class="stat-card__trend" [class.stat-card__trend--up]="t.direction === 'up'" [class.stat-card__trend--down]="t.direction === 'down'">
+            <mat-icon>{{ t.direction === 'up' ? 'trending_up' : 'trending_down' }}</mat-icon>
+            {{ t.change }}% from last week
+          </p>
+        }
+      </div>
+      <div class="stat-card__icon stat-card__icon--orange">
+        <mat-icon>warning</mat-icon>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card__content">
+        <p class="stat-card__label">Offline</p>
+        <h2 class="stat-card__value">{{ s.offline }}</h2>
+        <p class="stat-card__sub">Systems down</p>
+      </div>
+      <div class="stat-card__icon stat-card__icon--red">
+        <mat-icon>cancel</mat-icon>
+      </div>
+    </div>
+
+  </div>
+}

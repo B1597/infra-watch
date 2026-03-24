@@ -1,0 +1,48 @@
+<div class="overview-card">
+  <div class="overview-card__header">
+    <h3 class="overview-card__title">Infrastructure Overview</h3>
+    <p class="overview-card__subtitle">
+      {{ stats()?.totalNodes ?? 0 }} total nodes &nbsp;|&nbsp;
+      {{ stats()?.online ?? 0 }} online &nbsp;|&nbsp;
+      {{ stats()?.warnings ?? 0 }} warnings
+    </p>
+  </div>
+
+  <div class="overview-grid">
+    <div class="overview-item">
+      <div class="overview-item__icon-wrap overview-item__icon-wrap--blue">
+        <mat-icon>language</mat-icon>
+      </div>
+      <p class="overview-item__value">{{ stats()?.datacenters ?? 0 }}</p>
+      <p class="overview-item__label">Datacenters</p>
+    </div>
+    <div class="overview-item">
+      <div class="overview-item__icon-wrap overview-item__icon-wrap--green">
+        <mat-icon>view_agenda</mat-icon>
+      </div>
+      <p class="overview-item__value">{{ stats()?.racks ?? 0 }}</p>
+      <p class="overview-item__label">Racks</p>
+    </div>
+    <div class="overview-item">
+      <div class="overview-item__icon-wrap overview-item__icon-wrap--orange">
+        <mat-icon>dns</mat-icon>
+      </div>
+      <p class="overview-item__value">{{ stats()?.servers ?? 0 }}</p>
+      <p class="overview-item__label">Servers</p>
+    </div>
+    <div class="overview-item">
+      <div class="overview-item__icon-wrap overview-item__icon-wrap--red">
+        <mat-icon>widgets</mat-icon>
+      </div>
+      <p class="overview-item__value">{{ stats()?.vms ?? 0 }}</p>
+      <p class="overview-item__label">VMs</p>
+    </div>
+    <div class="overview-item">
+      <div class="overview-item__icon-wrap overview-item__icon-wrap--purple">
+        <mat-icon>bolt</mat-icon>
+      </div>
+      <p class="overview-item__value">{{ stats()?.services ?? 0 }}</p>
+      <p class="overview-item__label">Services</p>
+    </div>
+  </div>
+</div>

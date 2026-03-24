@@ -1,0 +1,193 @@
+.alerts-page {
+  &__header {
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+  }
+
+  &__subtitle {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+  }
+
+  &__loading {
+    display: flex;
+    justify-content: center;
+    padding: 80px 0;
+  }
+}
+
+.alert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.alert-card {
+  display: flex;
+  gap: 16px;
+  background: var(--color-card-bg);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid transparent;
+
+  &--critical { border-left-color: var(--color-danger);  }
+  &--warning  { border-left-color: var(--color-warning); }
+  &--info     { border-left-color: var(--color-info);    }
+
+  &__icon-col {
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  &__icon {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+
+    &--critical { color: var(--color-danger);  }
+    &--warning  { color: var(--color-warning); }
+    &--info     { color: var(--color-info);    }
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  &__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  &__badges {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  &__message {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  &__source-chip {
+    font-size: 12px;
+    font-weight: 500;
+    background: #f1f5f9;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    color: var(--color-text-primary);
+  }
+
+  &__meta-dot {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+  }
+
+  &__meta-text {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+  }
+
+  &__clock {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    color: var(--color-text-secondary);
+  }
+
+  &__ack-text {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-bottom: 10px;
+
+    strong {
+      color: var(--color-text-primary);
+      font-weight: 500;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+}
+
+///// Badges //////////////////////////////////////////////////////////////////////
+
+.badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 10px;
+  border-radius: 4px;
+
+  &--status {
+    &.badge--active       { background: rgba(239, 68, 68, 0.1);   color: var(--color-danger);  }
+    &.badge--acknowledged { background: rgba(107, 114, 128, 0.1); color: var(--color-info);    }
+  }
+
+  &--severity {
+    &.badge--critical { background: rgba(239, 68, 68, 0.1);   color: var(--color-danger);  }
+    &.badge--warning  { background: rgba(245, 158, 11, 0.1);  color: var(--color-warning); }
+    &.badge--info     { background: rgba(107, 114, 128, 0.1); color: var(--color-info);    }
+  }
+}
+
+////// Action buttons /////////////////////////////////////////////////////////////
+
+.action-btn {
+  font-size: 12px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 12px;
+
+  .mat-icon {
+    font-size: 15px;
+    width: 15px;
+    height: 15px;
+    margin-right: 4px;
+  }
+
+  &--acknowledge {
+    color: var(--color-warning);
+    border-color: var(--color-warning) !important;
+  }
+
+  &--resolve {
+    color: var(--color-success);
+    border-color: var(--color-success) !important;
+  }
+
+  &--snooze {
+    color: var(--color-text-secondary);
+    border-color: var(--color-border) !important;
+  }
+}

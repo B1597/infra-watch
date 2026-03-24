@@ -1,0 +1,120 @@
+.alerts-card {
+  background: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 24px;
+  height: 100%;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  &__header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__view-all {
+    color: var(--color-primary);
+    font-size: 13px;
+    font-weight: 500;
+    flex-shrink: 0;
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+  }
+
+  &__subtitle {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+  }
+}
+
+.alert-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.alert-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    flex-shrink: 0;
+
+    &--critical { color: var(--color-danger);  }
+    &--warning  { color: var(--color-warning); }
+    &--info     { color: var(--color-info);    }
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 13px;
+    color: var(--color-text-primary);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+  &__source {
+    font-size: 11px;
+    font-weight: 500;
+    background: #f1f5f9;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: var(--color-text-secondary);
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__time {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+  }
+}
+
+.alert-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+
+  &--critical { background: rgba(239, 68, 68, 0.12);   color: var(--color-danger);  }
+  &--warning  { background: rgba(245, 158, 11, 0.12);  color: var(--color-warning); }
+  &--info     { background: rgba(107, 114, 128, 0.12); color: var(--color-info);    }
+}

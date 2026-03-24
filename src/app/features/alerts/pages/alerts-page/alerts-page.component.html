@@ -1,0 +1,89 @@
+<div class="alerts-page">
+  <div class="alerts-page__header">
+    <h1 class="alerts-page__title">Alerts</h1>
+    <p class="alerts-page__subtitle">
+      {{ isLoading() ? 'Loading alerts...' : alerts().length + ' alerts' }}
+    </p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="alerts-page__loading">
+      <mat-spinner diameter="48" />
+    </div>
+  } @else {
+    <div class="alert-list">
+      @for (alert of alerts(); track alert.id) {
+        <div class="alert-card" [class]="'alert-card--' + alert.severity">
+
+          <div class="alert-card__icon-col">
+            <mat-icon
+              class="alert-card__icon"
+              [class]="'alert-card__icon--' + alert.severity"
+            >{{ severityIcon(alert.severity) }}</mat-icon>
+          </div>
+
+          <div class="alert-card__body">
+            <div class="alert-card__top">
+              <h3 class="alert-card__title">{{ alert.title }}</h3>
+              <div class="alert-card__badges">
+                <span class="badge badge--status badge--{{ alert.status }}">{{ alert.status }}</span>
+                <span class="badge badge--severity badge--{{ alert.severity }}">{{ severityLabel(alert.severity) }}</span>
+              </div>
+            </div>
+
+            <p class="alert-card__message">{{ alert.message }}</p>
+
+            <div class="alert-card__meta">
+              <span class="alert-card__source-chip">{{ alert.source }}</span>
+              <span class="alert-card__meta-dot">•</span>
+              <span class="alert-card__meta-text">{{ alert.deviceType }}</span>
+              <span class="alert-card__meta-dot">•</span>
+              <span class="alert-card__meta-text">{{ alert.category }}</span>
+              <span class="alert-card__meta-dot">•</span>
+              <mat-icon class="alert-card__clock">schedule</mat-icon>
+              <span class="alert-card__meta-text">{{ alert.time }}</span>
+            </div>
+
+            @if (alert.status === 'acknowledged' && alert.acknowledgedBy) {
+              <p class="alert-card__ack-text">
+                Acknowledged by <strong>{{ alert.acknowledgedBy }}</strong>
+              </p>
+            }
+
+            <div class="alert-card__actions">
+              @if (alert.status === 'active') {
+                <button mat-stroked-button class="action-btn action-btn--acknowledge" (click)="acknowledge(alert.id)">
+                  <mat-icon>check</mat-icon>
+                  Acknowledge
+                </button>
+              }
+              <button mat-stroked-button class="action-btn action-btn--resolve" (click)="resolve(alert.id)">
+                <mat-icon>check_circle</mat-icon>
+                Resolve
+              </button>
+              <button mat-stroked-button class="action-btn action-btn--snooze">
+                <mat-icon>notifications_off</mat-icon>
+                Snooze
+              </button>
+            </div>
+          </div>
+
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<!-- Text button (no background, no border) -->
+<button mat-button>Click me</button>
+
+<!-- Stroked / outlined button -->
+<button mat-stroked-button>Click me</button>
+
+<!-- Filled button -->
+<button mat-flat-button>Click me</button>
+
+<!-- Icon button (circle, just an icon) -->
+<button mat-icon-button>
+  <mat-icon>add</mat-icon>
+</button>

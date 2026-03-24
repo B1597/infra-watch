@@ -1,0 +1,64 @@
+<div class="health-card">
+  <div class="health-card__header">
+    <h3 class="health-card__title">System Health</h3>
+    <p class="health-card__subtitle">Real-time infrastructure metrics</p>
+  </div>
+
+  @if (health(); as h) {
+    <div class="health-list">
+
+      <div class="health-item">
+        <div class="health-item__header">
+          <div class="health-item__label">
+            <mat-icon class="health-item__icon health-item__icon--orange">settings</mat-icon>
+            CPU Utilization
+          </div>
+          <span class="health-item__pct" [class]="'health-item__pct--' + healthColor(h.cpu)">
+            {{ h.cpu }}%
+          </span>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="h.cpu" [class]="'progress--' + healthColor(h.cpu)" />
+      </div>
+
+      <div class="health-item">
+        <div class="health-item__header">
+          <div class="health-item__label">
+            <mat-icon class="health-item__icon health-item__icon--orange">storage</mat-icon>
+            Memory Usage
+          </div>
+          <span class="health-item__pct" [class]="'health-item__pct--' + healthColor(h.memory)">
+            {{ h.memory }}%
+          </span>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="h.memory" [class]="'progress--' + healthColor(h.memory)" />
+      </div>
+
+      <div class="health-item">
+        <div class="health-item__header">
+          <div class="health-item__label">
+            <mat-icon class="health-item__icon health-item__icon--blue">hub</mat-icon>
+            Network Load
+          </div>
+          <span class="health-item__pct" [class]="'health-item__pct--' + healthColor(h.network)">
+            {{ h.network }}%
+          </span>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="h.network" [class]="'progress--' + healthColor(h.network)" />
+      </div>
+
+      <div class="health-item">
+        <div class="health-item__header">
+          <div class="health-item__label">
+            <mat-icon class="health-item__icon health-item__icon--orange">storage</mat-icon>
+            Storage Capacity
+          </div>
+          <span class="health-item__pct" [class]="'health-item__pct--' + healthColor(h.storage)">
+            {{ h.storage }}%
+          </span>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="h.storage" [class]="'progress--' + healthColor(h.storage)" />
+      </div>
+
+    </div>
+  }
+</div>

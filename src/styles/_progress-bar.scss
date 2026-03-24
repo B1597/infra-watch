@@ -1,0 +1,16 @@
+@use '@angular/material' as mat;
+
+@mixin overrides() {
+  :root {
+    @include mat.progress-bar-overrides((
+      active-indicator-height: 10px,
+      track-height: 10px,
+      track-color: #e2e8f0,
+    ));
+  }
+
+  .mdc-linear-progress {
+    border-radius: 999px;
+    //overflow: hidden;
+  }
+}
