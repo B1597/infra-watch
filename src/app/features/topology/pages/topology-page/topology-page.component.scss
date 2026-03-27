@@ -4,10 +4,39 @@
   gap: 0;
 
   &__left {
+    position: relative;
     width: 300px;
     flex-shrink: 0;
     border-right: 1px solid var(--color-border);
     background: var(--color-card-bg);
+    transition: width 0.25s ease;
+
+    &--collapsed {
+      width: 50px;
+    }
+  }
+
+  &__toggle {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    background: none;
+    cursor: pointer;
+    color: var(--color-text-muted);
+
+    &:hover {
+      background: var(--color-border);
+      color: var(--color-text);
+    }
   }
 
   &__right {

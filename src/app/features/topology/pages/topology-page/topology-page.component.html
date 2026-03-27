@@ -1,9 +1,17 @@
 <div class="topology-page">
 
-  <div class="topology-page__left">
+  <div class="topology-page__left" [class.topology-page__left--collapsed]="collapsed()">
+    <button class="topology-page__toggle" (click)="toggle()">
+      <mat-icon>{{ collapsed() ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+    </button>
+
+    @if (!collapsed()) {
+      <app-topology-tree />
+    }
   </div>
 
   <div class="topology-page__right">
+    <router-outlet />
   </div>
 
 </div>
