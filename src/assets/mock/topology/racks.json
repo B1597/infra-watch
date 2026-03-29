@@ -43,8 +43,8 @@
     { "id": "rack-in3", "name": "Rack IN3", "type": "rack", "status": "warning",   "location": "Floor 3", "parentId": "dc-in" }
   ],
   "dc-za": [
-    { "id": "rack-za1", "name": "Rack ZA1", "type": "rack", "status": "warning",   "location": "Floor 1", "parentId": "dc-za" },
-    { "id": "rack-za2", "name": "Rack ZA2", "type": "rack", "status": "online",    "location": "Floor 1", "parentId": "dc-za" }
+    { "id": "rack-za1", "name": "Rack ZA1", "type": "rack", "status": "offline",   "location": "Floor 1", "parentId": "dc-za" },
+    { "id": "rack-za2", "name": "Rack ZA2", "type": "rack", "status": "offline",   "location": "Floor 1", "parentId": "dc-za" }
   ],
   "dc-nl": [
     { "id": "rack-nl1", "name": "Rack NL1", "type": "rack", "status": "online",    "location": "Floor 3", "parentId": "dc-nl" },
@@ -56,8 +56,8 @@
     { "id": "rack-uc2", "name": "Rack UC2", "type": "rack", "status": "online",    "location": "Floor 2", "parentId": "dc-us-central" }
   ],
   "dc-us-south": [
-    { "id": "rack-us1", "name": "Rack US1", "type": "rack", "status": "maintenance", "location": "Floor 1", "parentId": "dc-us-south" },
-    { "id": "rack-us2", "name": "Rack US2", "type": "rack", "status": "maintenance", "location": "Floor 1", "parentId": "dc-us-south" }
+    { "id": "rack-us1", "name": "Rack US1", "type": "rack", "status": "offline",    "location": "Floor 1", "parentId": "dc-us-south" },
+    { "id": "rack-us2", "name": "Rack US2", "type": "rack", "status": "offline",    "location": "Floor 1", "parentId": "dc-us-south" }
   ],
   "dc-kr": [
     { "id": "rack-kr1", "name": "Rack KR1", "type": "rack", "status": "online",    "location": "Floor 5", "parentId": "dc-kr" },

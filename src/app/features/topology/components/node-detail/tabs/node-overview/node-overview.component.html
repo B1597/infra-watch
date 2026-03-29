@@ -1,0 +1,136 @@
+@if (node(); as n) {
+  <div class="overview">
+
+    <!-- name | type | status badge -->
+    <div class="overview__header">
+      <div>
+        <h1 class="overview__name">{{ n.name }}</h1>
+        <span class="overview__type">{{ n.type | titlecase }}</span>
+      </div>
+      <span class="overview__badge overview__badge--{{ n.status }}">
+        {{ n.status | titlecase }}
+      </span>
+    </div>
+
+    <!-- stat cards -->
+    <div class="overview__stats">
+      @if (n.stats?.cpuUsage !== undefined) {
+        <div class="overview__stat-card">
+          <div class="overview__stat-header">
+            <mat-icon>memory</mat-icon>
+            <span>CPU Usage</span>
+          </div>
+          <div class="overview__stat-value">{{ n.stats!.cpuUsage }}%</div>
+          <div class="overview__progress">
+            <div class="overview__progress-fill" [style.width.%]="n.stats!.cpuUsage" [class]="progressClass(n.stats!.cpuUsage!)"></div>
+          </div>
+        </div>
+      }
+
+      @if (n.stats?.memoryUsage !== undefined) {
+        <div class="overview__stat-card">
+          <div class="overview__stat-header">
+            <mat-icon>dns</mat-icon>
+            <span>Memory Usage</span>
+          </div>
+          <div class="overview__stat-value">{{ n.stats!.memoryUsage }}%</div>
+          <div class="overview__progress">
+            <div class="overview__progress-fill" [style.width.%]="n.stats!.memoryUsage" [class]="progressClass(n.stats!.memoryUsage!)"></div>
+          </div>
+        </div>
+      }
+
+      @if (n.stats?.networkIO) {
+        <div class="overview__stat-card">
+          <div class="overview__stat-header">
+            <mat-icon>wifi</mat-icon>
+            <span>Network I/O</span>
+          </div>
+          <div class="overview__stat-value">{{ n.stats!.networkIO }}</div>
+          @if (n.stats!.networkOut) {
+            <div class="overview__stat-sub">↑ {{ n.stats!.networkOut }}</div>
+          }
+        </div>
+      }
+
+      @if (n.stats?.uptimeDays !== undefined) {
+        <div class="overview__stat-card">
+          <div class="overview__stat-header">
+            <mat-icon>schedule</mat-icon>
+            <span>Uptime</span>
+          </div>
+          <div class="overview__stat-value">{{ n.stats!.uptimeDays }} days</div>
+          @if (n.stats!.availability) {
+            <div class="overview__stat-sub">{{ n.stats!.availability }} availability</div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- node info | hardware specs -->
+    <div class="overview__info-row">
+      <div class="overview__info-card">
+        <h3 class="overview__info-title">Node Information</h3>
+        <div class="overview__info-table">
+          <div class="overview__info-item">
+            <span class="overview__info-label">Type</span>
+            <span class="overview__info-value">{{ n.type | titlecase }}</span>
+          </div>
+          <div class="overview__info-item">
+            <span class="overview__info-label">IP Address</span>
+            <span class="overview__info-value">{{ n.ipAddress ?? 'N/A' }}</span>
+          </div>
+          @if (n.location) {
+            <div class="overview__info-item">
+              <span class="overview__info-label">Location</span>
+              <span class="overview__info-value">{{ n.location }}</span>
+            </div>
+          }
+          @if (n.vendor) {
+            <div class="overview__info-item">
+              <span class="overview__info-label">Vendor</span>
+              <span class="overview__info-value">{{ n.vendor }}</span>
+            </div>
+          }
+          @if (n.serialNumber) {
+            <div class="overview__info-item">
+              <span class="overview__info-label">Serial Number</span>
+              <span class="overview__info-value">{{ n.serialNumber }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      @if (n.hardware) {
+        <div class="overview__info-card">
+          <h3 class="overview__info-title">Hardware Specifications</h3>
+          <div class="overview__info-table">
+            @if (n.hardware.cpuCores) {
+              <div class="overview__info-item">
+                <span class="overview__info-label">CPU Cores</span>
+                <span class="overview__info-value">{{ n.hardware.cpuCores }}</span>
+              </div>
+            }
+            @if (n.hardware.memory) {
+              <div class="overview__info-item">
+                <span class="overview__info-label">Memory</span>
+                <span class="overview__info-value">{{ n.hardware.memory }}</span>
+              </div>
+            }
+            @if (n.hardware.storage) {
+              <div class="overview__info-item">
+                <span class="overview__info-label">Storage</span>
+                <span class="overview__info-value">{{ n.hardware.storage }}</span>
+              </div>
+            }
+            <div class="overview__info-item">
+              <span class="overview__info-label">Firmware</span>
+              <span class="overview__info-value">{{ n.hardware.firmware ?? 'N/A' }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+  </div>
+}
