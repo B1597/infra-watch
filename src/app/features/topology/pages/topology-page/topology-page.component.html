@@ -19,6 +19,21 @@
   </div>
 
   <div class="topology-page__right">
+    @if (!sel.selection()) {
+      <div class="topology-page__empty">
+        <div class="topology-page__empty-inner">
+          <div class="topology-page__empty-graphic">
+            <div class="topology-page__empty-circle">
+              <mat-icon class="topology-page__empty-cursor">near_me</mat-icon>
+            </div>
+            <mat-icon class="topology-page__empty-float topology-page__empty-float--db">database</mat-icon>
+            <mat-icon class="topology-page__empty-float topology-page__empty-float--server">view_list</mat-icon>
+            <mat-icon class="topology-page__empty-float topology-page__empty-float--tree">account_tree</mat-icon>
+          </div>
+          <span class="topology-page__empty-label">Select a Node to View Details</span>
+        </div>
+      </div>
+    }
     <router-outlet />
   </div>
 

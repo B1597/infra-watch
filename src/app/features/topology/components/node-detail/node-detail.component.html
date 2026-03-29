@@ -19,11 +19,33 @@
   </div>
 
   <div class="node-detail__tabs">
-    tabs placeholder
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel" mat-stretch-tabs="false" disableRipple>
+      <a mat-tab-link
+         routerLink="overview"
+         routerLinkActive
+         #overview="routerLinkActive"
+         [active]="overview.isActive">
+        Overview
+      </a>
+      <a mat-tab-link
+         routerLink="configuration"
+         routerLinkActive
+         #configuration="routerLinkActive"
+         [active]="configuration.isActive">
+        Configuration
+      </a>
+      <a mat-tab-link
+         routerLink="statistics"
+         routerLinkActive
+         #statistics="routerLinkActive"
+         [active]="statistics.isActive">
+        Statistics
+      </a>
+    </nav>
   </div>
 
-  <div class="node-detail__content">
+  <mat-tab-nav-panel #tabPanel class="node-detail__content">
     <router-outlet />
-  </div>
+  </mat-tab-nav-panel>
 
 </div>

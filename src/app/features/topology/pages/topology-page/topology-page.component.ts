@@ -5,6 +5,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { LayoutService } from '../../../../core/services/layout.service';
+import { TopologySelectionService } from '../../services/topology-selection.service';
 
 @Component({
   selector: 'app-topology-page',
@@ -14,6 +15,7 @@ import { LayoutService } from '../../../../core/services/layout.service';
 })
 export class TopologyPageComponent implements OnInit {
   private readonly layoutService = inject(LayoutService);
+  readonly sel = inject(TopologySelectionService);
   collapsed = signal(false);
 
   ngOnInit(): void {
