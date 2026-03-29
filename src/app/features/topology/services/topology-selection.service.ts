@@ -3,9 +3,14 @@ import { Router, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs';
 import { NodeType } from '../models/topology.model';
 
+export interface PathItem {
+  id: string;
+  name: string;
+}
+
 interface SelectionPayload {
   id: string;
-  path: string[];
+  path: PathItem[];
   type: NodeType;
 }
 

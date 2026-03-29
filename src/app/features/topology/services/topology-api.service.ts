@@ -10,14 +10,14 @@ export class TopologyApiService {
   private readonly http = inject(HttpClient);
   private readonly base = '/assets/mock/topology';
 
-  /** /datacenters */
+  /** GET /datacenters */
   getDatacenters(): Observable<TreeItem[]> {
     return this.http.get<InfrastructureNode[]>(`${this.base}/datacenters.json`).pipe(
       map(mapDatacenters)
     );
   }
 
-  /** /datacenters/:id/racks */
+  /** GET /datacenters/:id/racks */
   getRacks(datacenterId: string): Observable<TreeItem[]> {
     return this.http.get<Record<string, InfrastructureNode[]>>(`${this.base}/racks.json`).pipe(
       map(data => mapRacks(data[datacenterId] ?? [])),
@@ -25,7 +25,7 @@ export class TopologyApiService {
     );
   }
 
-  /** /racks/:id/servers */
+  /** GET /racks/:id/servers */
   getServers(rackId: string): Observable<TreeItem[]> {
     return this.http.get<Record<string, InfrastructureNode[]>>(`${this.base}/servers.json`).pipe(
       map(data => mapServers(data[rackId] ?? [])),
@@ -37,6 +37,13 @@ export class TopologyApiService {
   getNodeDetail(id: string): Observable<InfrastructureNode | undefined> {
     return this.http.get<Record<string, InfrastructureNode>>(`${this.base}/node-details.json`).pipe(
       map(data => data[id])
+    );
+  }
+
+  /** GET /nodes/:id/path — returns ordered ancestor IDs from root to parent */
+  getNodePath(id: string): Observable<string[]> {
+    return this.http.get<Record<string, string[]>>(`${this.base}/ancestors.json`).pipe(
+      map(data => data[id] ?? [])
     );
   }
 }

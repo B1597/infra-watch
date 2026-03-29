@@ -1,7 +1,21 @@
 <div class="node-detail">
 
   <div class="node-detail__breadcrumb">
-    breadcrumb placeholder
+    @if (sel.selection(); as selection) {
+      @for (crumb of selection.path; track crumb.id; let last = $last) {
+        @if (last) {
+          <span class="node-detail__crumb node-detail__crumb--active">
+            {{ crumb.name }}
+          </span>
+        } @else {
+          <button class="node-detail__crumb node-detail__crumb--link"
+                  [routerLink]="['/topology', crumb.id]">
+            {{ crumb.name }}
+          </button>
+          <mat-icon class="node-detail__crumb-separator">chevron_right</mat-icon>
+        }
+      }
+    }
   </div>
 
   <div class="node-detail__tabs">

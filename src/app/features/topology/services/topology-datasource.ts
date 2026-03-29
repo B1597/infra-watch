@@ -7,6 +7,7 @@ import { TopologyApiService } from './topology-api.service';
 
 export class TopologyDataSource implements DataSource<FlatNode> {
   private dataChange = new BehaviorSubject<FlatNode[]>([]);
+  readonly dataChanged$ = this.dataChange.asObservable();
   private cache = new Map<string, TreeItem[]>();
   private sub = new Subscription();
 

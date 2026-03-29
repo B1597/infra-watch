@@ -1,13 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { filter, take } from 'rxjs';
 import { TopologyApiService } from '../../services/topology-api.service';
 import { TopologyDataSource } from '../../services/topology-datasource';
 import { TopologySelectionService } from '../../services/topology-selection.service';
 import { FlatNode } from '../../models/topology-tree.model';
+import { PathItem } from '../../services/topology-selection.service';
 
 @Component({
   selector: 'app-topology-tree',
@@ -16,41 +19,102 @@ import { FlatNode } from '../../models/topology-tree.model';
   styleUrl: './topology-tree.component.scss',
 })
 export class TopologyTreeComponent {
-  private readonly api = inject(TopologyApiService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  private readonly sel = inject(TopologySelectionService);
+  private readonly topologyApi = inject(TopologyApiService);
+  private readonly selectionService  = inject(TopologySelectionService);
 
   treeControl = new FlatTreeControl<FlatNode>(
     node => node.level,
     node => node.hasChildren,
   );
-  dataSource = new TopologyDataSource(this.treeControl, this.api);
+  dataSource = new TopologyDataSource(this.treeControl, this.topologyApi);
   hasChild = (_: number, node: FlatNode) => node.hasChildren;
-  isSelected = (node: FlatNode) => this.sel.selection()?.id === node.id;
+  isSelected = (node: FlatNode) => this.selectionService.selection()?.id === node.id;
 
   constructor() {
-    this.api.getDatacenters().subscribe(items => {
+    this.loadRootNodes();
+    this.listenToNodeRouteChanges();
+  }
+
+  private loadRootNodes() {
+    this.topologyApi.getDatacenters().subscribe(items => {
       this.dataSource.data = items.map(item => new FlatNode(
         item.id, item.name, item.type, item.status, 0, item.hasChildren,
       ));
+
+      const nodeId = this.route.firstChild?.snapshot.paramMap.get('nodeId');
+      if (nodeId) this.restoreSelectionByNodeId(nodeId);
+    });
+  }
+
+  private listenToNodeRouteChanges() {
+    this.route.firstChild?.paramMap.pipe(
+      filter(params => !!params.get('nodeId')),
+      takeUntilDestroyed(),
+    ).subscribe(params => {
+      const nodeId = params.get('nodeId')!;
+      // restore if selection is out of sync with URL
+      if (this.selectionService.selection()?.id !== nodeId) {
+        this.restoreSelectionByNodeId(nodeId);
+      }
     });
   }
 
   openNode(node: FlatNode) {
-    this.sel.set({ id: node.id, path: this.buildPath(node), type: node.type });
+    this.selectionService.set({ id: node.id, path: this.buildNodePath(node), type: node.type });
     this.router.navigate(['/topology', node.id]);
   }
 
-  private buildPath(node: FlatNode): string[] {
-    const byId = new Map(this.dataSource.data.map(n => [n.id, n]));
-    const names: string[] = [];
-    let cur: FlatNode | undefined = node;
-    while (cur) {
-      names.unshift(cur.name);
-      cur = cur.parentId ? byId.get(cur.parentId) : undefined;
+  private restoreSelectionByNodeId(nodeId: string): void {
+    this.topologyApi.getNodePath(nodeId).pipe(take(1)).subscribe(ancestorIds => {
+      this.expandAncestorPath(ancestorIds, nodeId);
+    });
+  }
+
+  // expands the ancestor chain step-by-step to reveal a target node in a lazy-loaded tree.
+  // each level must be expanded before the next one becomes available, so we process
+  // ancestors sequentially. If children are not yet loaded, we wait for data changes
+  // before continuing to the next level. (recursion)
+  private expandAncestorPath(ancestorIds: string[], targetId: string, index = 0): void {
+    if (index >= ancestorIds.length) {
+      this.selectNodeInTree(targetId);
+      return;
     }
-    return names;
+
+    const id = ancestorIds[index];
+    const node = this.dataSource.data.find(n => n.id === id);
+    if (!node) return;
+
+    this.treeControl.expand(node);
+
+    // if children are already loaded, continue immediately
+    if (this.dataSource.data.some(n => n.parentId === id)) {
+      this.expandAncestorPath(ancestorIds, targetId, index + 1);
+      return;
+    }
+
+    // wait for async load to insert children
+    this.dataSource.dataChanged$.pipe(
+      filter(() => this.dataSource.data.some(n => n.parentId === id)),
+      take(1),
+    ).subscribe(() => this.expandAncestorPath(ancestorIds, targetId, index + 1));
+  }
+
+  private selectNodeInTree(nodeId: string): void {
+    const node = this.dataSource.data.find(n => n.id === nodeId);
+    if (node) this.selectionService.set({ id: node.id, path: this.buildNodePath(node), type: node.type });
+  }
+
+  private buildNodePath(node: FlatNode): PathItem[] {
+    const byId = new Map(this.dataSource.data.map(n => [n.id, n]));
+    const items: PathItem[] = [];
+    let currentNode: FlatNode | undefined = node;
+    while (currentNode) {
+      items.unshift({ id: currentNode.id, name: currentNode.name });
+      currentNode = currentNode.parentId ? byId.get(currentNode.parentId) : undefined;
+    }
+    return items;
   }
 
   readonly nodeIcons: Record<string, string> = {
