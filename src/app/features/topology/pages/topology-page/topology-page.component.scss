@@ -16,14 +16,23 @@
     }
   }
 
+  &__left-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  &__search {
+    flex: 1;
+    font-size: 13px;
+  }
+
   &__toggle {
-    position: absolute;
-    top: 9px;
-    right: 9px;
-    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     width: 30px;
     height: 30px;
     padding: 0;

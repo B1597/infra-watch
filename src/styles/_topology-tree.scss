@@ -1,0 +1,21 @@
+@use '@angular/material' as mat;
+
+@mixin overrides() {
+  :root {
+    @include mat.tree-overrides(
+      (
+        container-background-color: white,
+      )
+    );
+  }
+
+  /* Scoped density for the tree */
+  .topology-tree {
+    @include mat.all-component-densities(-4);
+  }
+
+  .topology-tree .mat-mdc-icon-button.mat-mdc-button-base {
+    width: 18px;
+    height: 20px;
+  }
+}

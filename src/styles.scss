@@ -2,6 +2,7 @@
 @use './styles/form-field' as formField;
 @use './styles/progress-bar' as progressBar;
 @use './styles/button' as button;
+@use './styles/topology-tree' as topologyTree;
 
 @include mat.core();
 
@@ -51,6 +52,7 @@ $theme: mat.define-theme((
 @include formField.overrides();
 @include progressBar.overrides();
 @include button.overrides();
+@include topologyTree.overrides();
 
 *,
 *::before,

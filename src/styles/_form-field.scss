@@ -3,8 +3,8 @@
 @mixin overrides() {
   :root {
     @include mat.form-field-overrides((
-      container-height: 38px,
-      container-vertical-padding: 10px,
+      container-height: 30px,
+      container-vertical-padding: 6px,
       outlined-container-shape: 8px,
       outlined-outline-color: #d1d5db,
       outlined-hover-outline-color: #c7d2fe,

@@ -1,9 +1,17 @@
 <div class="topology-page">
 
   <div class="topology-page__left" [class.topology-page__left--collapsed]="collapsed()">
-    <button class="topology-page__toggle" (click)="toggle()">
-      <mat-icon>{{ collapsed() ? 'chevron_right' : 'chevron_left' }}</mat-icon>
-    </button>
+    <div class="topology-page__left-header">
+      @if (!collapsed()) {
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="topology-page__search">
+          <mat-icon matPrefix>search</mat-icon>
+          <input matInput placeholder="Search topology..." />
+        </mat-form-field>
+      }
+      <button class="topology-page__toggle" (click)="toggle()">
+        <mat-icon>{{ collapsed() ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+      </button>
+    </div>
 
     @if (!collapsed()) {
       <app-topology-tree />

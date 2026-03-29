@@ -1,0 +1,17 @@
+[
+  { "id": "dc-west",      "name": "US West Datacenter",       "type": "datacenter", "status": "online",      "location": "San Francisco" },
+  { "id": "dc-east",      "name": "US East Datacenter",       "type": "datacenter", "status": "online",      "location": "New York" },
+  { "id": "dc-eu",        "name": "EU Datacenter",            "type": "datacenter", "status": "warning",     "location": "Frankfurt" },
+  { "id": "dc-ap-sg",     "name": "AP Singapore Datacenter",  "type": "datacenter", "status": "online",      "location": "Singapore" },
+  { "id": "dc-ap-tk",     "name": "AP Tokyo Datacenter",      "type": "datacenter", "status": "online",      "location": "Tokyo" },
+  { "id": "dc-uk",        "name": "UK Datacenter",            "type": "datacenter", "status": "online",      "location": "London" },
+  { "id": "dc-ca",        "name": "Canada Datacenter",        "type": "datacenter", "status": "warning",     "location": "Toronto" },
+  { "id": "dc-aus",       "name": "Australia Datacenter",     "type": "datacenter", "status": "online",      "location": "Sydney" },
+  { "id": "dc-br",        "name": "Brazil Datacenter",        "type": "datacenter", "status": "critical",    "location": "São Paulo" },
+  { "id": "dc-in",        "name": "India Datacenter",         "type": "datacenter", "status": "online",      "location": "Mumbai" },
+  { "id": "dc-za",        "name": "South Africa Datacenter",  "type": "datacenter", "status": "offline",     "location": "Johannesburg" },
+  { "id": "dc-nl",        "name": "Netherlands Datacenter",   "type": "datacenter", "status": "online",      "location": "Amsterdam" },
+  { "id": "dc-us-central","name": "US Central Datacenter",    "type": "datacenter", "status": "online",      "location": "Chicago" },
+  { "id": "dc-us-south",  "name": "US South Datacenter",      "type": "datacenter", "status": "offline",     "location": "Dallas" },
+  { "id": "dc-kr",        "name": "South Korea Datacenter",   "type": "datacenter", "status": "online",      "location": "Seoul" }
+]

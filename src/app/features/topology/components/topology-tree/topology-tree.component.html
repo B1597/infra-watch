@@ -1,0 +1,58 @@
+<div class="tree-body">
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="topology-tree">
+
+    <!-- Leaf node -->
+    <mat-tree-node *matTreeNodeDef="let node"
+                   matTreeNodePadding [matTreeNodePaddingIndent]="22">
+      <div class="topology-tree__row"
+           [class.is-selected]="isSelected(node)"
+           (click)="openNode(node)">
+        <span class="topology-tree__toggle-placeholder"></span>
+        <div class="topology-tree__content">
+          <mat-icon class="topology-tree__icon">{{ nodeIcons[node.type] }}</mat-icon>
+          <span class="topology-tree__label">{{ node.name }}</span>
+        </div>
+        <span class="topology-tree__spacer"></span>
+        @if (node.status === 'critical') {
+          <span class="topology-tree__status topology-tree__status--red"></span>
+        } @else if (node.status === 'warning' || node.status === 'maintenance') {
+          <span class="topology-tree__status topology-tree__status--yellow"></span>
+        } @else if (node.status === 'offline') {
+          <span class="topology-tree__status topology-tree__status--gray"></span>
+        }
+      </div>
+    </mat-tree-node>
+
+    <!-- Expandable node -->
+    <mat-tree-node *matTreeNodeDef="let node; when: hasChild"
+                   matTreeNodePadding [matTreeNodePaddingIndent]="22">
+      <div class="topology-tree__row"
+           [class.is-selected]="isSelected(node)"
+           (click)="openNode(node)">
+        <mat-icon class="topology-tree__toggle mat-icon-rtl-mirror"
+                  matTreeNodeToggle
+                  (click)="$event.stopPropagation()">
+          {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+        </mat-icon>
+        <div class="topology-tree__content">
+          <mat-icon class="topology-tree__icon">{{ nodeIcons[node.type] }}</mat-icon>
+          <span class="topology-tree__label">{{ node.name }}</span>
+          @if (node.isLoading()) {
+            <mat-spinner diameter="14" strokeWidth="2" mode="indeterminate" class="topology-tree__spinner" />
+          }
+        </div>
+        <span class="topology-tree__spacer"></span>
+        @if (!node.isLoading()) {
+          @if (node.status === 'critical') {
+            <span class="topology-tree__status topology-tree__status--red"></span>
+          } @else if (node.status === 'warning' || node.status === 'maintenance') {
+            <span class="topology-tree__status topology-tree__status--yellow"></span>
+          } @else if (node.status === 'offline') {
+            <span class="topology-tree__status topology-tree__status--gray"></span>
+          }
+        }
+      </div>
+    </mat-tree-node>
+
+  </mat-tree>
+</div>
