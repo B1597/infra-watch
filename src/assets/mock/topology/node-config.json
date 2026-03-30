@@ -1,0 +1,436 @@
+{
+  "dc-west": {
+    "password": "Dc@West#2024",
+    "registrationId": "REG-USW-001"
+  },
+  "dc-east": {
+    "password": "Dc@East#2024",
+    "registrationId": "REG-USE-001"
+  },
+  "dc-eu": {
+    "password": "Dc@EU#2024",
+    "registrationId": "REG-DEU-001"
+  },
+  "dc-ap-sg": {
+    "password": "Dc@SG#2024",
+    "registrationId": "REG-SGP-001"
+  },
+  "dc-ap-tk": {
+    "password": "Dc@TK#2024",
+    "registrationId": "REG-JPN-001"
+  },
+  "dc-uk": {
+    "password": "Dc@UK#2024",
+    "registrationId": "REG-GBR-001"
+  },
+  "dc-ca": {
+    "password": "Dc@CA#2024",
+    "registrationId": "REG-CAN-001"
+  },
+  "dc-aus": {
+    "password": "Dc@AUS#2024",
+    "registrationId": "REG-AUS-001"
+  },
+  "dc-br": {
+    "password": "Dc@BR#2024",
+    "registrationId": "REG-BRA-001"
+  },
+  "dc-in": {
+    "password": "Dc@IN#2024",
+    "registrationId": "REG-IND-001"
+  },
+  "dc-za": {
+    "password": "Dc@ZA#2024",
+    "registrationId": "REG-ZAF-001"
+  },
+  "dc-nl": {
+    "password": "Dc@NL#2024",
+    "registrationId": "REG-NLD-001"
+  },
+  "dc-us-central": {
+    "password": "Dc@USC#2024",
+    "registrationId": "REG-USC-001"
+  },
+  "dc-us-south": {
+    "password": "Dc@USS#2024",
+    "registrationId": "REG-USS-001"
+  },
+  "dc-kr": {
+    "password": "Dc@KR#2024",
+    "registrationId": "REG-KOR-001"
+  },
+  "rack-w1": {
+    "password": "Rk@W1#2024"
+  },
+  "rack-w2": {
+    "password": "Rk@W2#2024"
+  },
+  "rack-w3": {
+    "password": "Rk@W3#2024"
+  },
+  "rack-e1": {
+    "password": "Rk@E1#2024"
+  },
+  "rack-e2": {
+    "password": "Rk@E2#2024"
+  },
+  "rack-eu1": {
+    "password": "Rk@EU1#2024"
+  },
+  "rack-sg1": {
+    "password": "Rk@SG1#2024"
+  },
+  "rack-sg2": {
+    "password": "Rk@SG2#2024"
+  },
+  "rack-sg3": {
+    "password": "Rk@SG3#2024"
+  },
+  "rack-tk1": {
+    "password": "Rk@TK1#2024"
+  },
+  "rack-tk2": {
+    "password": "Rk@TK2#2024"
+  },
+  "rack-uk1": {
+    "password": "Rk@UK1#2024"
+  },
+  "rack-uk2": {
+    "password": "Rk@UK2#2024"
+  },
+  "rack-uk3": {
+    "password": "Rk@UK3#2024"
+  },
+  "rack-ca1": {
+    "password": "Rk@CA1#2024"
+  },
+  "rack-ca2": {
+    "password": "Rk@CA2#2024"
+  },
+  "rack-aus1": {
+    "password": "Rk@AUS1#2024"
+  },
+  "rack-aus2": {
+    "password": "Rk@AUS2#2024"
+  },
+  "rack-br1": {
+    "password": "Rk@BR1#2024"
+  },
+  "rack-br2": {
+    "password": "Rk@BR2#2024"
+  },
+  "rack-in1": {
+    "password": "Rk@IN1#2024"
+  },
+  "rack-in2": {
+    "password": "Rk@IN2#2024"
+  },
+  "rack-in3": {
+    "password": "Rk@IN3#2024"
+  },
+  "rack-za1": {
+    "password": "Rk@ZA1#2024"
+  },
+  "rack-za2": {
+    "password": "Rk@ZA2#2024"
+  },
+  "rack-nl1": {
+    "password": "Rk@NL1#2024"
+  },
+  "rack-nl2": {
+    "password": "Rk@NL2#2024"
+  },
+  "rack-nl3": {
+    "password": "Rk@NL3#2024"
+  },
+  "rack-uc1": {
+    "password": "Rk@UC1#2024"
+  },
+  "rack-uc2": {
+    "password": "Rk@UC2#2024"
+  },
+  "rack-us1": {
+    "password": "Rk@US1#2024"
+  },
+  "rack-us2": {
+    "password": "Rk@US2#2024"
+  },
+  "rack-kr1": {
+    "password": "Rk@KR1#2024"
+  },
+  "rack-kr2": {
+    "password": "Rk@KR2#2024"
+  },
+  "srv-w1-01": {
+    "password": "Srv@W1-01#2024",
+    "macAddress": "14:FE:B5:1A:01:01"
+  },
+  "srv-w1-02": {
+    "password": "Srv@W1-02#2024",
+    "macAddress": "14:FE:B5:1A:01:02"
+  },
+  "srv-w1-03": {
+    "password": "Srv@W1-03#2024",
+    "macAddress": "14:FE:B5:1A:01:03"
+  },
+  "srv-uk1-01": {
+    "password": "Srv@UK1-01#2024",
+    "macAddress": "14:FE:B5:1A:02:01"
+  },
+  "srv-uk1-02": {
+    "password": "Srv@UK1-02#2024",
+    "macAddress": "14:FE:B5:1A:02:02"
+  },
+  "srv-aus1-01": {
+    "password": "Srv@AUS1-01#2024",
+    "macAddress": "14:FE:B5:1A:03:01"
+  },
+  "srv-aus1-02": {
+    "password": "Srv@AUS1-02#2024",
+    "macAddress": "14:FE:B5:1A:03:02"
+  },
+  "srv-za1-01": {
+    "password": "Srv@ZA1-01#2024",
+    "macAddress": "14:FE:B5:1A:04:01"
+  },
+  "srv-za1-02": {
+    "password": "Srv@ZA1-02#2024",
+    "macAddress": "14:FE:B5:1A:04:02"
+  },
+  "srv-uc1-01": {
+    "password": "Srv@UC1-01#2024",
+    "macAddress": "14:FE:B5:1A:05:01"
+  },
+  "srv-uc1-02": {
+    "password": "Srv@UC1-02#2024",
+    "macAddress": "14:FE:B5:1A:05:02"
+  },
+  "srv-e1-01": {
+    "password": "Srv@E1-01#2024",
+    "macAddress": "3C:A8:2A:2B:01:01"
+  },
+  "srv-e1-02": {
+    "password": "Srv@E1-02#2024",
+    "macAddress": "3C:A8:2A:2B:01:02"
+  },
+  "srv-ca1-01": {
+    "password": "Srv@CA1-01#2024",
+    "macAddress": "3C:A8:2A:2B:02:01"
+  },
+  "srv-ca1-02": {
+    "password": "Srv@CA1-02#2024",
+    "macAddress": "3C:A8:2A:2B:02:02"
+  },
+  "srv-nl1-01": {
+    "password": "Srv@NL1-01#2024",
+    "macAddress": "3C:A8:2A:2B:03:01"
+  },
+  "srv-nl1-02": {
+    "password": "Srv@NL1-02#2024",
+    "macAddress": "3C:A8:2A:2B:03:02"
+  },
+  "srv-us1-01": {
+    "password": "Srv@US1-01#2024",
+    "macAddress": "3C:A8:2A:2B:04:01"
+  },
+  "srv-us1-02": {
+    "password": "Srv@US1-02#2024",
+    "macAddress": "3C:A8:2A:2B:04:02"
+  },
+  "srv-br1-01": {
+    "password": "Srv@BR1-01#2024",
+    "macAddress": "3C:A8:2A:2B:05:01"
+  },
+  "srv-br1-02": {
+    "password": "Srv@BR1-02#2024",
+    "macAddress": "3C:A8:2A:2B:05:02"
+  },
+  "srv-sg1-01": {
+    "password": "Srv@SG1-01#2024",
+    "macAddress": "6C:40:08:3C:01:01"
+  },
+  "srv-sg1-02": {
+    "password": "Srv@SG1-02#2024",
+    "macAddress": "6C:40:08:3C:01:02"
+  },
+  "srv-eu1-01": {
+    "password": "Srv@EU1-01#2024",
+    "macAddress": "6C:40:08:3C:02:01"
+  },
+  "srv-in1-01": {
+    "password": "Srv@IN1-01#2024",
+    "macAddress": "6C:40:08:3C:03:01"
+  },
+  "srv-in1-02": {
+    "password": "Srv@IN1-02#2024",
+    "macAddress": "6C:40:08:3C:03:02"
+  },
+  "srv-kr1-01": {
+    "password": "Srv@KR1-01#2024",
+    "macAddress": "6C:40:08:3C:04:01"
+  },
+  "srv-kr1-02": {
+    "password": "Srv@KR1-02#2024",
+    "macAddress": "6C:40:08:3C:04:02"
+  },
+  "srv-tk1-01": {
+    "password": "Srv@TK1-01#2024",
+    "macAddress": "00:00:49:4D:01:01"
+  },
+  "srv-tk1-02": {
+    "password": "Srv@TK1-02#2024",
+    "macAddress": "00:00:49:4D:01:02"
+  },
+  "sw-w2-01": {
+    "password": "Sw@W2-01#2024",
+    "macAddress": "F0:1D:2D:5E:01:01"
+  },
+  "sw-w2-02": {
+    "password": "Sw@W2-02#2024",
+    "macAddress": "F0:1D:2D:5E:01:02"
+  },
+  "sw-e2-01": {
+    "password": "Sw@E2-01#2024",
+    "macAddress": "F0:1D:2D:5E:02:01"
+  },
+  "sw-sg2-01": {
+    "password": "Sw@SG2-01#2024",
+    "macAddress": "F0:1D:2D:5E:03:01"
+  },
+  "sw-tk2-01": {
+    "password": "Sw@TK2-01#2024",
+    "macAddress": "F0:1D:2D:5E:04:01"
+  },
+  "sw-uk2-01": {
+    "password": "Sw@UK2-01#2024",
+    "macAddress": "F0:1D:2D:5E:05:01"
+  },
+  "sw-uk2-02": {
+    "password": "Sw@UK2-02#2024",
+    "macAddress": "F0:1D:2D:5E:05:02"
+  },
+  "sw-ca2-01": {
+    "password": "Sw@CA2-01#2024",
+    "macAddress": "F0:1D:2D:5E:06:01"
+  },
+  "sw-aus2-01": {
+    "password": "Sw@AUS2-01#2024",
+    "macAddress": "F0:1D:2D:5E:07:01"
+  },
+  "sw-br2-01": {
+    "password": "Sw@BR2-01#2024",
+    "macAddress": "F0:1D:2D:5E:08:01"
+  },
+  "sw-in2-01": {
+    "password": "Sw@IN2-01#2024",
+    "macAddress": "F0:1D:2D:5E:09:01"
+  },
+  "sw-za2-01": {
+    "password": "Sw@ZA2-01#2024",
+    "macAddress": "F0:1D:2D:5E:0A:01"
+  },
+  "sw-nl2-01": {
+    "password": "Sw@NL2-01#2024",
+    "macAddress": "F0:1D:2D:5E:0B:01"
+  },
+  "sw-nl2-02": {
+    "password": "Sw@NL2-02#2024",
+    "macAddress": "F0:1D:2D:5E:0B:02"
+  },
+  "sw-uc2-01": {
+    "password": "Sw@UC2-01#2024",
+    "macAddress": "F0:1D:2D:5E:0C:01"
+  },
+  "sw-us2-01": {
+    "password": "Sw@US2-01#2024",
+    "macAddress": "F0:1D:2D:5E:0D:01"
+  },
+  "sw-kr2-01": {
+    "password": "Sw@KR2-01#2024",
+    "macAddress": "F0:1D:2D:5E:0E:01"
+  },
+  "rt-w2-01": {
+    "password": "Rt@W2-01#2024",
+    "macAddress": "2C:21:72:6F:01:01"
+  },
+  "rt-e2-01": {
+    "password": "Rt@E2-01#2024",
+    "macAddress": "2C:21:72:6F:02:01"
+  },
+  "rt-sg2-01": {
+    "password": "Rt@SG2-01#2024",
+    "macAddress": "2C:21:72:6F:03:01"
+  },
+  "rt-tk2-01": {
+    "password": "Rt@TK2-01#2024",
+    "macAddress": "2C:21:72:6F:04:01"
+  },
+  "rt-ca2-01": {
+    "password": "Rt@CA2-01#2024",
+    "macAddress": "2C:21:72:6F:05:01"
+  },
+  "rt-br2-01": {
+    "password": "Rt@BR2-01#2024",
+    "macAddress": "2C:21:72:6F:06:01"
+  },
+  "rt-in2-01": {
+    "password": "Rt@IN2-01#2024",
+    "macAddress": "2C:21:72:6F:07:01"
+  },
+  "rt-za2-01": {
+    "password": "Rt@ZA2-01#2024",
+    "macAddress": "2C:21:72:6F:08:01"
+  },
+  "rt-us2-01": {
+    "password": "Rt@US2-01#2024",
+    "macAddress": "2C:21:72:6F:09:01"
+  },
+  "stor-w3-01": {
+    "password": "St@W3-01#2024",
+    "macAddress": "00:A0:98:7A:01:01"
+  },
+  "stor-w3-02": {
+    "password": "St@W3-02#2024",
+    "macAddress": "00:A0:98:7A:01:02"
+  },
+  "stor-sg3-01": {
+    "password": "St@SG3-01#2024",
+    "macAddress": "00:A0:98:7A:02:01"
+  },
+  "stor-uk3-01": {
+    "password": "St@UK3-01#2024",
+    "macAddress": "00:A0:98:7A:03:01"
+  },
+  "stor-uk3-02": {
+    "password": "St@UK3-02#2024",
+    "macAddress": "00:A0:98:7A:03:02"
+  },
+  "stor-aus2-01": {
+    "password": "St@AUS2-01#2024",
+    "macAddress": "00:A0:98:7A:04:01"
+  },
+  "stor-in3-01": {
+    "password": "St@IN3-01#2024",
+    "macAddress": "00:A0:98:7A:05:01"
+  },
+  "stor-in3-02": {
+    "password": "St@IN3-02#2024",
+    "macAddress": "00:A0:98:7A:05:02"
+  },
+  "stor-nl3-01": {
+    "password": "St@NL3-01#2024",
+    "macAddress": "00:A0:98:7A:06:01"
+  },
+  "stor-nl3-02": {
+    "password": "St@NL3-02#2024",
+    "macAddress": "00:A0:98:7A:06:02"
+  },
+  "stor-uc2-01": {
+    "password": "St@UC2-01#2024",
+    "macAddress": "00:A0:98:7A:07:01"
+  },
+  "stor-kr2-01": {
+    "password": "St@KR2-01#2024",
+    "macAddress": "00:A0:98:7A:08:01"
+  }
+}

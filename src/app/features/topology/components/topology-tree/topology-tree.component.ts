@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeModule } from '@angular/material/tree';
@@ -49,13 +49,13 @@ export class TopologyTreeComponent {
   }
 
   private listenToNodeRouteChanges() {
-    this.route.firstChild?.paramMap.pipe(
-      filter(params => !!params.get('nodeId')),
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
       takeUntilDestroyed(),
-    ).subscribe(params => {
-      const nodeId = params.get('nodeId')!;
+    ).subscribe(() => {
+      const nodeId = this.route.firstChild?.snapshot.paramMap.get('nodeId');
       // restore if selection is out of sync with URL
-      if (this.selectionService.selection()?.id !== nodeId) {
+      if (nodeId && this.selectionService.selection()?.id !== nodeId) {
         this.restoreSelectionByNodeId(nodeId);
       }
     });
@@ -63,7 +63,15 @@ export class TopologyTreeComponent {
 
   openNode(node: FlatNode) {
     this.selectionService.set({ id: node.id, path: this.buildNodePath(node), type: node.type });
-    this.router.navigate(['/topology', node.id]);
+    this.router.navigate(['/topology', node.id, this.activeTab()]);
+  }
+
+  // preserving the active tab when navigating between nodes
+  private activeTab(): string {
+    const segments = this.router.url.split('/').filter(Boolean);
+    const validTabs = ['overview', 'configuration', 'statistics'];
+    const last = segments[segments.length - 1];
+    return validTabs.includes(last) ? last : 'overview';
   }
 
   private restoreSelectionByNodeId(nodeId: string): void {

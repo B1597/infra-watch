@@ -23,7 +23,7 @@ export class TopologySelectionService {
     this.router.events
       .pipe(filter(e => e instanceof NavigationStart))
       .subscribe((e: any) => {
-        if (!e.url.startsWith('/topology')) this.clear();
+        if (!e.url.startsWith('/topology/')) this.clear();
       });
   }
 

@@ -16,12 +16,16 @@
       outlined-horizontal-padding: 16px,
       outlined-outline-color:    #d1d5db,
       outlined-label-text-color: #444040,
-
       // Text button
       text-container-shape:      8px,
       text-container-height:     36px,
       text-horizontal-padding:   15px,
       text-label-text-color:     #3b82f6,
     ));
+  }
+
+  // outlined button has no container-color token
+  .mat-mdc-outlined-button:not(:disabled) {
+    background-color: #ffffff;
   }
 }

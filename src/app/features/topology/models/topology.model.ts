@@ -17,11 +17,18 @@ export interface NodeStats {
   availability?: string;
 }
 
-export interface InfrastructureNode {
+export interface NodeConfig {
+  password:        string;
+  registrationId?: string;
+  macAddress?:     string;
+}
+
+export interface NodeDetail {
   id: string;
   name: string;
   type: NodeType;
   status: NodeStatus;
+  parentId?: string;
   location?: string;
   ipAddress?: string;
   vendor?: string;
@@ -29,5 +36,5 @@ export interface InfrastructureNode {
   hardware?: NodeHardware;
   stats?: NodeStats;
   metadata?: Record<string, unknown>;
-  children?: InfrastructureNode[];
+  children?: NodeDetail[];
 }

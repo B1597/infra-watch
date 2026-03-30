@@ -1,0 +1,50 @@
+<form class="config" [formGroup]="form">
+
+  <div class="config__grid">
+
+    @for (group of activeGroups(); track group.key) {
+      <div class="config__card">
+        <h3 class="config__card-title">{{ group.title }}</h3>
+        <p class="config__card-subtitle">{{ group.subtitle }}</p>
+
+        <div class="config__fields">
+          @for (field of group.fields; track field.key) {
+            @if (isFieldVisible(field)) {
+              <div class="config__field">
+                <label class="config__label">{{ field.label }}</label>
+                <mat-form-field appearance="outline" [subscriptSizing]="field.errors ? 'fixed' : 'dynamic'">
+                  <input matInput [formControlName]="field.key"
+                         [type]="field.inputType === 'password' && hidePassword() ? 'password' : 'text'" />
+                  @if (field.inputType === 'password') {
+                    <button mat-icon-button matSuffix type="button" (click)="togglePassword()">
+                      <mat-icon>{{ hidePassword() ? 'visibility' : 'visibility_off' }}</mat-icon>
+                    </button>
+                  }
+                  @if (form.get(field.key)?.hasError('required')) {
+                    <mat-error>{{ field.errors?.['required'] }}</mat-error>
+                  }
+                  @if (form.get(field.key)?.hasError('minlength')) {
+                    <mat-error>{{ field.errors?.['minlength'] }}</mat-error>
+                  }
+                  @if (form.get(field.key)?.hasError('pattern')) {
+                    <mat-error>{{ field.errors?.['pattern'] }}</mat-error>
+                  }
+                  @if (form.get(field.key)?.hasError('uniqueName')) {
+                    <mat-error>{{ field.errors?.['uniqueName'] }}</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            }
+          }
+        </div>
+      </div>
+    }
+    
+  </div>
+
+  <div class="config__actions">
+    <button mat-stroked-button type="button" (click)="reset()">Reset</button>
+    <button mat-flat-button color="primary" type="submit" (click)="save()">Save Changes</button>
+  </div>
+
+</form>
