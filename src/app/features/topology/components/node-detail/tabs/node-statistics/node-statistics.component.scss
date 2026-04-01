@@ -1,0 +1,215 @@
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  &__range-group {
+    display: flex;
+    gap: 4px;
+    background: var(--color-border);
+    padding: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  &__range-btn {
+    padding: 4px 14px;
+    border: none;
+    border-radius: calc(var(--radius-sm) - 2px);
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+
+    &--active {
+      background: var(--color-card-bg);
+      color: var(--color-primary);
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    &:not(&--active):hover {
+      color: var(--color-text-primary);
+    }
+  }
+
+  &__chart-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  &__chart-card {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &__chart-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: -4px;
+  }
+
+  &__meta-item {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+
+    b {
+      color: var(--color-text-primary);
+      font-weight: 600;
+    }
+
+    &--in  b { color: #10b981; }
+    &--out b { color: #f59e0b; }
+  }
+
+  &__meta-sep {
+    font-size: 11px;
+    color: var(--color-border);
+    user-select: none;
+  }
+
+  &__meta-divider {
+    display: inline-block;
+    width: 1px;
+    height: 12px;
+    background: var(--color-border);
+    margin: 0 4px;
+    vertical-align: middle;
+  }
+
+  &__chart-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  &__chart-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+
+    &--cpu    { background: #3b82f6; }
+    &--mem    { background: #8b5cf6; }
+    &--net-in { background: #10b981; }
+  }
+
+  &__chart-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 999px;
+
+    &--success { background: rgba(0, 141, 0, 0.1);   color: var(--color-success); }
+    &--warning { background: rgba(245, 158, 11, 0.1); color: var(--color-warning); }
+    &--danger  { background: rgba(239, 68, 68, 0.1);  color: var(--color-danger);  }
+  }
+
+  &__chart {
+    height: 190px;
+    width: 100%;
+
+    &--lg {
+      height: 210px;
+    }
+  }
+
+  &__uptime-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  &__uptime-card {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  &__uptime-icon {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  &__uptime-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__uptime-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+  }
+
+  &__uptime-label {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+  }
+
+
+  // Empty state
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 60px 20px;
+    color: var(--color-text-secondary);
+    text-align: center;
+
+    p { font-size: 14px; margin: 0; }
+  }
+
+  &__empty-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    opacity: 0.3;
+  }
+}

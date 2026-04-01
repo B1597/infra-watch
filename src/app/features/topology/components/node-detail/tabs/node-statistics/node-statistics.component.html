@@ -1,0 +1,124 @@
+@if (node(); as n) {
+  <div class="stats">
+
+    <!-- Header: title + time range selector -->
+    <div class="stats__header">
+      <h2 class="stats__title">Performance Statistics</h2>
+      <div class="stats__range-group" role="group" aria-label="Time range">
+        @for (r of ranges; track r.label) {
+          <button
+            class="stats__range-btn"
+            [class.stats__range-btn--active]="selectedRange() === r.label"
+            (click)="setRange(r.label)">
+            {{ r.label }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- CPU + Memory charts (side by side) -->
+    <div class="stats__chart-row">
+
+      @if (n.stats?.cpuUsage !== undefined) {
+        <div class="stats__chart-card">
+          <div class="stats__chart-header">
+            <div class="stats__chart-title">
+              <span class="stats__chart-dot stats__chart-dot--cpu"></span>
+              CPU Usage
+            </div>
+            <span class="stats__chart-badge stats__chart-badge--{{ statusClass(cpuSeries().current) }}">
+              {{ cpuSeries().current }}%
+            </span>
+          </div>
+          <div class="stats__chart-meta">
+            <span class="stats__meta-item">Current <b>{{ cpuSeries().current }}%</b></span>
+            <span class="stats__meta-sep">·</span>
+            <span class="stats__meta-item">Avg <b>{{ cpuSeries().avg }}%</b></span>
+            <span class="stats__meta-sep">·</span>
+            <span class="stats__meta-item">Peak <b>{{ cpuSeries().peak }}%</b></span>
+          </div>
+          <div echarts [options]="cpuOption()" class="stats__chart"></div>
+        </div>
+      }
+
+      @if (n.stats?.memoryUsage !== undefined) {
+        <div class="stats__chart-card">
+          <div class="stats__chart-header">
+            <div class="stats__chart-title">
+              <span class="stats__chart-dot stats__chart-dot--mem"></span>
+              Memory Usage
+            </div>
+            <span class="stats__chart-badge stats__chart-badge--{{ statusClass(memSeries().current) }}">
+              {{ memSeries().current }}%
+            </span>
+          </div>
+          <div class="stats__chart-meta">
+            <span class="stats__meta-item">Current <b>{{ memSeries().current }}%</b></span>
+            <span class="stats__meta-sep">·</span>
+            <span class="stats__meta-item">Avg <b>{{ memSeries().avg }}%</b></span>
+            <span class="stats__meta-sep">·</span>
+            <span class="stats__meta-item">Peak <b>{{ memSeries().peak }}%</b></span>
+          </div>
+          <div echarts [options]="memOption()" class="stats__chart"></div>
+        </div>
+      }
+
+    </div>
+
+    <!-- Network Traffic chart -->
+    @if (n.stats?.networkIO) {
+      <div class="stats__chart-card">
+        <div class="stats__chart-header">
+          <div class="stats__chart-title">
+            <span class="stats__chart-dot stats__chart-dot--net-in"></span>
+            Network Traffic
+          </div>
+        </div>
+        <div class="stats__chart-meta">
+          <span class="stats__meta-item stats__meta-item--in">In Avg <b>{{ networkSeries().avgIn }} MB/s</b></span>
+          <span class="stats__meta-sep">·</span>
+          <span class="stats__meta-item stats__meta-item--in">In Peak <b>{{ networkSeries().peakIn }} MB/s</b></span>
+          <span class="stats__meta-divider"></span>
+          <span class="stats__meta-item stats__meta-item--out">Out Avg <b>{{ networkSeries().avgOut }} MB/s</b></span>
+          <span class="stats__meta-sep">·</span>
+          <span class="stats__meta-item stats__meta-item--out">Out Peak <b>{{ networkSeries().peakOut }} MB/s</b></span>
+        </div>
+        <div echarts [options]="networkOption()" class="stats__chart stats__chart--lg"></div>
+      </div>
+    }
+
+    <!--  Uptime / Availability -->
+    @if (n.stats?.uptimeDays !== undefined || n.stats?.availability) {
+      <div class="stats__uptime-row">
+
+        @if (n.stats?.uptimeDays !== undefined) {
+          <div class="stats__uptime-card">
+            <mat-icon class="stats__uptime-icon">schedule</mat-icon>
+            <div class="stats__uptime-body">
+              <span class="stats__uptime-value">{{ n.stats!.uptimeDays }} days</span>
+              <span class="stats__uptime-label">Current Uptime</span>
+            </div>
+          </div>
+        }
+
+        @if (n.stats?.availability) {
+          <div class="stats__uptime-card">
+            <mat-icon class="stats__uptime-icon">verified</mat-icon>
+            <div class="stats__uptime-body">
+              <span class="stats__uptime-value">{{ n.stats!.availability }}</span>
+              <span class="stats__uptime-label">Availability (30 days)</span>
+            </div>
+          </div>
+        }
+
+      </div>
+    }
+
+  </div>
+
+} @else {
+  <div class="stats__empty">
+    <mat-icon class="stats__empty-icon">bar_chart</mat-icon>
+    <p>No statistics available for this node.</p>
+  </div>
+}

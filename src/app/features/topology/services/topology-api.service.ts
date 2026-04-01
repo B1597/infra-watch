@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { delay, map, Observable } from 'rxjs';
-import { NodeConfig, NodeDetail } from '../models/topology.model';
+import { MetricsValues, NodeConfig, NodeDetail, TimeRange } from '../models/topology.model';
 import { TreeItem } from '../models/topology-tree.model';
-import { mapDatacenters, mapRacks, mapServers } from './topology.mappers';
+import { mapDatacenters, mapNodeMetrics, mapRacks, mapServers } from './topology.mappers';
 
 @Injectable({ providedIn: 'root' })
 export class TopologyApiService {
@@ -49,6 +49,16 @@ export class TopologyApiService {
   getNodeConfig(id: string): Observable<NodeConfig | undefined> {
     return this.http.get<Record<string, NodeConfig>>(`${this.base}/node-config.json`).pipe(
       map(data => data[id])
+    );
+  }
+
+  /** GET /nodes/:id/metrics?range= */
+  getNodeMetrics(nodeId: string, range: TimeRange): Observable<MetricsValues | null> {
+    return this.http.get<Record<string, any>>(`${this.base}/node-metrics.json`).pipe(
+      map(data => {
+        const node = data[nodeId];
+        return node ? mapNodeMetrics(node, range) : null;
+      })
     );
   }
 

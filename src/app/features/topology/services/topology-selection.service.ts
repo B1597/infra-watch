@@ -1,16 +1,11 @@
 import { Injectable, signal } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs';
-import { NodeType } from '../models/topology.model';
-
-export interface PathItem {
-  id: string;
-  name: string;
-}
+import { NodeType, NodePath } from '../models/topology.model';
 
 interface SelectionPayload {
   id: string;
-  path: PathItem[];
+  path: NodePath[];
   type: NodeType;
 }
 

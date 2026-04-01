@@ -1,15 +1,15 @@
 {
-  "totalNodes": 35,
-  "online": 26,
-  "warnings": 7,
-  "offline": 1,
-  "datacenters": 3,
-  "racks": 6,
-  "servers": 6,
-  "vms": 8,
-  "services": 5,
+  "totalNodes": 117,
+  "online": 85,
+  "warnings": 13,
+  "offline": 19,
+  "datacenters": 15,
+  "racks": 34,
+  "servers": 30,
+  "vms": 0,
+  "services": 0,
   "trends": {
-    "totalNodes": { "change": 12, "direction": "up" },
-    "warnings": { "change": 5, "direction": "down" }
+    "totalNodes": { "change": 8, "direction": "up" },
+    "warnings": { "change": 3, "direction": "down" }
   }
 }

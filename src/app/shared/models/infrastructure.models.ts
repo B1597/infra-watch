@@ -1,5 +1,3 @@
-// ─── Shared ───────────────────────────────────────────────────────────────────
-
 export type AlertSeverity = 'critical' | 'warning' | 'info';
 export type AlertStatus   = 'active' | 'acknowledged';
 
@@ -9,7 +7,6 @@ export interface NavItem {
   route: string;
 }
 
-// ─── Alerts ───────────────────────────────────────────────────────────────────
 
 export interface InfraAlert {
   id:              string;

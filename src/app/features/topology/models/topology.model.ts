@@ -1,4 +1,16 @@
-export type NodeStatus = 'online' | 'offline' | 'warning' | 'maintenance' | 'critical';
+export type NodeStatus  = 'online' | 'offline' | 'warning' | 'maintenance' | 'critical';
+export type TimeRange   = '1H' | '6H' | '24H' | '7D';
+
+export interface NodePath {
+  id: string;
+  name: string;
+}
+
+export interface MetricsValues {
+  cpu:     number[];
+  memory:  number[];
+  network: { in: number[]; out: number[] };
+}
 export type NodeType = 'datacenter' | 'rack' | 'server' | 'vm' | 'service' | 'switch' | 'router' | 'storage';
 
 export interface NodeHardware {

@@ -21,6 +21,9 @@
             <span>CPU Usage</span>
           </div>
           <div class="overview__stat-value">{{ n.stats!.cpuUsage }}%</div>
+          @if (cpuSparkline(); as opt) {
+            <div echarts [options]="opt" class="overview__sparkline"></div>
+          }
           <div class="overview__progress">
             <div class="overview__progress-fill" [style.width.%]="n.stats!.cpuUsage" [class]="progressClass(n.stats!.cpuUsage!)"></div>
           </div>
@@ -34,6 +37,9 @@
             <span>Memory Usage</span>
           </div>
           <div class="overview__stat-value">{{ n.stats!.memoryUsage }}%</div>
+          @if (memSparkline(); as opt) {
+            <div echarts [options]="opt" class="overview__sparkline"></div>
+          }
           <div class="overview__progress">
             <div class="overview__progress-fill" [style.width.%]="n.stats!.memoryUsage" [class]="progressClass(n.stats!.memoryUsage!)"></div>
           </div>

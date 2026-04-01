@@ -1,5 +1,17 @@
-import { NodeDetail } from '../models/topology.model';
+import { MetricsValues, NodeDetail, TimeRange } from '../models/topology.model';
 import { TreeItem } from '../models/topology-tree.model';
+
+interface RawNodeMetrics {
+  cpu:     Record<TimeRange, number[]>;
+  memory:  Record<TimeRange, number[]>;
+  network: Record<TimeRange, { in: number[]; out: number[] }>;
+}
+
+export const mapNodeMetrics = (node: RawNodeMetrics, range: TimeRange): MetricsValues => ({
+  cpu:     node.cpu[range]     ?? [],
+  memory:  node.memory[range]  ?? [],
+  network: node.network[range] ?? { in: [], out: [] },
+});
 
 export const mapDatacenters = (nodes: NodeDetail[]): TreeItem[] =>
   nodes.map(n => ({

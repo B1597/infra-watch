@@ -3,6 +3,8 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { MAT_ICON_DEFAULT_OPTIONS } from '@angular/material/icon';
+import { provideEchartsCore } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 import { routes } from './app.routes';
 
@@ -13,5 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(),
     { provide: MAT_ICON_DEFAULT_OPTIONS, useValue: { fontSet: 'material-symbols-rounded' } },
+    provideEchartsCore({ echarts }),
   ],
 };

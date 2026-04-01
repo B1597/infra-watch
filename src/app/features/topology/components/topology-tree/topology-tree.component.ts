@@ -10,7 +10,7 @@ import { TopologyApiService } from '../../services/topology-api.service';
 import { TopologyDataSource } from '../../services/topology-datasource';
 import { TopologySelectionService } from '../../services/topology-selection.service';
 import { FlatNode } from '../../models/topology-tree.model';
-import { PathItem } from '../../services/topology-selection.service';
+import { NodePath } from '../../models/topology.model';
 
 @Component({
   selector: 'app-topology-tree',
@@ -114,9 +114,9 @@ export class TopologyTreeComponent {
     if (node) this.selectionService.set({ id: node.id, path: this.buildNodePath(node), type: node.type });
   }
 
-  private buildNodePath(node: FlatNode): PathItem[] {
+  private buildNodePath(node: FlatNode): NodePath[] {
     const byId = new Map(this.dataSource.data.map(n => [n.id, n]));
-    const items: PathItem[] = [];
+    const items: NodePath[] = [];
     let currentNode: FlatNode | undefined = node;
     while (currentNode) {
       items.unshift({ id: currentNode.id, name: currentNode.name });
