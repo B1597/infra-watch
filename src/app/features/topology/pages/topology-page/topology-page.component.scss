@@ -11,6 +11,9 @@
 
   &__left {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     width: 300px;
     flex-shrink: 0;
     border-right: 1px solid var(--color-border);
