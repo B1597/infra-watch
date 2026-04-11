@@ -4,10 +4,6 @@ import { timer, switchMap, map, first, of } from 'rxjs';
 import { TopologyApiService } from './topology-api.service';
 import { NodeType } from '../models/topology.model';
 
-/**
- * TEMPORARY: Client-side uniqueness validation using all nodes.
- * This should be replaced with a backend API call (checkNameExists)
- */
 export function uniqueNameValidator(
   api: TopologyApiService,
   currentId: string | null,
@@ -15,21 +11,12 @@ export function uniqueNameValidator(
   parentId: string | null
 ): AsyncValidatorFn {
   return (control: AbstractControl) => {
-    const name = control.value?.trim().toLowerCase();
+    const name = control.value?.trim();
     if (!name) return of(null);
 
     return timer(400).pipe(
-      switchMap(() => api.getAllNodes()),
-      map(nodes => {
-        const duplicate = Object.values(nodes).some(
-          node =>
-            node.id !== currentId &&
-            node.type === type &&
-            node.parentId === parentId &&
-            node.name.toLowerCase() === name
-        );
-        return duplicate ? { uniqueName: true } : null;
-      }),
+      switchMap(() => api.checkNameExists(name, type, parentId, currentId)),
+      map(exists => (exists ? { uniqueName: true } : null)),
       first()
     );
   };

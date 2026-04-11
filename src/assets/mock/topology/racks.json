@@ -1,66 +1,36 @@
-{
-  "dc-west": [
-    { "id": "rack-w1", "name": "Rack W1", "type": "rack", "status": "online",      "location": "Floor 3", "parentId": "dc-west" },
-    { "id": "rack-w2", "name": "Rack W2", "type": "rack", "status": "online",      "location": "Floor 3", "parentId": "dc-west" },
-    { "id": "rack-w3", "name": "Rack W3", "type": "rack", "status": "warning",     "location": "Floor 2", "parentId": "dc-west" }
-  ],
-  "dc-east": [
-    { "id": "rack-e1", "name": "Rack E1", "type": "rack", "status": "online",      "location": "Floor 5", "parentId": "dc-east" },
-    { "id": "rack-e2", "name": "Rack E2", "type": "rack", "status": "online",      "location": "Floor 5", "parentId": "dc-east" }
-  ],
-  "dc-eu": [
-    { "id": "rack-eu1", "name": "Rack EU1", "type": "rack", "status": "warning",   "location": "Floor 2", "parentId": "dc-eu" }
-  ],
-  "dc-ap-sg": [
-    { "id": "rack-sg1", "name": "Rack SG1", "type": "rack", "status": "online",    "location": "Floor 1", "parentId": "dc-ap-sg" },
-    { "id": "rack-sg2", "name": "Rack SG2", "type": "rack", "status": "online",    "location": "Floor 1", "parentId": "dc-ap-sg" },
-    { "id": "rack-sg3", "name": "Rack SG3", "type": "rack", "status": "warning",   "location": "Floor 2", "parentId": "dc-ap-sg" }
-  ],
-  "dc-ap-tk": [
-    { "id": "rack-tk1", "name": "Rack TK1", "type": "rack", "status": "online",    "location": "Floor 3", "parentId": "dc-ap-tk" },
-    { "id": "rack-tk2", "name": "Rack TK2", "type": "rack", "status": "online",    "location": "Floor 3", "parentId": "dc-ap-tk" }
-  ],
-  "dc-uk": [
-    { "id": "rack-uk1", "name": "Rack UK1", "type": "rack", "status": "online",    "location": "Floor 2", "parentId": "dc-uk" },
-    { "id": "rack-uk2", "name": "Rack UK2", "type": "rack", "status": "online",    "location": "Floor 2", "parentId": "dc-uk" },
-    { "id": "rack-uk3", "name": "Rack UK3", "type": "rack", "status": "online",    "location": "Floor 3", "parentId": "dc-uk" }
-  ],
-  "dc-ca": [
-    { "id": "rack-ca1", "name": "Rack CA1", "type": "rack", "status": "warning",   "location": "Floor 1", "parentId": "dc-ca" },
-    { "id": "rack-ca2", "name": "Rack CA2", "type": "rack", "status": "online",    "location": "Floor 1", "parentId": "dc-ca" }
-  ],
-  "dc-aus": [
-    { "id": "rack-aus1", "name": "Rack AUS1", "type": "rack", "status": "online",  "location": "Floor 4", "parentId": "dc-aus" },
-    { "id": "rack-aus2", "name": "Rack AUS2", "type": "rack", "status": "online",  "location": "Floor 4", "parentId": "dc-aus" }
-  ],
-  "dc-br": [
-    { "id": "rack-br1", "name": "Rack BR1", "type": "rack", "status": "critical",  "location": "Floor 1", "parentId": "dc-br" },
-    { "id": "rack-br2", "name": "Rack BR2", "type": "rack", "status": "offline",   "location": "Floor 1", "parentId": "dc-br" }
-  ],
-  "dc-in": [
-    { "id": "rack-in1", "name": "Rack IN1", "type": "rack", "status": "online",    "location": "Floor 2", "parentId": "dc-in" },
-    { "id": "rack-in2", "name": "Rack IN2", "type": "rack", "status": "online",    "location": "Floor 2", "parentId": "dc-in" },
-    { "id": "rack-in3", "name": "Rack IN3", "type": "rack", "status": "warning",   "location": "Floor 3", "parentId": "dc-in" }
-  ],
-  "dc-za": [
-    { "id": "rack-za1", "name": "Rack ZA1", "type": "rack", "status": "offline",   "location": "Floor 1", "parentId": "dc-za" },
-    { "id": "rack-za2", "name": "Rack ZA2", "type": "rack", "status": "offline",   "location": "Floor 1", "parentId": "dc-za" }
-  ],
-  "dc-nl": [
-    { "id": "rack-nl1", "name": "Rack NL1", "type": "rack", "status": "online",    "location": "Floor 3", "parentId": "dc-nl" },
-    { "id": "rack-nl2", "name": "Rack NL2", "type": "rack", "status": "online",    "location": "Floor 3", "parentId": "dc-nl" },
-    { "id": "rack-nl3", "name": "Rack NL3", "type": "rack", "status": "online",    "location": "Floor 4", "parentId": "dc-nl" }
-  ],
-  "dc-us-central": [
-    { "id": "rack-uc1", "name": "Rack UC1", "type": "rack", "status": "online",    "location": "Floor 2", "parentId": "dc-us-central" },
-    { "id": "rack-uc2", "name": "Rack UC2", "type": "rack", "status": "online",    "location": "Floor 2", "parentId": "dc-us-central" }
-  ],
-  "dc-us-south": [
-    { "id": "rack-us1", "name": "Rack US1", "type": "rack", "status": "offline",    "location": "Floor 1", "parentId": "dc-us-south" },
-    { "id": "rack-us2", "name": "Rack US2", "type": "rack", "status": "offline",    "location": "Floor 1", "parentId": "dc-us-south" }
-  ],
-  "dc-kr": [
-    { "id": "rack-kr1", "name": "Rack KR1", "type": "rack", "status": "online",    "location": "Floor 5", "parentId": "dc-kr" },
-    { "id": "rack-kr2", "name": "Rack KR2", "type": "rack", "status": "online",    "location": "Floor 5", "parentId": "dc-kr" }
-  ]
-}
+[
+  { "id": "rack-w1",   "name": "Rack W1",   "type": "rack", "status": "online",   "location": "Floor 3", "parentId": "dc-west" },
+  { "id": "rack-w2",   "name": "Rack W2",   "type": "rack", "status": "online",   "location": "Floor 3", "parentId": "dc-west" },
+  { "id": "rack-w3",   "name": "Rack W3",   "type": "rack", "status": "warning",  "location": "Floor 2", "parentId": "dc-west" },
+  { "id": "rack-e1",   "name": "Rack E1",   "type": "rack", "status": "online",   "location": "Floor 5", "parentId": "dc-east" },
+  { "id": "rack-e2",   "name": "Rack E2",   "type": "rack", "status": "online",   "location": "Floor 5", "parentId": "dc-east" },
+  { "id": "rack-eu1",  "name": "Rack EU1",  "type": "rack", "status": "warning",  "location": "Floor 2", "parentId": "dc-eu" },
+  { "id": "rack-sg1",  "name": "Rack SG1",  "type": "rack", "status": "online",   "location": "Floor 1", "parentId": "dc-ap-sg" },
+  { "id": "rack-sg2",  "name": "Rack SG2",  "type": "rack", "status": "online",   "location": "Floor 1", "parentId": "dc-ap-sg" },
+  { "id": "rack-sg3",  "name": "Rack SG3",  "type": "rack", "status": "warning",  "location": "Floor 2", "parentId": "dc-ap-sg" },
+  { "id": "rack-tk1",  "name": "Rack TK1",  "type": "rack", "status": "online",   "location": "Floor 3", "parentId": "dc-ap-tk" },
+  { "id": "rack-tk2",  "name": "Rack TK2",  "type": "rack", "status": "online",   "location": "Floor 3", "parentId": "dc-ap-tk" },
+  { "id": "rack-uk1",  "name": "Rack UK1",  "type": "rack", "status": "online",   "location": "Floor 2", "parentId": "dc-uk" },
+  { "id": "rack-uk2",  "name": "Rack UK2",  "type": "rack", "status": "online",   "location": "Floor 2", "parentId": "dc-uk" },
+  { "id": "rack-uk3",  "name": "Rack UK3",  "type": "rack", "status": "online",   "location": "Floor 3", "parentId": "dc-uk" },
+  { "id": "rack-ca1",  "name": "Rack CA1",  "type": "rack", "status": "warning",  "location": "Floor 1", "parentId": "dc-ca" },
+  { "id": "rack-ca2",  "name": "Rack CA2",  "type": "rack", "status": "online",   "location": "Floor 1", "parentId": "dc-ca" },
+  { "id": "rack-aus1", "name": "Rack AUS1", "type": "rack", "status": "online",   "location": "Floor 4", "parentId": "dc-aus" },
+  { "id": "rack-aus2", "name": "Rack AUS2", "type": "rack", "status": "online",   "location": "Floor 4", "parentId": "dc-aus" },
+  { "id": "rack-br1",  "name": "Rack BR1",  "type": "rack", "status": "critical", "location": "Floor 1", "parentId": "dc-br" },
+  { "id": "rack-br2",  "name": "Rack BR2",  "type": "rack", "status": "offline",  "location": "Floor 1", "parentId": "dc-br" },
+  { "id": "rack-in1",  "name": "Rack IN1",  "type": "rack", "status": "online",   "location": "Floor 2", "parentId": "dc-in" },
+  { "id": "rack-in2",  "name": "Rack IN2",  "type": "rack", "status": "online",   "location": "Floor 2", "parentId": "dc-in" },
+  { "id": "rack-in3",  "name": "Rack IN3",  "type": "rack", "status": "warning",  "location": "Floor 3", "parentId": "dc-in" },
+  { "id": "rack-za1",  "name": "Rack ZA1",  "type": "rack", "status": "offline",  "location": "Floor 1", "parentId": "dc-za" },
+  { "id": "rack-za2",  "name": "Rack ZA2",  "type": "rack", "status": "offline",  "location": "Floor 1", "parentId": "dc-za" },
+  { "id": "rack-nl1",  "name": "Rack NL1",  "type": "rack", "status": "online",   "location": "Floor 3", "parentId": "dc-nl" },
+  { "id": "rack-nl2",  "name": "Rack NL2",  "type": "rack", "status": "online",   "location": "Floor 3", "parentId": "dc-nl" },
+  { "id": "rack-nl3",  "name": "Rack NL3",  "type": "rack", "status": "online",   "location": "Floor 4", "parentId": "dc-nl" },
+  { "id": "rack-uc1",  "name": "Rack UC1",  "type": "rack", "status": "online",   "location": "Floor 2", "parentId": "dc-us-central" },
+  { "id": "rack-uc2",  "name": "Rack UC2",  "type": "rack", "status": "online",   "location": "Floor 2", "parentId": "dc-us-central" },
+  { "id": "rack-us1",  "name": "Rack US1",  "type": "rack", "status": "offline",  "location": "Floor 1", "parentId": "dc-us-south" },
+  { "id": "rack-us2",  "name": "Rack US2",  "type": "rack", "status": "offline",  "location": "Floor 1", "parentId": "dc-us-south" },
+  { "id": "rack-kr1",  "name": "Rack KR1",  "type": "rack", "status": "online",   "location": "Floor 5", "parentId": "dc-kr" },
+  { "id": "rack-kr2",  "name": "Rack KR2",  "type": "rack", "status": "online",   "location": "Floor 5", "parentId": "dc-kr" }
+]

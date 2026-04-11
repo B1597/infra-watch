@@ -1,7 +1,0 @@
-[
-  { "id": "eth0-srv1", "name": "eth0", "device": "DC1-RACK1-SRV01", "ip": "10.0.1.1", "mac": "00:11:22:33:44:55", "speed": "1 Gbps", "status": "up", "bytesIn": 1245760, "bytesOut": 9876543 },
-  { "id": "eth1-srv1", "name": "eth1", "device": "DC1-RACK1-SRV01", "ip": "10.0.1.11", "mac": "00:11:22:33:44:56", "speed": "1 Gbps", "status": "up", "bytesIn": 540200, "bytesOut": 310400 },
-  { "id": "eth0-srv2", "name": "eth0", "device": "DC1-RACK1-SRV02", "ip": "10.0.1.2", "mac": "AA:BB:CC:DD:EE:01", "speed": "10 Gbps", "status": "up", "bytesIn": 5324800, "bytesOut": 2100000 },
-  { "id": "eth0-srv3", "name": "eth0", "device": "DC1-RACK2-SRV01", "ip": "10.0.2.1", "mac": "AA:BB:CC:DD:EE:02", "speed": "1 Gbps", "status": "up", "bytesIn": 987654, "bytesOut": 654321 },
-  { "id": "eth1-srv3", "name": "eth1", "device": "DC1-RACK2-SRV01", "ip": "10.0.2.11", "mac": "AA:BB:CC:DD:EE:03", "speed": "1 Gbps", "status": "down", "bytesIn": 0, "bytesOut": 0 }
-]

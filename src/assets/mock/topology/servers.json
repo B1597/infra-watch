@@ -1,614 +1,70 @@
-{
-  "rack-w1": [
-    {
-      "id": "srv-w1-01",
-      "name": "Server W1-5",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.0.1.10",
-      "parentId": "rack-w1"
-    },
-    {
-      "id": "srv-w1-02",
-      "name": "Server W1-6",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.0.1.11",
-      "parentId": "rack-w1"
-    },
-    {
-      "id": "srv-w1-03",
-      "name": "Server W1-7",
-      "type": "server",
-      "status": "maintenance",
-      "ipAddress": "10.0.1.12",
-      "parentId": "rack-w1"
-    }
-  ],
-  "rack-w2": [
-    {
-      "id": "sw-w2-01",
-      "name": "Core Switch W2-4",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.0.2.1",
-      "parentId": "rack-w2"
-    },
-    {
-      "id": "sw-w2-02",
-      "name": "Core Switch W2-5",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.0.2.2",
-      "parentId": "rack-w2"
-    },
-    {
-      "id": "rt-w2-01",
-      "name": "Edge Router W2-5",
-      "type": "router",
-      "status": "online",
-      "ipAddress": "10.0.0.1",
-      "parentId": "rack-w2"
-    }
-  ],
-  "rack-w3": [
-    {
-      "id": "stor-w3-01",
-      "name": "NAS Primary W3-2",
-      "type": "storage",
-      "status": "online",
-      "ipAddress": "10.0.3.10",
-      "parentId": "rack-w3"
-    },
-    {
-      "id": "stor-w3-02",
-      "name": "NAS Backup W3-3",
-      "type": "storage",
-      "status": "warning",
-      "ipAddress": "10.0.3.11",
-      "parentId": "rack-w3"
-    }
-  ],
-  "rack-e1": [
-    {
-      "id": "srv-e1-01",
-      "name": "Server E1-1",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.1.1.10",
-      "parentId": "rack-e1"
-    },
-    {
-      "id": "srv-e1-02",
-      "name": "Server E1-2",
-      "type": "server",
-      "status": "offline",
-      "ipAddress": "10.1.1.11",
-      "parentId": "rack-e1"
-    }
-  ],
-  "rack-e2": [
-    {
-      "id": "sw-e2-01",
-      "name": "Core Switch E2-9",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.1.2.1",
-      "parentId": "rack-e2"
-    },
-    {
-      "id": "rt-e2-01",
-      "name": "Edge Router E2-1",
-      "type": "router",
-      "status": "online",
-      "ipAddress": "10.1.0.1",
-      "parentId": "rack-e2"
-    }
-  ],
-  "rack-eu1": [
-    {
-      "id": "srv-eu1-01",
-      "name": "Server EU1-8",
-      "type": "server",
-      "status": "warning",
-      "ipAddress": "10.2.1.10",
-      "parentId": "rack-eu1"
-    }
-  ],
-  "rack-sg1": [
-    {
-      "id": "srv-sg1-01",
-      "name": "Server SG1-8",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.3.1.10",
-      "parentId": "rack-sg1"
-    },
-    {
-      "id": "srv-sg1-02",
-      "name": "Server SG1-9",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.3.1.11",
-      "parentId": "rack-sg1"
-    }
-  ],
-  "rack-sg2": [
-    {
-      "id": "sw-sg2-01",
-      "name": "Core Switch SG2-9",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.3.2.1",
-      "parentId": "rack-sg2"
-    },
-    {
-      "id": "rt-sg2-01",
-      "name": "Edge Router SG2-3",
-      "type": "router",
-      "status": "online",
-      "ipAddress": "10.3.0.1",
-      "parentId": "rack-sg2"
-    }
-  ],
-  "rack-sg3": [
-    {
-      "id": "stor-sg3-01",
-      "name": "NAS Primary SG3-5",
-      "type": "storage",
-      "status": "warning",
-      "ipAddress": "10.3.3.10",
-      "parentId": "rack-sg3"
-    }
-  ],
-  "rack-tk1": [
-    {
-      "id": "srv-tk1-01",
-      "name": "Server TK1-9",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.4.1.10",
-      "parentId": "rack-tk1"
-    },
-    {
-      "id": "srv-tk1-02",
-      "name": "Server TK1-1",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.4.1.11",
-      "parentId": "rack-tk1"
-    }
-  ],
-  "rack-tk2": [
-    {
-      "id": "sw-tk2-01",
-      "name": "Core Switch TK2-1",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.4.2.1",
-      "parentId": "rack-tk2"
-    },
-    {
-      "id": "rt-tk2-01",
-      "name": "Edge Router TK2-4",
-      "type": "router",
-      "status": "online",
-      "ipAddress": "10.4.0.1",
-      "parentId": "rack-tk2"
-    }
-  ],
-  "rack-uk1": [
-    {
-      "id": "srv-uk1-01",
-      "name": "Server UK1-8",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.5.1.10",
-      "parentId": "rack-uk1"
-    },
-    {
-      "id": "srv-uk1-02",
-      "name": "Server UK1-9",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.5.1.11",
-      "parentId": "rack-uk1"
-    }
-  ],
-  "rack-uk2": [
-    {
-      "id": "sw-uk2-01",
-      "name": "Core Switch UK2-9",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.5.2.1",
-      "parentId": "rack-uk2"
-    },
-    {
-      "id": "sw-uk2-02",
-      "name": "Core Switch UK2-1",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.5.2.2",
-      "parentId": "rack-uk2"
-    }
-  ],
-  "rack-uk3": [
-    {
-      "id": "stor-uk3-01",
-      "name": "NAS Primary UK3-5",
-      "type": "storage",
-      "status": "online",
-      "ipAddress": "10.5.3.10",
-      "parentId": "rack-uk3"
-    },
-    {
-      "id": "stor-uk3-02",
-      "name": "NAS Backup UK3-6",
-      "type": "storage",
-      "status": "online",
-      "ipAddress": "10.5.3.11",
-      "parentId": "rack-uk3"
-    }
-  ],
-  "rack-ca1": [
-    {
-      "id": "srv-ca1-01",
-      "name": "Server CA1-5",
-      "type": "server",
-      "status": "warning",
-      "ipAddress": "10.6.1.10",
-      "parentId": "rack-ca1"
-    },
-    {
-      "id": "srv-ca1-02",
-      "name": "Server CA1-6",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.6.1.11",
-      "parentId": "rack-ca1"
-    }
-  ],
-  "rack-ca2": [
-    {
-      "id": "sw-ca2-01",
-      "name": "Core Switch CA2-8",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.6.2.1",
-      "parentId": "rack-ca2"
-    },
-    {
-      "id": "rt-ca2-01",
-      "name": "Edge Router CA2-2",
-      "type": "router",
-      "status": "online",
-      "ipAddress": "10.6.0.1",
-      "parentId": "rack-ca2"
-    }
-  ],
-  "rack-aus1": [
-    {
-      "id": "srv-aus1-01",
-      "name": "Server AUS1-1",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.7.1.10",
-      "parentId": "rack-aus1"
-    },
-    {
-      "id": "srv-aus1-02",
-      "name": "Server AUS1-2",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.7.1.11",
-      "parentId": "rack-aus1"
-    }
-  ],
-  "rack-aus2": [
-    {
-      "id": "sw-aus2-01",
-      "name": "Core Switch AUS2-8",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.7.2.1",
-      "parentId": "rack-aus2"
-    },
-    {
-      "id": "stor-aus2-01",
-      "name": "NAS Primary AUS2-4",
-      "type": "storage",
-      "status": "online",
-      "ipAddress": "10.7.3.10",
-      "parentId": "rack-aus2"
-    }
-  ],
-  "rack-br1": [
-    {
-      "id": "srv-br1-01",
-      "name": "Server BR1-5",
-      "type": "server",
-      "status": "critical",
-      "ipAddress": "10.8.1.10",
-      "parentId": "rack-br1"
-    },
-    {
-      "id": "srv-br1-02",
-      "name": "Server BR1-6",
-      "type": "server",
-      "status": "offline",
-      "ipAddress": "10.8.1.11",
-      "parentId": "rack-br1"
-    }
-  ],
-  "rack-br2": [
-    {
-      "id": "sw-br2-01",
-      "name": "Core Switch BR2-6",
-      "type": "switch",
-      "status": "critical",
-      "ipAddress": "10.8.2.1",
-      "parentId": "rack-br2"
-    },
-    {
-      "id": "rt-br2-01",
-      "name": "Edge Router BR2-9",
-      "type": "router",
-      "status": "offline",
-      "ipAddress": "10.8.0.1",
-      "parentId": "rack-br2"
-    }
-  ],
-  "rack-in1": [
-    {
-      "id": "srv-in1-01",
-      "name": "Server IN1-3",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.9.1.10",
-      "parentId": "rack-in1"
-    },
-    {
-      "id": "srv-in1-02",
-      "name": "Server IN1-4",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.9.1.11",
-      "parentId": "rack-in1"
-    }
-  ],
-  "rack-in2": [
-    {
-      "id": "sw-in2-01",
-      "name": "Core Switch IN2-4",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.9.2.1",
-      "parentId": "rack-in2"
-    },
-    {
-      "id": "rt-in2-01",
-      "name": "Edge Router IN2-7",
-      "type": "router",
-      "status": "online",
-      "ipAddress": "10.9.0.1",
-      "parentId": "rack-in2"
-    }
-  ],
-  "rack-in3": [
-    {
-      "id": "stor-in3-01",
-      "name": "NAS Primary IN3-9",
-      "type": "storage",
-      "status": "warning",
-      "ipAddress": "10.9.3.10",
-      "parentId": "rack-in3"
-    },
-    {
-      "id": "stor-in3-02",
-      "name": "NAS Backup IN3-1",
-      "type": "storage",
-      "status": "online",
-      "ipAddress": "10.9.3.11",
-      "parentId": "rack-in3"
-    }
-  ],
-  "rack-za1": [
-    {
-      "id": "srv-za1-01",
-      "name": "Server ZA1-3",
-      "type": "server",
-      "status": "warning",
-      "ipAddress": "10.10.1.10",
-      "parentId": "rack-za1"
-    },
-    {
-      "id": "srv-za1-02",
-      "name": "Server ZA1-4",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.10.1.11",
-      "parentId": "rack-za1"
-    }
-  ],
-  "rack-za2": [
-    {
-      "id": "sw-za2-01",
-      "name": "Core Switch ZA2-4",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.10.2.1",
-      "parentId": "rack-za2"
-    },
-    {
-      "id": "rt-za2-01",
-      "name": "Edge Router ZA2-7",
-      "type": "router",
-      "status": "online",
-      "ipAddress": "10.10.0.1",
-      "parentId": "rack-za2"
-    }
-  ],
-  "rack-nl1": [
-    {
-      "id": "srv-nl1-01",
-      "name": "Server NL1-4",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.11.1.10",
-      "parentId": "rack-nl1"
-    },
-    {
-      "id": "srv-nl1-02",
-      "name": "Server NL1-5",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.11.1.11",
-      "parentId": "rack-nl1"
-    }
-  ],
-  "rack-nl2": [
-    {
-      "id": "sw-nl2-01",
-      "name": "Core Switch NL2-5",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.11.2.1",
-      "parentId": "rack-nl2"
-    },
-    {
-      "id": "sw-nl2-02",
-      "name": "Core Switch NL2-6",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.11.2.2",
-      "parentId": "rack-nl2"
-    }
-  ],
-  "rack-nl3": [
-    {
-      "id": "stor-nl3-01",
-      "name": "NAS Primary NL3-1",
-      "type": "storage",
-      "status": "online",
-      "ipAddress": "10.11.3.10",
-      "parentId": "rack-nl3"
-    },
-    {
-      "id": "stor-nl3-02",
-      "name": "NAS Backup NL3-2",
-      "type": "storage",
-      "status": "online",
-      "ipAddress": "10.11.3.11",
-      "parentId": "rack-nl3"
-    }
-  ],
-  "rack-uc1": [
-    {
-      "id": "srv-uc1-01",
-      "name": "Server UC1-2",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.12.1.10",
-      "parentId": "rack-uc1"
-    },
-    {
-      "id": "srv-uc1-02",
-      "name": "Server UC1-3",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.12.1.11",
-      "parentId": "rack-uc1"
-    }
-  ],
-  "rack-uc2": [
-    {
-      "id": "sw-uc2-01",
-      "name": "Core Switch UC2-3",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.12.2.1",
-      "parentId": "rack-uc2"
-    },
-    {
-      "id": "stor-uc2-01",
-      "name": "NAS Primary UC2-7",
-      "type": "storage",
-      "status": "online",
-      "ipAddress": "10.12.3.10",
-      "parentId": "rack-uc2"
-    }
-  ],
-  "rack-us1": [
-    {
-      "id": "srv-us1-01",
-      "name": "Server US1-3",
-      "type": "server",
-      "status": "maintenance",
-      "ipAddress": "10.13.1.10",
-      "parentId": "rack-us1"
-    },
-    {
-      "id": "srv-us1-02",
-      "name": "Server US1-4",
-      "type": "server",
-      "status": "maintenance",
-      "ipAddress": "10.13.1.11",
-      "parentId": "rack-us1"
-    }
-  ],
-  "rack-us2": [
-    {
-      "id": "sw-us2-01",
-      "name": "Core Switch US2-6",
-      "type": "switch",
-      "status": "maintenance",
-      "ipAddress": "10.13.2.1",
-      "parentId": "rack-us2"
-    },
-    {
-      "id": "rt-us2-01",
-      "name": "Edge Router US2-9",
-      "type": "router",
-      "status": "maintenance",
-      "ipAddress": "10.13.0.1",
-      "parentId": "rack-us2"
-    }
-  ],
-  "rack-kr1": [
-    {
-      "id": "srv-kr1-01",
-      "name": "Server KR1-3",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.14.1.10",
-      "parentId": "rack-kr1"
-    },
-    {
-      "id": "srv-kr1-02",
-      "name": "Server KR1-4",
-      "type": "server",
-      "status": "online",
-      "ipAddress": "10.14.1.11",
-      "parentId": "rack-kr1"
-    }
-  ],
-  "rack-kr2": [
-    {
-      "id": "sw-kr2-01",
-      "name": "Core Switch KR2-4",
-      "type": "switch",
-      "status": "online",
-      "ipAddress": "10.14.2.1",
-      "parentId": "rack-kr2"
-    },
-    {
-      "id": "stor-kr2-01",
-      "name": "NAS Primary KR2-8",
-      "type": "storage",
-      "status": "online",
-      "ipAddress": "10.14.3.10",
-      "parentId": "rack-kr2"
-    }
-  ]
-}
+[
+  { "id": "srv-w1-01",   "name": "Server W1-5",          "type": "server",  "status": "online",      "ipAddress": "10.0.1.10",  "parentId": "rack-w1" },
+  { "id": "srv-w1-02",   "name": "Server W1-6",          "type": "server",  "status": "online",      "ipAddress": "10.0.1.11",  "parentId": "rack-w1" },
+  { "id": "srv-w1-03",   "name": "Server W1-7",          "type": "server",  "status": "maintenance", "ipAddress": "10.0.1.12",  "parentId": "rack-w1" },
+  { "id": "sw-w2-01",    "name": "Core Switch W2-4",     "type": "switch",  "status": "online",      "ipAddress": "10.0.2.1",   "parentId": "rack-w2" },
+  { "id": "sw-w2-02",    "name": "Core Switch W2-5",     "type": "switch",  "status": "online",      "ipAddress": "10.0.2.2",   "parentId": "rack-w2" },
+  { "id": "rt-w2-01",    "name": "Edge Router W2-5",     "type": "router",  "status": "online",      "ipAddress": "10.0.0.1",   "parentId": "rack-w2" },
+  { "id": "stor-w3-01",  "name": "NAS Primary W3-2",     "type": "storage", "status": "online",      "ipAddress": "10.0.3.10",  "parentId": "rack-w3" },
+  { "id": "stor-w3-02",  "name": "NAS Backup W3-3",      "type": "storage", "status": "warning",     "ipAddress": "10.0.3.11",  "parentId": "rack-w3" },
+  { "id": "srv-e1-01",   "name": "Server E1-1",          "type": "server",  "status": "online",      "ipAddress": "10.1.1.10",  "parentId": "rack-e1" },
+  { "id": "srv-e1-02",   "name": "Server E1-2",          "type": "server",  "status": "offline",     "ipAddress": "10.1.1.11",  "parentId": "rack-e1" },
+  { "id": "sw-e2-01",    "name": "Core Switch E2-9",     "type": "switch",  "status": "online",      "ipAddress": "10.1.2.1",   "parentId": "rack-e2" },
+  { "id": "rt-e2-01",    "name": "Edge Router E2-1",     "type": "router",  "status": "online",      "ipAddress": "10.1.0.1",   "parentId": "rack-e2" },
+  { "id": "srv-eu1-01",  "name": "Server EU1-8",         "type": "server",  "status": "warning",     "ipAddress": "10.2.1.10",  "parentId": "rack-eu1" },
+  { "id": "srv-sg1-01",  "name": "Server SG1-8",         "type": "server",  "status": "online",      "ipAddress": "10.3.1.10",  "parentId": "rack-sg1" },
+  { "id": "srv-sg1-02",  "name": "Server SG1-9",         "type": "server",  "status": "online",      "ipAddress": "10.3.1.11",  "parentId": "rack-sg1" },
+  { "id": "sw-sg2-01",   "name": "Core Switch SG2-9",    "type": "switch",  "status": "online",      "ipAddress": "10.3.2.1",   "parentId": "rack-sg2" },
+  { "id": "rt-sg2-01",   "name": "Edge Router SG2-3",    "type": "router",  "status": "online",      "ipAddress": "10.3.0.1",   "parentId": "rack-sg2" },
+  { "id": "stor-sg3-01", "name": "NAS Primary SG3-5",    "type": "storage", "status": "warning",     "ipAddress": "10.3.3.10",  "parentId": "rack-sg3" },
+  { "id": "srv-tk1-01",  "name": "Server TK1-9",         "type": "server",  "status": "online",      "ipAddress": "10.4.1.10",  "parentId": "rack-tk1" },
+  { "id": "srv-tk1-02",  "name": "Server TK1-1",         "type": "server",  "status": "online",      "ipAddress": "10.4.1.11",  "parentId": "rack-tk1" },
+  { "id": "sw-tk2-01",   "name": "Core Switch TK2-1",    "type": "switch",  "status": "online",      "ipAddress": "10.4.2.1",   "parentId": "rack-tk2" },
+  { "id": "rt-tk2-01",   "name": "Edge Router TK2-4",    "type": "router",  "status": "online",      "ipAddress": "10.4.0.1",   "parentId": "rack-tk2" },
+  { "id": "srv-uk1-01",  "name": "Server UK1-8",         "type": "server",  "status": "online",      "ipAddress": "10.5.1.10",  "parentId": "rack-uk1" },
+  { "id": "srv-uk1-02",  "name": "Server UK1-9",         "type": "server",  "status": "online",      "ipAddress": "10.5.1.11",  "parentId": "rack-uk1" },
+  { "id": "sw-uk2-01",   "name": "Core Switch UK2-9",    "type": "switch",  "status": "online",      "ipAddress": "10.5.2.1",   "parentId": "rack-uk2" },
+  { "id": "sw-uk2-02",   "name": "Core Switch UK2-1",    "type": "switch",  "status": "online",      "ipAddress": "10.5.2.2",   "parentId": "rack-uk2" },
+  { "id": "stor-uk3-01", "name": "NAS Primary UK3-5",    "type": "storage", "status": "online",      "ipAddress": "10.5.3.10",  "parentId": "rack-uk3" },
+  { "id": "stor-uk3-02", "name": "NAS Backup UK3-6",     "type": "storage", "status": "online",      "ipAddress": "10.5.3.11",  "parentId": "rack-uk3" },
+  { "id": "srv-ca1-01",  "name": "Server CA1-5",         "type": "server",  "status": "warning",     "ipAddress": "10.6.1.10",  "parentId": "rack-ca1" },
+  { "id": "srv-ca1-02",  "name": "Server CA1-6",         "type": "server",  "status": "online",      "ipAddress": "10.6.1.11",  "parentId": "rack-ca1" },
+  { "id": "sw-ca2-01",   "name": "Core Switch CA2-8",    "type": "switch",  "status": "online",      "ipAddress": "10.6.2.1",   "parentId": "rack-ca2" },
+  { "id": "rt-ca2-01",   "name": "Edge Router CA2-2",    "type": "router",  "status": "online",      "ipAddress": "10.6.0.1",   "parentId": "rack-ca2" },
+  { "id": "srv-aus1-01", "name": "Server AUS1-1",        "type": "server",  "status": "online",      "ipAddress": "10.7.1.10",  "parentId": "rack-aus1" },
+  { "id": "srv-aus1-02", "name": "Server AUS1-2",        "type": "server",  "status": "online",      "ipAddress": "10.7.1.11",  "parentId": "rack-aus1" },
+  { "id": "sw-aus2-01",  "name": "Core Switch AUS2-8",   "type": "switch",  "status": "online",      "ipAddress": "10.7.2.1",   "parentId": "rack-aus2" },
+  { "id": "stor-aus2-01","name": "NAS Primary AUS2-4",   "type": "storage", "status": "online",      "ipAddress": "10.7.3.10",  "parentId": "rack-aus2" },
+  { "id": "srv-br1-01",  "name": "Server BR1-5",         "type": "server",  "status": "critical",    "ipAddress": "10.8.1.10",  "parentId": "rack-br1" },
+  { "id": "srv-br1-02",  "name": "Server BR1-6",         "type": "server",  "status": "offline",     "ipAddress": "10.8.1.11",  "parentId": "rack-br1" },
+  { "id": "sw-br2-01",   "name": "Core Switch BR2-6",    "type": "switch",  "status": "critical",    "ipAddress": "10.8.2.1",   "parentId": "rack-br2" },
+  { "id": "rt-br2-01",   "name": "Edge Router BR2-9",    "type": "router",  "status": "offline",     "ipAddress": "10.8.0.1",   "parentId": "rack-br2" },
+  { "id": "srv-in1-01",  "name": "Server IN1-3",         "type": "server",  "status": "online",      "ipAddress": "10.9.1.10",  "parentId": "rack-in1" },
+  { "id": "srv-in1-02",  "name": "Server IN1-4",         "type": "server",  "status": "online",      "ipAddress": "10.9.1.11",  "parentId": "rack-in1" },
+  { "id": "sw-in2-01",   "name": "Core Switch IN2-4",    "type": "switch",  "status": "online",      "ipAddress": "10.9.2.1",   "parentId": "rack-in2" },
+  { "id": "rt-in2-01",   "name": "Edge Router IN2-7",    "type": "router",  "status": "online",      "ipAddress": "10.9.0.1",   "parentId": "rack-in2" },
+  { "id": "stor-in3-01", "name": "NAS Primary IN3-9",    "type": "storage", "status": "warning",     "ipAddress": "10.9.3.10",  "parentId": "rack-in3" },
+  { "id": "stor-in3-02", "name": "NAS Backup IN3-1",     "type": "storage", "status": "online",      "ipAddress": "10.9.3.11",  "parentId": "rack-in3" },
+  { "id": "srv-za1-01",  "name": "Server ZA1-3",         "type": "server",  "status": "warning",     "ipAddress": "10.10.1.10", "parentId": "rack-za1" },
+  { "id": "srv-za1-02",  "name": "Server ZA1-4",         "type": "server",  "status": "online",      "ipAddress": "10.10.1.11", "parentId": "rack-za1" },
+  { "id": "sw-za2-01",   "name": "Core Switch ZA2-4",    "type": "switch",  "status": "online",      "ipAddress": "10.10.2.1",  "parentId": "rack-za2" },
+  { "id": "rt-za2-01",   "name": "Edge Router ZA2-7",    "type": "router",  "status": "online",      "ipAddress": "10.10.0.1",  "parentId": "rack-za2" },
+  { "id": "srv-nl1-01",  "name": "Server NL1-4",         "type": "server",  "status": "online",      "ipAddress": "10.11.1.10", "parentId": "rack-nl1" },
+  { "id": "srv-nl1-02",  "name": "Server NL1-5",         "type": "server",  "status": "online",      "ipAddress": "10.11.1.11", "parentId": "rack-nl1" },
+  { "id": "sw-nl2-01",   "name": "Core Switch NL2-5",    "type": "switch",  "status": "online",      "ipAddress": "10.11.2.1",  "parentId": "rack-nl2" },
+  { "id": "sw-nl2-02",   "name": "Core Switch NL2-6",    "type": "switch",  "status": "online",      "ipAddress": "10.11.2.2",  "parentId": "rack-nl2" },
+  { "id": "stor-nl3-01", "name": "NAS Primary NL3-1",    "type": "storage", "status": "online",      "ipAddress": "10.11.3.10", "parentId": "rack-nl3" },
+  { "id": "stor-nl3-02", "name": "NAS Backup NL3-2",     "type": "storage", "status": "online",      "ipAddress": "10.11.3.11", "parentId": "rack-nl3" },
+  { "id": "srv-uc1-01",  "name": "Server UC1-2",         "type": "server",  "status": "online",      "ipAddress": "10.12.1.10", "parentId": "rack-uc1" },
+  { "id": "srv-uc1-02",  "name": "Server UC1-3",         "type": "server",  "status": "online",      "ipAddress": "10.12.1.11", "parentId": "rack-uc1" },
+  { "id": "sw-uc2-01",   "name": "Core Switch UC2-3",    "type": "switch",  "status": "online",      "ipAddress": "10.12.2.1",  "parentId": "rack-uc2" },
+  { "id": "stor-uc2-01", "name": "NAS Primary UC2-7",    "type": "storage", "status": "online",      "ipAddress": "10.12.3.10", "parentId": "rack-uc2" },
+  { "id": "srv-us1-01",  "name": "Server US1-3",         "type": "server",  "status": "maintenance", "ipAddress": "10.13.1.10", "parentId": "rack-us1" },
+  { "id": "srv-us1-02",  "name": "Server US1-4",         "type": "server",  "status": "maintenance", "ipAddress": "10.13.1.11", "parentId": "rack-us1" },
+  { "id": "sw-us2-01",   "name": "Core Switch US2-6",    "type": "switch",  "status": "maintenance", "ipAddress": "10.13.2.1",  "parentId": "rack-us2" },
+  { "id": "rt-us2-01",   "name": "Edge Router US2-9",    "type": "router",  "status": "maintenance", "ipAddress": "10.13.0.1",  "parentId": "rack-us2" },
+  { "id": "srv-kr1-01",  "name": "Server KR1-3",         "type": "server",  "status": "online",      "ipAddress": "10.14.1.10", "parentId": "rack-kr1" },
+  { "id": "srv-kr1-02",  "name": "Server KR1-4",         "type": "server",  "status": "online",      "ipAddress": "10.14.1.11", "parentId": "rack-kr1" },
+  { "id": "sw-kr2-01",   "name": "Core Switch KR2-4",    "type": "switch",  "status": "online",      "ipAddress": "10.14.2.1",  "parentId": "rack-kr2" },
+  { "id": "stor-kr2-01", "name": "NAS Primary KR2-8",    "type": "storage", "status": "online",      "ipAddress": "10.14.3.10", "parentId": "rack-kr2" }
+]

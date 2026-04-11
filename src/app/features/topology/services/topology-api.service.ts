@@ -1,71 +1,66 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { delay, map, Observable } from 'rxjs';
-import { MetricsValues, NodeConfig, NodeDetail, TimeRange } from '../models/topology.model';
+import { map, Observable } from 'rxjs';
+import { MetricsValues, NodeConfig, NodeDetail, NodeType, TimeRange } from '../models/topology.model';
 import { TreeItem } from '../models/topology-tree.model';
-import { mapDatacenters, mapNodeMetrics, mapRacks, mapServers } from './topology.mappers';
+import { mapDatacenters, mapNodeMetrics, mapRacks, mapDevices } from './topology.mappers';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class TopologyApiService {
   private readonly http = inject(HttpClient);
-  private readonly base = '/assets/mock/topology';
+  private readonly baseUrl = environment.apiUrl;
 
   /** GET /datacenters */
   getDatacenters(): Observable<TreeItem[]> {
-    return this.http.get<NodeDetail[]>(`${this.base}/datacenters.json`).pipe(
+    return this.http.get<NodeDetail[]>(`${this.baseUrl}/topology/datacenters`).pipe(
       map(mapDatacenters)
     );
   }
 
   /** GET /datacenters/:id/racks */
   getRacks(datacenterId: string): Observable<TreeItem[]> {
-    return this.http.get<Record<string, NodeDetail[]>>(`${this.base}/racks.json`).pipe(
-      map(data => mapRacks(data[datacenterId] ?? [])),
-      delay(1000) // simulate network latency
+    return this.http.get<NodeDetail[]>(`${this.baseUrl}/topology/datacenters/${datacenterId}/racks`).pipe(
+      map(data => mapRacks(data))
     );
   }
 
-  /** GET /racks/:id/servers */
-  getServers(rackId: string): Observable<TreeItem[]> {
-    return this.http.get<Record<string, NodeDetail[]>>(`${this.base}/servers.json`).pipe(
-      map(data => mapServers(data[rackId] ?? [])),
-      delay(1000) // simulate network latency 
+  /** GET /racks/:id/devices */
+  getDevices(rackId: string): Observable<TreeItem[]> {
+    return this.http.get<NodeDetail[]>(`${this.baseUrl}/topology/racks/${rackId}/devices`).pipe(
+      map(data => mapDevices(data))
     );
   }
 
   /** GET /nodes/:id */
   getNodeDetail(id: string): Observable<NodeDetail | undefined> {
-    return this.http.get<Record<string, NodeDetail>>(`${this.base}/node-details.json`).pipe(
-      map(data => data[id])
-    );
+    return this.http.get<NodeDetail>(`${this.baseUrl}/topology/nodes/${id}`);
   }
 
-  /** GET /nodes — full node map, used for uniqueness checks */
-  getAllNodes(): Observable<Record<string, NodeDetail>> {
-    return this.http.get<Record<string, NodeDetail>>(`${this.base}/node-details.json`);
+  /** GET /nodes/check-name?name=&type=&parentId=&currentId= */
+  checkNameExists(name: string, type: NodeType, parentId: string | null, currentId: string | null): Observable<boolean> {
+    const params: Record<string, string> = { name, type };
+    if (parentId) params['parentId'] = parentId;
+    if (currentId) params['currentId'] = currentId;
+    return this.http.get<{ exists: boolean }>(`${this.baseUrl}/topology/nodes/check-name`, { params }).pipe(
+      map(res => res.exists)
+    );
   }
 
   /** GET /nodes/:id/config */
   getNodeConfig(id: string): Observable<NodeConfig | undefined> {
-    return this.http.get<Record<string, NodeConfig>>(`${this.base}/node-config.json`).pipe(
-      map(data => data[id])
-    );
+    return this.http.get<NodeConfig>(`${this.baseUrl}/topology/nodes/${id}/config`);
   }
 
   /** GET /nodes/:id/metrics?range= */
   getNodeMetrics(nodeId: string, range: TimeRange): Observable<MetricsValues | null> {
-    return this.http.get<Record<string, any>>(`${this.base}/node-metrics.json`).pipe(
-      map(data => {
-        const node = data[nodeId];
-        return node ? mapNodeMetrics(node, range) : null;
-      })
+    return this.http.get<any>(`${this.baseUrl}/topology/nodes/${nodeId}/metrics`, { params: { range } }).pipe(
+      map(data => data ? mapNodeMetrics(data, range) : null)
     );
   }
 
   /** GET /nodes/:id/path — returns ordered ancestor IDs from root to parent */
   getNodePath(id: string): Observable<string[]> {
-    return this.http.get<Record<string, string[]>>(`${this.base}/ancestors.json`).pipe(
-      map(data => data[id] ?? [])
-    );
+    return this.http.get<string[]>(`${this.baseUrl}/topology/nodes/${id}/path`);
   }
 }

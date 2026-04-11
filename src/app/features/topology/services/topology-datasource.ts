@@ -60,7 +60,7 @@ export class TopologyDataSource implements DataSource<FlatNode> {
 
     const request$ = node.level === 0
       ? this.api.getRacks(node.id)
-      : this.api.getServers(node.id);
+      : this.api.getDevices(node.id);
 
     request$.pipe(take(1), finalize(() => node.isLoading.set(false))).subscribe({
       next: items => {

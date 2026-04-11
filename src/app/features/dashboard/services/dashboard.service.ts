@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { forkJoin, interval, map, startWith, tap } from 'rxjs';
 import { DashboardApiService } from './dashboard-api.service';
+import { AlertsApiService } from '../../alerts/services/alerts-api.service';
 import { AlertsStoreService } from '../../../core/services/alerts-store.service';
 import { SystemHealth } from '../models/dashboard.models';
 import { clamp, randomDelta } from '../utils/dashboard.utils';
@@ -8,13 +9,14 @@ import { clamp, randomDelta } from '../utils/dashboard.utils';
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
   private readonly dashboardApi = inject(DashboardApiService);
+  private readonly alertsApi = inject(AlertsApiService);
   private readonly alertsStore = inject(AlertsStoreService);
 
   loadDashboardData() {
     return forkJoin({
       stats: this.dashboardApi.getStats(),
       health: this.dashboardApi.getHealth(),
-      alerts: this.dashboardApi.getAlerts(),
+      alerts: this.alertsApi.getAlerts(),
     }).pipe(
       tap(({ alerts }) => this.alertsStore.setAlerts(alerts))
     );

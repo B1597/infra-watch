@@ -31,7 +31,7 @@ export const mapRacks = (nodes: NodeDetail[]): TreeItem[] =>
     hasChildren: true,
   }));
 
-export const mapServers = (nodes: NodeDetail[]): TreeItem[] =>
+export const mapDevices = (nodes: NodeDetail[]): TreeItem[] =>
   nodes.map(n => ({
     id: n.id,
     name: n.name,
