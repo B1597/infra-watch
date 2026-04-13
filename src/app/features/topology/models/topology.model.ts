@@ -35,6 +35,15 @@ export interface NodeConfig {
   macAddress?:     string;
 }
 
+export interface UpdateNodeConfig {
+  name?:           string;
+  location?:       string;
+  password?:       string;
+  registrationId?: string;
+  ipAddress?:      string;
+  macAddress?:     string;
+}
+
 export interface NodeDetail {
   id: string;
   name: string;

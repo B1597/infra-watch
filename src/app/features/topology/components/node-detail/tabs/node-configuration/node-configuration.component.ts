@@ -1,14 +1,14 @@
 import { Component, inject, effect, signal, computed } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { switchMap, of } from 'rxjs';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { switchMap, of, take } from 'rxjs';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TopologySelectionService } from '../../../../services/topology-selection.service';
 import { TopologyApiService } from '../../../../services/topology-api.service';
-import { NodeConfig, NodeDetail, NodeType } from '../../../../models/topology.model';
+import { NodeConfig, NodeDetail, NodeType, UpdateNodeConfig } from '../../../../models/topology.model';
 import { uniqueNameValidator } from '../../../../services/topology.validators';
 import { FieldDef, GroupDef, GROUPS, TYPE_GROUPS } from './node-configuration.config';
 
@@ -23,99 +23,151 @@ export class NodeConfigurationComponent {
   private topologyApi      = inject(TopologyApiService);
   private fb               = inject(FormBuilder);
 
-  hidePassword = signal(true);
+  isPasswordHidden = signal(true);
+  private readonly allFieldDefs = Object.values(GROUPS).flatMap(g => g.fields);
 
-  // GET /nodes/:id — monitoring data (name, type, hardware, stats…)
-  node = toSignal(
+  // get selected node general details
+  selectedNode = toSignal(
     toObservable(this.selectionService.selection).pipe(
-      switchMap(sel => sel ? this.topologyApi.getNodeDetail(sel.id) : of(null))
+      switchMap(selection => selection ? this.topologyApi.getNodeDetail(selection.id) : of(null))
     )
   );
 
-  // GET /nodes/:id/config — editable config (password, registrationId, macAddress)
-  config = toSignal(
+  // get selected node config details
+  nodeConfig = toSignal(
     toObservable(this.selectionService.selection).pipe(
-      switchMap(sel => sel ? this.topologyApi.getNodeConfig(sel.id) : of(null))
+      switchMap(selection => selection ? this.topologyApi.getNodeConfig(selection.id) : of(null))
     )
   );
 
   // get group configs for current node type (used to render form sections in template)
   activeGroups = computed<GroupDef[]>(() => {
-    const nodeType = this.node()?.type;
+    const nodeType = this.selectedNode()?.type;
     if (!nodeType) return [];
     return (TYPE_GROUPS[nodeType] ?? ['general']).map(key => GROUPS[key]).filter(Boolean);
   });
 
   form = this.fb.group({
     // general
-    name: ['', Validators.required],
-    location: ['', Validators.required],
+    name: ['', this.getValidatorsFor('name')],
+    location: ['', this.getValidatorsFor('location')],
 
     // hardware
-    vendorId: [''],
-    serialNumber: [''],
-    firmware: [''],
+    vendorId: ['', this.getValidatorsFor('vendorId')],
+    serialNumber: ['', this.getValidatorsFor('serialNumber')],
+    firmware: ['', this.getValidatorsFor('firmware')],
 
     // security
-    password: ['', [Validators.required, Validators.minLength(8)]],
-    registrationId: ['', Validators.required],
+    password: ['', this.getValidatorsFor('password')],
+    registrationId: ['', this.getValidatorsFor('registrationId')],
 
-    ipAddress: ['', Validators.pattern(/^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$/)],
-    macAddress: ['', Validators.pattern(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/)],
+    ipAddress: ['', this.getValidatorsFor('ipAddress')],
+    macAddress: ['', this.getValidatorsFor('macAddress')],
   });
 
-  // collect readonly field keys once from the group definitions
-  private readonly readonlyKeys = Object.values(GROUPS)
-    .flatMap(g => g.fields)
+  private readonly readonlyFieldKeys = this.allFieldDefs
     .filter(f => f.readonly)
     .map(f => f.key);
 
   constructor() {
-    // disable read-only controls
-    this.readonlyKeys.forEach(key => this.form.get(key)?.disable());
+    this.readonlyFieldKeys.forEach(key => this.form.get(key)?.disable());
 
     effect(() => {
-      const node = this.node();
-      this.form.patchValue(this.buildFormValue(node, this.config()));
+      const selectedNode = this.selectedNode();
+      this.syncEnabledControls(selectedNode);
+      this.form.patchValue(this.toFormValue(selectedNode, this.nodeConfig()));
 
       // update name validator whenever selected node changes, so uniqueness is checked in the correct scope
-      const nameCtrl = this.form.get('name');
-      if (node && nameCtrl) {
-        nameCtrl.setAsyncValidators(uniqueNameValidator(this.topologyApi, node.id, node.type, node.parentId ?? null));
-        nameCtrl.updateValueAndValidity({ emitEvent: false });
+      const nameControl = this.form.get('name');
+      const nameFieldDef = this.getFieldDef('name');
+      if (selectedNode && nameControl && nameFieldDef?.asyncValidator === 'uniqueName') {
+        nameControl.setAsyncValidators(uniqueNameValidator(this.topologyApi, selectedNode.id, selectedNode.type, selectedNode.parentId ?? null));
+        nameControl.updateValueAndValidity({ emitEvent: false });
       }
     });
   }
 
   isFieldVisible(field: FieldDef): boolean {
     if (!field.onlyFor) return true;
-    return field.onlyFor.includes(this.node()?.type as NodeType);
+    return field.onlyFor.includes(this.selectedNode()?.type as NodeType);
   }
 
   togglePassword(): void {
-    this.hidePassword.update(v => !v);
+    this.isPasswordHidden.update(hidden => !hidden);
   }
 
-  reset(): void {
-    this.form.patchValue(this.buildFormValue(this.node(), this.config()));
+  resetConfig(): void {
+    this.form.patchValue(this.toFormValue(this.selectedNode(), this.nodeConfig()));
   }
 
-  save(): void {
-    console.log(this.form.value);
+  saveConfig(): void {
+    const selectedNode = this.selectedNode();
+    if (!selectedNode) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const formValues = this.form.value;
+
+    const payload: UpdateNodeConfig = {
+      name: formValues.name ?? undefined,
+      location: formValues.location ?? undefined,
+      password: formValues.password ?? undefined,
+      registrationId: formValues.registrationId ?? undefined,
+      ipAddress: formValues.ipAddress ?? undefined,
+      macAddress: formValues.macAddress ?? undefined,
+    };
+
+    this.topologyApi.updateNodeConfig(selectedNode.id, payload)
+      .pipe(take(1))
+      .subscribe();
   }
 
-  // combines both endpoints into a single form value object
-  private buildFormValue(node: NodeDetail | null | undefined, config: NodeConfig | null | undefined) {
+  private syncEnabledControls(selectedNode: NodeDetail | null | undefined): void {
+    const visibleKeys = new Set(
+      selectedNode
+        ? this.activeGroups()
+            .flatMap(group => group.fields)
+            .filter(field => this.isFieldVisible(field))
+            .map(field => field.key)
+        : []
+    );
+    const readonlyFieldKeys = new Set(this.readonlyFieldKeys);
+
+    Object.keys(this.form.controls).forEach(key => {
+      const control = this.form.get(key);
+      if (!control) return;
+
+      const shouldEnable = visibleKeys.has(key) && !readonlyFieldKeys.has(key);
+      if (shouldEnable && control.disabled) {
+        control.enable({ emitEvent: false });
+      } else if (!shouldEnable && control.enabled) {
+        control.disable({ emitEvent: false });
+      }
+    });
+  }
+
+  private getFieldDef(key: string): FieldDef | undefined {
+    return this.allFieldDefs.find(field => field.key === key);
+  }
+
+  private getValidatorsFor(key: string) {
+    return this.getFieldDef(key)?.validators ?? [];
+  }
+
+  // combines both endpoints data into a single form value object
+  private toFormValue(selectedNode: NodeDetail | null | undefined, nodeConfig: NodeConfig | null | undefined) {
     return {
-      name:           node?.name               ?? '',
-      location:       node?.location           ?? '',
-      vendorId:       node?.vendor             ?? '',
-      serialNumber:   node?.serialNumber       ?? '',
-      firmware:       node?.hardware?.firmware ?? '',
-      ipAddress:      node?.ipAddress          ?? '',
-      password:       config?.password         ?? '',
-      registrationId: config?.registrationId   ?? '',
-      macAddress:     config?.macAddress       ?? '',
+      name:           selectedNode?.name               ?? '',
+      location:       selectedNode?.location           ?? '',
+      vendorId:       selectedNode?.vendor             ?? '',
+      serialNumber:   selectedNode?.serialNumber       ?? '',
+      firmware:       selectedNode?.hardware?.firmware ?? '',
+      ipAddress:      selectedNode?.ipAddress          ?? '',
+      password:       nodeConfig?.password             ?? '',
+      registrationId: nodeConfig?.registrationId       ?? '',
+      macAddress:     nodeConfig?.macAddress           ?? '',
     };
   }
 }

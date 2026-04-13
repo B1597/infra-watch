@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { MetricsValues, NodeConfig, NodeDetail, NodeType, TimeRange } from '../models/topology.model';
+import { MetricsValues, NodeConfig, NodeDetail, NodeType, TimeRange, UpdateNodeConfig } from '../models/topology.model';
 import { TreeItem } from '../models/topology-tree.model';
 import { mapDatacenters, mapNodeMetrics, mapRacks, mapDevices } from './topology.mappers';
 import { environment } from '../../../../environments/environment';
@@ -50,6 +50,11 @@ export class TopologyApiService {
   /** GET /nodes/:id/config */
   getNodeConfig(id: string): Observable<NodeConfig | undefined> {
     return this.http.get<NodeConfig>(`${this.baseUrl}/topology/nodes/${id}/config`);
+  }
+
+  /** PUT /nodes/:id/config */
+  updateNodeConfig(id: string, body: UpdateNodeConfig): Observable<NodeConfig> {
+    return this.http.put<NodeConfig>(`${this.baseUrl}/topology/nodes/${id}/config`, body);
   }
 
   /** GET /nodes/:id/metrics?range= */

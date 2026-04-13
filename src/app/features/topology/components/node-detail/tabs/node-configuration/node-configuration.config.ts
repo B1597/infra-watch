@@ -1,10 +1,13 @@
+import { ValidatorFn, Validators } from '@angular/forms';
 import { NodeType } from '../../../../models/topology.model';
 
 export interface FieldDef {
   key:        string;
   label:      string;
-  inputType?: 'password';
+  inputType?: 'text' | 'password' | 'number';
   readonly?:  boolean;
+  validators?: ValidatorFn[];
+  asyncValidator?: 'uniqueName';
   errors?:    Record<string, string>;
   onlyFor?:   NodeType[];
 }
@@ -23,8 +26,19 @@ export const GROUPS: Record<string, GroupDef> = {
     title:    'General',
     subtitle: 'Basic identification and location',
     fields: [
-      { key: 'name', label: 'Name', errors: { required: 'Name is required', uniqueName: 'A node with this name already exists' } },
-      { key: 'location', label: 'Location', onlyFor: ['datacenter', 'rack'] },
+      {
+        key: 'name',
+        label: 'Name',
+        validators: [Validators.required],
+        asyncValidator: 'uniqueName',
+        errors: { required: 'Name is required', uniqueName: 'A node with this name already exists' },
+      },
+      {
+        key: 'location',
+        label: 'Location',
+        validators: [Validators.required],
+        onlyFor: ['datacenter', 'rack'],
+      },
     ],
   },
   hardware: {
@@ -42,8 +56,19 @@ export const GROUPS: Record<string, GroupDef> = {
     title:    'Security',
     subtitle: 'Access credentials and registration',
     fields: [
-      { key: 'password', label: 'Password', inputType: 'password', errors: { required: 'Password is required', minlength: 'Password must be at least 8 characters' } },
-      { key: 'registrationId', label: 'Registration ID', onlyFor: ['datacenter'] },
+      {
+        key: 'password',
+        label: 'Password',
+        inputType: 'password',
+        validators: [Validators.required, Validators.minLength(8)],
+        errors: { required: 'Password is required', minlength: 'Password must be at least 8 characters' },
+      },
+      {
+        key: 'registrationId',
+        label: 'Registration ID',
+        validators: [Validators.required],
+        onlyFor: ['datacenter'],
+      },
     ],
   },
   network: {
@@ -51,8 +76,19 @@ export const GROUPS: Record<string, GroupDef> = {
     title:    'Network',
     subtitle: 'Connection and addressing',
     fields: [
-      { key: 'ipAddress',  label: 'IP Address',  errors: { pattern: 'Enter a valid IPv4 address (e.g. 192.168.1.1)' } },
-      { key: 'macAddress', label: 'MAC Address', errors: { pattern: 'Enter a valid MAC address (e.g. 00:1A:2B:3C:4D:5E)' }, onlyFor: ['server', 'switch', 'router', 'storage'] },
+      {
+        key: 'ipAddress',
+        label: 'IP Address',
+        validators: [Validators.pattern(/^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$/)],
+        errors: { pattern: 'Enter a valid IPv4 address (e.g. 192.168.1.1)' },
+      },
+      {
+        key: 'macAddress',
+        label: 'MAC Address',
+        validators: [Validators.pattern(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/)],
+        errors: { pattern: 'Enter a valid MAC address (e.g. 00:1A:2B:3C:4D:5E)' },
+        onlyFor: ['server', 'switch', 'router', 'storage'],
+      },
     ],
   },
 };
