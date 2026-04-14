@@ -14,10 +14,11 @@
                 <label class="config__label">{{ field.label }}</label>
                 <mat-form-field appearance="outline">
                   <input matInput [formControlName]="field.key"
-                         [type]="field.inputType === 'password' && isPasswordHidden() ? 'password' : field.inputType ?? 'text'" />
+                         [type]="field.inputType === 'password' ? (isPasswordHidden() ? 'password' : 'text') : field.inputType ?? 'text'" />
                   @if (field.inputType === 'password') {
-                    <button mat-icon-button matSuffix type="button" (click)="togglePassword()">
-                      <mat-icon>{{ isPasswordHidden() ? 'visibility' : 'visibility_off' }}</mat-icon>
+                    <button mat-icon-button matSuffix type="button"
+                            (click)="togglePassword()">
+                      <mat-icon>{{ isPasswordHidden() ? 'visibility_off' : 'visibility' }}</mat-icon>
                     </button>
                   }
                   @if (form.get(field.key)?.hasError('required')) {
@@ -44,7 +45,7 @@
 
   <div class="config__actions">
     <button mat-stroked-button type="button" (click)="resetConfig()">Reset</button>
-    <button mat-flat-button color="primary" type="submit" (click)="saveConfig()">Save Changes</button>
+    <button mat-flat-button color="primary" type="button" (click)="saveConfig()" [disabled]="!form.dirty || form.invalid || form.pending || isSaving()">Save Changes</button>
   </div>
 
 </form>

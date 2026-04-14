@@ -41,7 +41,6 @@ export interface UpdateNodeConfig {
   password?:       string;
   registrationId?: string;
   ipAddress?:      string;
-  macAddress?:     string;
 }
 
 export interface NodeDetail {

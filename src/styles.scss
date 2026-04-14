@@ -3,6 +3,7 @@
 @use './styles/progress-bar' as progressBar;
 @use './styles/button' as button;
 @use './styles/topology-tree' as topologyTree;
+@use './styles/snack-bar' as snackBar;
 
 @include mat.core();
 
@@ -40,6 +41,11 @@ $theme: mat.define-theme((
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
   --color-info: #6b7280;
+  --color-on-accent: #ffffff;
+  --color-toast-success: #71b371;
+  --color-toast-error: #ca5e58;
+  --color-toast-info: #56a9c1;
+  --color-toast-warning: #f7a735;
   --sidebar-width: 56px;
   --header-height: 56px;
   --radius-sm: 6px;
@@ -53,6 +59,7 @@ $theme: mat.define-theme((
 @include progressBar.overrides();
 @include button.overrides();
 @include topologyTree.overrides();
+@include snackBar.overrides();
 
 *,
 *::before,

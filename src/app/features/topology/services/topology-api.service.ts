@@ -54,7 +54,7 @@ export class TopologyApiService {
 
   /** PUT /nodes/:id/config */
   updateNodeConfig(id: string, body: UpdateNodeConfig): Observable<NodeConfig> {
-    return this.http.put<NodeConfig>(`${this.baseUrl}/topology/nodes/${id}/config`, body);
+    return this.http.patch<NodeConfig>(`${this.baseUrl}/topology/nodes/${id}/config`, body);
   }
 
   /** GET /nodes/:id/metrics?range= */

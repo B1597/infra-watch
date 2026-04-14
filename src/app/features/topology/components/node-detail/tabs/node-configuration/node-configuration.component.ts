@@ -1,12 +1,13 @@
 import { Component, inject, effect, signal, computed } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { switchMap, of, take } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { distinctUntilChanged, map, switchMap, of, take } from 'rxjs';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { TopologySelectionService } from '../../../../services/topology-selection.service';
+import { ToastService } from '../../../../../../core/services/toast.service';
 import { TopologyApiService } from '../../../../services/topology-api.service';
 import { NodeConfig, NodeDetail, NodeType, UpdateNodeConfig } from '../../../../models/topology.model';
 import { uniqueNameValidator } from '../../../../services/topology.validators';
@@ -19,24 +20,30 @@ import { FieldDef, GroupDef, GROUPS, TYPE_GROUPS } from './node-configuration.co
   styleUrl: './node-configuration.component.scss',
 })
 export class NodeConfigurationComponent {
-  private selectionService = inject(TopologySelectionService);
-  private topologyApi      = inject(TopologyApiService);
-  private fb               = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
+  private topologyApi = inject(TopologyApiService);
+  private toast = inject(ToastService);
+  private fb = inject(FormBuilder);
 
   isPasswordHidden = signal(true);
+  isSaving = signal(false);
   private readonly allFieldDefs = Object.values(GROUPS).flatMap(g => g.fields);
+  private readonly nodeId$ = this.route.parent!.paramMap.pipe(
+    map(params => params.get('nodeId')),
+    distinctUntilChanged(),
+  );
 
   // get selected node general details
   selectedNode = toSignal(
-    toObservable(this.selectionService.selection).pipe(
-      switchMap(selection => selection ? this.topologyApi.getNodeDetail(selection.id) : of(null))
+    this.nodeId$.pipe(
+      switchMap(nodeId => nodeId ? this.topologyApi.getNodeDetail(nodeId) : of(null))
     )
   );
 
   // get selected node config details
   nodeConfig = toSignal(
-    toObservable(this.selectionService.selection).pipe(
-      switchMap(selection => selection ? this.topologyApi.getNodeConfig(selection.id) : of(null))
+    this.nodeId$.pipe(
+      switchMap(nodeId => nodeId ? this.topologyApi.getNodeConfig(nodeId) : of(null))
     )
   );
 
@@ -81,7 +88,13 @@ export class NodeConfigurationComponent {
       const nameControl = this.form.get('name');
       const nameFieldDef = this.getFieldDef('name');
       if (selectedNode && nameControl && nameFieldDef?.asyncValidator === 'uniqueName') {
-        nameControl.setAsyncValidators(uniqueNameValidator(this.topologyApi, selectedNode.id, selectedNode.type, selectedNode.parentId ?? null));
+        nameControl.setAsyncValidators(uniqueNameValidator(
+          this.topologyApi,
+          selectedNode.id,
+          selectedNode.type,
+          selectedNode.parentId ?? null,
+          selectedNode.name,
+        ));
         nameControl.updateValueAndValidity({ emitEvent: false });
       }
     });
@@ -116,12 +129,16 @@ export class NodeConfigurationComponent {
       password: formValues.password ?? undefined,
       registrationId: formValues.registrationId ?? undefined,
       ipAddress: formValues.ipAddress ?? undefined,
-      macAddress: formValues.macAddress ?? undefined,
     };
 
+    this.isSaving.set(true);
     this.topologyApi.updateNodeConfig(selectedNode.id, payload)
       .pipe(take(1))
-      .subscribe();
+      .subscribe({
+        next: () => this.toast.success('Configuration saved'),
+        error: () => this.toast.error('Could not save configuration'),
+        complete: () => this.isSaving.set(false),
+      });
   }
 
   private syncEnabledControls(selectedNode: NodeDetail | null | undefined): void {

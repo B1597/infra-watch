@@ -1,0 +1,27 @@
+@use '@angular/material' as mat;
+
+@mixin overrides() {
+  .toast-success {
+    @include mat.snack-bar-overrides((
+      container-color: var(--color-toast-success),
+      supporting-text-color: var(--color-on-accent),
+      button-color: var(--color-on-accent),
+    ));
+  }
+
+  .toast-error {
+    @include mat.snack-bar-overrides((
+      container-color: var(--color-toast-error),
+      supporting-text-color: var(--color-on-accent),
+      button-color: var(--color-on-accent),
+    ));
+  }
+
+  .toast-info {
+    @include mat.snack-bar-overrides((
+      container-color: var(--color-toast-info),
+      supporting-text-color: var(--color-on-accent),
+      button-color: var(--color-on-accent),
+    ));
+  }
+}

@@ -85,8 +85,7 @@ export const GROUPS: Record<string, GroupDef> = {
       {
         key: 'macAddress',
         label: 'MAC Address',
-        validators: [Validators.pattern(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/)],
-        errors: { pattern: 'Enter a valid MAC address (e.g. 00:1A:2B:3C:4D:5E)' },
+        readonly: true,
         onlyFor: ['server', 'switch', 'router', 'storage'],
       },
     ],
