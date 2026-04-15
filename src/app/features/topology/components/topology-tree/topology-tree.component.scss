@@ -9,7 +9,8 @@
   flex: 1 1 auto;
   min-height: 0;
   overflow: auto;
-  padding: 10px;
+  scrollbar-gutter: stable;
+  padding: 10px 0 10px 10px;
 }
 
 .topology-tree {

@@ -29,4 +29,13 @@ export class TopologySelectionService {
   clear() {
     this.selectionSig.set(null);
   }
+
+  updateNodeNameInSelectionPath(id: string, name: string): void {
+    const current = this.selectionSig();
+    if (!current) return;
+    const updatedPath = current.path.map(crumb =>
+      crumb.id === id ? { ...crumb, name } : crumb
+    );
+    this.selectionSig.set({ ...current, path: updatedPath });
+  }
 }

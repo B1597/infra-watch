@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { MetricsValues, NodeConfig, NodeDetail, NodeType, TimeRange, UpdateNodeConfig } from '../models/topology.model';
+import { MetricsValues, NodeConfig, NodeDetail, NodePath, NodeType, TimeRange, UpdateNodeConfig } from '../models/topology.model';
 import { TreeItem } from '../models/topology-tree.model';
 import { mapDatacenters, mapNodeMetrics, mapRacks, mapDevices } from './topology.mappers';
 import { environment } from '../../../../environments/environment';
@@ -64,8 +64,8 @@ export class TopologyApiService {
     );
   }
 
-  /** GET /nodes/:id/path — returns ordered ancestor IDs from root to parent */
-  getNodePath(id: string): Observable<string[]> {
-    return this.http.get<string[]>(`${this.baseUrl}/topology/nodes/${id}/path`);
+  /** GET /nodes/:id/path — returns ordered ancestors from root to parent */
+  getNodePath(id: string): Observable<NodePath[]> {
+    return this.http.get<NodePath[]>(`${this.baseUrl}/topology/nodes/${id}/path`);
   }
 }

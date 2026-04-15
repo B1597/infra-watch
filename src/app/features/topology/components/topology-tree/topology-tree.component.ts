@@ -9,6 +9,7 @@ import { filter, take } from 'rxjs';
 import { TopologyApiService } from '../../services/topology-api.service';
 import { TopologyDataSource } from '../../services/topology-datasource';
 import { TopologySelectionService } from '../../services/topology-selection.service';
+import { TopologyTreeService } from '../../services/topology-tree.service';
 import { FlatNode } from '../../models/topology-tree.model';
 import { NodePath } from '../../models/topology.model';
 
@@ -22,7 +23,8 @@ export class TopologyTreeComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly topologyApi = inject(TopologyApiService);
-  private readonly selectionService  = inject(TopologySelectionService);
+  private readonly selectionService = inject(TopologySelectionService);
+  private readonly treeService = inject(TopologyTreeService);
 
   treeControl = new FlatTreeControl<FlatNode>(
     node => node.level,
@@ -35,6 +37,28 @@ export class TopologyTreeComponent {
   constructor() {
     this.loadRootNodes();
     this.listenToNodeRouteChanges();
+    this.listenToTreeEvents();
+  }
+
+  private listenToTreeEvents(): void {
+    this.treeService.event$.pipe(takeUntilDestroyed()).subscribe(event => {
+      switch (event.type) {
+        case 'renamed': {
+          const node = this.dataSource.data.find(n => n.id === event.id);
+          if (node) {
+            node.name = event.name;
+            this.dataSource.data = [...this.dataSource.data];
+          }
+          break;
+        }
+        case 'deleted':
+          // todo
+          break;
+        case 'added':
+          // todo
+          break;
+      }
+    });
   }
 
   private loadRootNodes() {
@@ -75,8 +99,8 @@ export class TopologyTreeComponent {
   }
 
   private restoreSelectionByNodeId(nodeId: string): void {
-    this.topologyApi.getNodePath(nodeId).pipe(take(1)).subscribe(ancestorIds => {
-      this.expandAncestorPath(ancestorIds, nodeId);
+    this.topologyApi.getNodePath(nodeId).pipe(take(1)).subscribe(path => {
+      this.expandAncestorPath(path.map(p => p.id), nodeId, path);
     });
   }
 
@@ -84,9 +108,9 @@ export class TopologyTreeComponent {
   // each level must be expanded before the next one becomes available, so we process
   // ancestors sequentially. If children are not yet loaded, we wait for data changes
   // before continuing to the next level. (recursion)
-  private expandAncestorPath(ancestorIds: string[], targetId: string, index = 0): void {
+  private expandAncestorPath(ancestorIds: string[], targetId: string, path: NodePath[], index = 0): void {
     if (index >= ancestorIds.length) {
-      this.selectNodeInTree(targetId);
+      this.selectNodeInTree(targetId, path);
       return;
     }
 
@@ -98,7 +122,7 @@ export class TopologyTreeComponent {
 
     // if children are already loaded, continue immediately
     if (this.dataSource.data.some(n => n.parentId === id)) {
-      this.expandAncestorPath(ancestorIds, targetId, index + 1);
+      this.expandAncestorPath(ancestorIds, targetId, path, index + 1);
       return;
     }
 
@@ -106,12 +130,12 @@ export class TopologyTreeComponent {
     this.dataSource.dataChanged$.pipe(
       filter(() => this.dataSource.data.some(n => n.parentId === id)),
       take(1),
-    ).subscribe(() => this.expandAncestorPath(ancestorIds, targetId, index + 1));
+    ).subscribe(() => this.expandAncestorPath(ancestorIds, targetId, path, index + 1));
   }
 
-  private selectNodeInTree(nodeId: string): void {
+  private selectNodeInTree(nodeId: string, path: NodePath[]): void {
     const node = this.dataSource.data.find(n => n.id === nodeId);
-    if (node) this.selectionService.set({ id: node.id, path: this.buildNodePath(node), type: node.type });
+    if (node) this.selectionService.set({ id: node.id, path: [...path, { id: node.id, name: node.name }], type: node.type });
   }
 
   private buildNodePath(node: FlatNode): NodePath[] {

@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ToastService } from '../../../../../../core/services/toast.service';
 import { TopologyApiService } from '../../../../services/topology-api.service';
+import { TopologyTreeService } from '../../../../services/topology-tree.service';
 import { NodeConfig, NodeDetail, NodeType, UpdateNodeConfig } from '../../../../models/topology.model';
 import { uniqueNameValidator } from '../../../../services/topology.validators';
 import { FieldDef, GroupDef, GROUPS, TYPE_GROUPS } from './node-configuration.config';
@@ -22,6 +23,7 @@ import { FieldDef, GroupDef, GROUPS, TYPE_GROUPS } from './node-configuration.co
 export class NodeConfigurationComponent {
   private route = inject(ActivatedRoute);
   private topologyApi = inject(TopologyApiService);
+  private treeService = inject(TopologyTreeService);
   private toast = inject(ToastService);
   private fb = inject(FormBuilder);
 
@@ -83,6 +85,7 @@ export class NodeConfigurationComponent {
       const selectedNode = this.selectedNode();
       this.syncEnabledControls(selectedNode);
       this.form.patchValue(this.toFormValue(selectedNode, this.nodeConfig()));
+      this.form.markAsPristine();
 
       // update name validator whenever selected node changes, so uniqueness is checked in the correct scope
       const nameControl = this.form.get('name');
@@ -135,7 +138,12 @@ export class NodeConfigurationComponent {
     this.topologyApi.updateNodeConfig(selectedNode.id, payload)
       .pipe(take(1))
       .subscribe({
-        next: () => this.toast.success('Configuration saved'),
+        next: () => {
+          if (payload.name && payload.name !== selectedNode.name) {
+            this.treeService.rename(selectedNode.id, payload.name);
+          }
+          this.toast.success('Configuration saved');
+        },
         error: () => this.toast.error('Could not save configuration'),
         complete: () => this.isSaving.set(false),
       });

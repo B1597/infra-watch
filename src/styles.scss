@@ -4,6 +4,7 @@
 @use './styles/button' as button;
 @use './styles/topology-tree' as topologyTree;
 @use './styles/snack-bar' as snackBar;
+@use './styles/scrollbar' as scrollbar;
 
 @include mat.core();
 
@@ -60,6 +61,8 @@ $theme: mat.define-theme((
 @include button.overrides();
 @include topologyTree.overrides();
 @include snackBar.overrides();
+@include scrollbar.overrides();
+
 
 *,
 *::before,
