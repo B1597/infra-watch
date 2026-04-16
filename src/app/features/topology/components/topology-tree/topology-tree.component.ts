@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FlatTreeControl } from '@angular/cdk/tree';
+import { CdkContextMenuTrigger, CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -9,13 +10,13 @@ import { filter, take } from 'rxjs';
 import { TopologyApiService } from '../../services/topology-api.service';
 import { TopologyDataSource } from '../../services/topology-datasource';
 import { TopologySelectionService } from '../../services/topology-selection.service';
-import { TopologyTreeService } from '../../services/topology-tree.service';
+import { TopologyTreeActionsService } from '../../services/topology-tree-actions.service';
 import { FlatNode } from '../../models/topology-tree.model';
 import { NodePath } from '../../models/topology.model';
 
 @Component({
   selector: 'app-topology-tree',
-  imports: [MatTreeModule, MatIcon, MatProgressSpinnerModule],
+  imports: [MatTreeModule, MatIcon, MatProgressSpinnerModule, CdkContextMenuTrigger, CdkMenu, CdkMenuItem],
   templateUrl: './topology-tree.component.html',
   styleUrl: './topology-tree.component.scss',
 })
@@ -24,7 +25,7 @@ export class TopologyTreeComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly topologyApi = inject(TopologyApiService);
   private readonly selectionService = inject(TopologySelectionService);
-  private readonly treeService = inject(TopologyTreeService);
+  readonly treeActions = inject(TopologyTreeActionsService);
 
   treeControl = new FlatTreeControl<FlatNode>(
     node => node.level,
@@ -34,6 +35,8 @@ export class TopologyTreeComponent {
   hasChild = (_: number, node: FlatNode) => node.hasChildren;
   isSelected = (node: FlatNode) => this.selectionService.selection()?.id === node.id;
 
+  contextNode = signal<FlatNode | null>(null);
+
   constructor() {
     this.loadRootNodes();
     this.listenToNodeRouteChanges();
@@ -41,7 +44,7 @@ export class TopologyTreeComponent {
   }
 
   private listenToTreeEvents(): void {
-    this.treeService.event$.pipe(takeUntilDestroyed()).subscribe(event => {
+    this.treeActions.event$.pipe(takeUntilDestroyed()).subscribe(event => {
       switch (event.type) {
         case 'renamed': {
           const node = this.dataSource.data.find(n => n.id === event.id);
@@ -55,6 +58,9 @@ export class TopologyTreeComponent {
           // todo
           break;
         case 'added':
+          // todo
+          break;
+        case 'refreshed':
           // todo
           break;
       }

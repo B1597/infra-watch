@@ -5,6 +5,7 @@
 @use './styles/topology-tree' as topologyTree;
 @use './styles/snack-bar' as snackBar;
 @use './styles/scrollbar' as scrollbar;
+@use './styles/dialog' as dialog;
 
 @include mat.core();
 
@@ -62,7 +63,7 @@ $theme: mat.define-theme((
 @include topologyTree.overrides();
 @include snackBar.overrides();
 @include scrollbar.overrides();
-
+@include dialog.overrides();
 
 *,
 *::before,

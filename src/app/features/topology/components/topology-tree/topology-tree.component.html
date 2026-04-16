@@ -6,6 +6,8 @@
                    matTreeNodePadding [matTreeNodePaddingIndent]="22">
       <div class="topology-tree__row"
            [class.is-selected]="isSelected(node)"
+           [cdkContextMenuTriggerFor]="contextMenu"
+           (cdkContextMenuOpened)="contextNode.set(node)"
            (click)="openNode(node)">
         <span class="topology-tree__toggle-placeholder"></span>
         <div class="topology-tree__content">
@@ -28,6 +30,8 @@
                    matTreeNodePadding [matTreeNodePaddingIndent]="22">
       <div class="topology-tree__row"
            [class.is-selected]="isSelected(node)"
+           [cdkContextMenuTriggerFor]="contextMenu"
+           (cdkContextMenuOpened)="contextNode.set(node)"
            (click)="openNode(node)">
         <mat-icon class="topology-tree__toggle mat-icon-rtl-mirror"
                   matTreeNodeToggle
@@ -56,3 +60,86 @@
 
   </mat-tree>
 </div>
+
+<ng-template #contextMenu>
+  <div class="topology-tree__context-menu" cdkMenu>
+
+    <!-- Add actions -->
+    @if (contextNode()?.type === 'datacenter') {
+      <button class="topology-tree__context-item" cdkMenuItem
+              (click)="treeActions.addRack(contextNode()!.id)">
+        <mat-icon>add</mat-icon>
+        Add Rack
+      </button>
+    }
+    @if (contextNode()?.type === 'rack') {
+      <button class="topology-tree__context-item" cdkMenuItem
+              (click)="treeActions.addDevice(contextNode()!.id)">
+        <mat-icon>add</mat-icon>
+        Add Device
+      </button>
+    }
+
+    <!-- Edit -->
+    <button class="topology-tree__context-item" cdkMenuItem
+            (click)="treeActions.navigateToConfiguration(contextNode()!.id)">
+      <mat-icon>edit</mat-icon>
+      Edit
+    </button>
+
+    <div class="topology-tree__context-divider"></div>
+
+    <!-- Device actions -->
+    @if (!['datacenter', 'rack'].includes(contextNode()?.type!)) {
+
+      <!-- Power actions -->
+      @if (['server', 'vm', 'storage'].includes(contextNode()?.type!)) {
+        <button class="topology-tree__context-item" cdkMenuItem
+                [disabled]="contextNode()?.status === 'online'"
+                (click)="treeActions.powerOn(contextNode()!.id)">
+          <mat-icon>power_settings_new</mat-icon>
+          Power On
+        </button>
+        <button class="topology-tree__context-item" cdkMenuItem
+                [disabled]="contextNode()?.status === 'offline'"
+                (click)="treeActions.shutdown(contextNode()!.id)">
+          <mat-icon>power_off</mat-icon>
+          Shutdown
+        </button>
+        <button class="topology-tree__context-item" cdkMenuItem
+                [disabled]="contextNode()?.status === 'offline'"
+                (click)="treeActions.reboot(contextNode()!.id)">
+          <mat-icon>restart_alt</mat-icon>
+          Reboot
+        </button>
+        <div class="topology-tree__context-divider"></div>
+      }
+
+      <!-- Logs -->
+      <button class="topology-tree__context-item" cdkMenuItem
+              (click)="treeActions.viewLogs(contextNode()!.id)">
+        <mat-icon>article</mat-icon>
+        View Logs
+      </button>
+
+      <div class="topology-tree__context-divider"></div>
+    }
+
+    <!-- Refresh -->
+    <button class="topology-tree__context-item" cdkMenuItem
+            (click)="treeActions.refresh(contextNode()!.id)">
+      <mat-icon>refresh</mat-icon>
+      Refresh
+    </button>
+
+    <div class="topology-tree__context-divider"></div>
+
+    <!-- Delete -->
+    <button class="topology-tree__context-item topology-tree__context-item--danger" cdkMenuItem
+            (click)="treeActions.delete(contextNode()!.id, contextNode()!.name, contextNode()!.type)">
+      <mat-icon>delete_outline</mat-icon>
+      Delete
+    </button>
+
+  </div>
+</ng-template>

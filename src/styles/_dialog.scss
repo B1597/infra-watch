@@ -1,0 +1,9 @@
+@use '@angular/material' as mat;
+
+@mixin overrides() {
+  :root {
+    @include mat.dialog-overrides((
+      container-shape: 14px,
+    ));
+  }
+}

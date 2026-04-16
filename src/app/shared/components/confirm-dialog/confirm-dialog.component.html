@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+
+<mat-dialog-content>
+  <p>{{ data.message }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button [disabled]="isLoading()" (click)="cancel()">Cancel</button>
+  <button mat-flat-button
+          [class.confirm-dialog__confirm--danger]="data.isDanger"
+          [disabled]="isLoading()"
+          [attr.aria-busy]="isLoading() ? 'true' : null"
+          (click)="confirm()">
+    @if (isLoading()) {
+      <span class="confirm-dialog__loading">
+        <mat-spinner diameter="14" strokeWidth="2" />
+        <span>Loading...</span>
+      </span>
+    } @else {
+      {{ data.confirmText ?? 'Confirm' }}
+    }
+  </button>
+</mat-dialog-actions>

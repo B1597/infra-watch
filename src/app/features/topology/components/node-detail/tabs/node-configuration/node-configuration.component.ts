@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ToastService } from '../../../../../../core/services/toast.service';
 import { TopologyApiService } from '../../../../services/topology-api.service';
-import { TopologyTreeService } from '../../../../services/topology-tree.service';
+import { TopologyTreeActionsService } from '../../../../services/topology-tree-actions.service';
 import { NodeConfig, NodeDetail, NodeType, UpdateNodeConfig } from '../../../../models/topology.model';
 import { uniqueNameValidator } from '../../../../services/topology.validators';
 import { FieldDef, GroupDef, GROUPS, TYPE_GROUPS } from './node-configuration.config';
@@ -23,7 +23,7 @@ import { FieldDef, GroupDef, GROUPS, TYPE_GROUPS } from './node-configuration.co
 export class NodeConfigurationComponent {
   private route = inject(ActivatedRoute);
   private topologyApi = inject(TopologyApiService);
-  private treeService = inject(TopologyTreeService);
+  private treeActions = inject(TopologyTreeActionsService);
   private toast = inject(ToastService);
   private fb = inject(FormBuilder);
 
@@ -140,7 +140,7 @@ export class NodeConfigurationComponent {
       .subscribe({
         next: () => {
           if (payload.name && payload.name !== selectedNode.name) {
-            this.treeService.rename(selectedNode.id, payload.name);
+            this.treeActions.rename(selectedNode.id, payload.name);
           }
           this.toast.success('Configuration saved');
         },
