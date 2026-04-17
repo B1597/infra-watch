@@ -14,7 +14,10 @@
     </div>
 
     @if (!collapsed()) {
-      <app-topology-tree [filter]="searchQuery()" />
+      <app-topology-tree
+        [searchQuery]="searchQuery()"
+        [searchResults]="searchResults()"
+        (searchResultSelected)="onSearchResultSelected()" />
     }
   </div>
 

@@ -1,6 +1,6 @@
 import { CollectionViewer, DataSource, SelectionChange } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { BehaviorSubject, map, merge, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import { finalize, take } from 'rxjs/operators';
 import { FlatNode, TreeItem } from '../models/topology-tree.model';
 import { TopologyApiService } from './topology-api.service';
@@ -20,22 +20,20 @@ export class TopologyDataSource implements DataSource<FlatNode> {
   constructor(
     private treeControl: FlatTreeControl<FlatNode>,
     private api: TopologyApiService,
-  ) {}
-
-  connect(viewer: CollectionViewer): Observable<FlatNode[]> {
+  ) {
     this.sub.add(
       this.treeControl.expansionModel.changed.subscribe((change: SelectionChange<FlatNode>) => {
         change.added?.forEach(node => this.toggle(node, true));
         [...(change.removed ?? [])].reverse().forEach(node => this.toggle(node, false));
       })
     );
-    return merge(viewer.viewChange, this.dataChange).pipe(map(() => this.data));
   }
 
-  disconnect(): void {
-    this.sub.unsubscribe();
-    this.dataChange.complete();
+  connect(_collectionViewer: CollectionViewer): Observable<FlatNode[]> {
+    return this.dataChange.pipe(map(() => this.data));
   }
+
+  disconnect(): void {}
 
   private toggle(node: FlatNode, expand: boolean): void {
     const index = this.data.indexOf(node);

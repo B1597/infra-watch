@@ -141,6 +141,37 @@
     color: var(--color-text-secondary);
   }
 
+  &__row--search {
+    min-height: 44px;
+    align-items: flex-start;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  &__content--search {
+    align-items: flex-start;
+    padding-top: 2px;
+  }
+
+  &__search-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  &__search-path {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    line-height: 1.3;
+  }
+
+  &__highlight {
+    background: color-mix(in srgb, var(--color-primary) 18%, transparent);
+    color: var(--color-primary);
+    border-radius: 2px;
+    font-style: normal;
+  }
+
   &__status {
     width: 8px;
     height: 8px;

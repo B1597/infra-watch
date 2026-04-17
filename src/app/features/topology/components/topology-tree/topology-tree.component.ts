@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FlatTreeControl } from '@angular/cdk/tree';
@@ -12,7 +12,7 @@ import { TopologyDataSource } from '../../services/topology-datasource';
 import { TopologySelectionService } from '../../services/topology-selection.service';
 import { TopologyTreeActionsService } from '../../services/topology-tree-actions.service';
 import { FlatNode } from '../../models/topology-tree.model';
-import { NodePath } from '../../models/topology.model';
+import { NodePath, NodeSearchResult } from '../../models/topology.model';
 
 @Component({
   selector: 'app-topology-tree',
@@ -24,10 +24,12 @@ export class TopologyTreeComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly topologyApi = inject(TopologyApiService);
-  private readonly selectionService = inject(TopologySelectionService);
+  readonly selectionService = inject(TopologySelectionService);
   readonly treeActions = inject(TopologyTreeActionsService);
 
-  filter = input('');
+  searchQuery   = input('');
+  searchResults = input<NodeSearchResult[]>([]);
+  searchResultSelected = output();
 
   treeControl = new FlatTreeControl<FlatNode>(
     node => node.level,
@@ -36,13 +38,6 @@ export class TopologyTreeComponent {
   dataSource = new TopologyDataSource(this.treeControl, this.topologyApi);
   hasChild = (_: number, node: FlatNode) => node.hasChildren;
   isSelected = (node: FlatNode) => this.selectionService.selection()?.id === node.id;
-
-  private readonly allNodes = toSignal(this.dataSource.dataChanged$, { initialValue: [] });
-  readonly filteredNodes = computed(() => {
-    const q = this.filter().toLowerCase().trim();
-    if (!q) return [];
-    return this.allNodes().filter(n => n.name.toLowerCase().includes(q));
-  });
 
   contextNode = signal<FlatNode | null>(null);
 
@@ -105,6 +100,16 @@ export class TopologyTreeComponent {
     this.router.navigate(['/topology', node.id, this.activeTab()]);
   }
 
+  selectSearchResult(result: NodeSearchResult): void {
+    const ancestorIds = result.path.map(p => p.id);
+    const fullPath: NodePath[] = [...result.path, { id: result.id, name: result.name }];
+    
+    this.selectionService.set({ id: result.id, path: fullPath, type: result.type });
+    this.expandAncestorPath(ancestorIds, result.id, fullPath);
+    this.router.navigate(['/topology', result.id, this.activeTab()]);
+    this.searchResultSelected.emit();
+  }
+
   // preserving the active tab when navigating between nodes
   private activeTab(): string {
     const segments = this.router.url.split('/').filter(Boolean);
@@ -162,6 +167,18 @@ export class TopologyTreeComponent {
       currentNode = currentNode.parentId ? byId.get(currentNode.parentId) : undefined;
     }
     return items;
+  }
+
+  highlightSearchParts(name: string, query: string): { text: string; match: boolean }[] {
+    const q = query.trim();
+    if (!q) return [{ text: name, match: false }];
+    const idx = name.toLowerCase().indexOf(q.toLowerCase());
+    if (idx === -1) return [{ text: name, match: false }];
+    return [
+      { text: name.slice(0, idx), match: false },
+      { text: name.slice(idx, idx + q.length), match: true },
+      { text: name.slice(idx + q.length), match: false },
+    ].filter(part => part.text.length > 0);
   }
 
   readonly nodeIcons: Record<string, string> = {

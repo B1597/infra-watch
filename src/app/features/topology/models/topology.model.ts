@@ -4,6 +4,7 @@ export type TimeRange   = '1H' | '6H' | '24H' | '7D';
 export interface NodePath {
   id: string;
   name: string;
+  type?: string;
 }
 
 export interface MetricsValues {
@@ -12,6 +13,15 @@ export interface MetricsValues {
   network: { in: number[]; out: number[] };
 }
 export type NodeType = 'datacenter' | 'rack' | 'server' | 'vm' | 'service' | 'switch' | 'router' | 'storage';
+
+export interface NodeSearchResult {
+  id: string;
+  name: string;
+  type: NodeType;
+  status: NodeStatus;
+  parentId?: string;
+  path: NodePath[];
+}
 
 export interface NodeHardware {
   cpuCores?: number;

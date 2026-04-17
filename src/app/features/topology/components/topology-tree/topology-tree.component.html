@@ -1,27 +1,40 @@
 <div class="tree-body">
 
-  @if (filter()) {
+  @if (searchQuery()) {
     <div class="topology-tree__search-results">
-      @if (filteredNodes().length === 0) {
-        <span class="topology-tree__search-empty">No results for "{{ filter() }}"</span>
+      @if (searchResults().length === 0) {
+        <span class="topology-tree__search-empty">No results for "{{ searchQuery() }}"</span>
       } @else {
-        @for (node of filteredNodes(); track node.id) {
-          <div class="topology-tree__row"
-               [class.is-selected]="isSelected(node)"
-               [cdkContextMenuTriggerFor]="contextMenu"
-               (cdkContextMenuOpened)="contextNode.set(node)"
-               (click)="openNode(node)">
+        @for (result of searchResults(); track result.id) {
+          <div class="topology-tree__row topology-tree__row--search"
+               [class.is-selected]="selectionService.selection()?.id === result.id"
+               (click)="selectSearchResult(result)">
             <span class="topology-tree__toggle-placeholder"></span>
-            <div class="topology-tree__content">
-              <mat-icon class="topology-tree__icon">{{ nodeIcons[node.type] }}</mat-icon>
-              <span class="topology-tree__label">{{ node.name }}</span>
+            <div class="topology-tree__content topology-tree__content--search">
+              <mat-icon class="topology-tree__icon">{{ nodeIcons[result.type] }}</mat-icon>
+              <div class="topology-tree__search-info">
+                @if (result.path.length > 0) {
+                  <span class="topology-tree__search-path">
+                    {{ result.path.map(p => p.name).join(' / ') }}
+                  </span>
+                }
+                <span class="topology-tree__label">
+                  @for (part of highlightSearchParts(result.name, searchQuery()); track $index) {
+                    @if (part.match) {
+                      <mark class="topology-tree__highlight">{{ part.text }}</mark>
+                    } @else {
+                      {{ part.text }}
+                    }
+                  }
+                </span>
+              </div>
             </div>
             <span class="topology-tree__spacer"></span>
-            @if (node.status === 'critical') {
+            @if (result.status === 'critical') {
               <span class="topology-tree__status topology-tree__status--red"></span>
-            } @else if (node.status === 'warning' || node.status === 'maintenance') {
+            } @else if (result.status === 'warning' || result.status === 'maintenance') {
               <span class="topology-tree__status topology-tree__status--yellow"></span>
-            } @else if (node.status === 'offline') {
+            } @else if (result.status === 'offline') {
               <span class="topology-tree__status topology-tree__status--gray"></span>
             }
           </div>
