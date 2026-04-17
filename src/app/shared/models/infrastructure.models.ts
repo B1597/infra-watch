@@ -1,5 +1,5 @@
 export type AlertSeverity = 'critical' | 'warning' | 'info';
-export type AlertStatus   = 'active' | 'acknowledged';
+export type AlertStatus   = 'active' | 'acknowledged' | 'resolved';
 
 export interface NavItem {
   label: string;

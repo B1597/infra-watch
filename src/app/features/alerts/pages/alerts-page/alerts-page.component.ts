@@ -44,19 +44,29 @@ export class AlertsPageComponent implements OnInit {
   }
 
   acknowledge(id: string): void {
-    const updated = this.alerts().map((a) =>
-      a.id === id
-        ? { ...a, status: 'acknowledged' as const, acknowledgedBy: 'admin' }
-        : a,
-    );
-    this.alerts.set(updated);
-    this.alertsStore.setAlerts(updated);
+    this.apiService
+      .acknowledgeAlert(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (updated) => {
+          const alerts = this.alerts().map((a) => (a.id === id ? updated : a));
+          this.alerts.set(alerts);
+          this.alertsStore.setAlerts(alerts);
+        },
+      });
   }
 
   resolve(id: string): void {
-    const updated = this.alerts().filter((a) => a.id !== id);
-    this.alerts.set(updated);
-    this.alertsStore.setAlerts(updated);
+    this.apiService
+      .resolveAlert(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          const alerts = this.alerts().filter((a) => a.id !== id);
+          this.alerts.set(alerts);
+          this.alertsStore.setAlerts(alerts);
+        },
+      });
   }
 
   severityIcon(severity: AlertSeverity): string {

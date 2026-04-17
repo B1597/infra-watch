@@ -12,4 +12,16 @@ export class AlertsApiService {
   getAlerts(): Observable<InfraAlert[]> {
     return this.http.get<InfraAlert[]>(`${this.baseUrl}/alerts`);
   }
+
+  getAlertById(id: string): Observable<InfraAlert> {
+    return this.http.get<InfraAlert>(`${this.baseUrl}/alerts/${id}`);
+  }
+
+  acknowledgeAlert(id: string): Observable<InfraAlert> {
+    return this.http.patch<InfraAlert>(`${this.baseUrl}/alerts/${id}/acknowledge`, {});
+  }
+
+  resolveAlert(id: string): Observable<InfraAlert> {
+    return this.http.patch<InfraAlert>(`${this.baseUrl}/alerts/${id}/resolve`, {});
+  }
 }

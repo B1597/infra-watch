@@ -1,6 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { CdkContextMenuTrigger, CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 import { MatTreeModule } from '@angular/material/tree';
@@ -27,6 +27,8 @@ export class TopologyTreeComponent {
   private readonly selectionService = inject(TopologySelectionService);
   readonly treeActions = inject(TopologyTreeActionsService);
 
+  filter = input('');
+
   treeControl = new FlatTreeControl<FlatNode>(
     node => node.level,
     node => node.hasChildren,
@@ -34,6 +36,13 @@ export class TopologyTreeComponent {
   dataSource = new TopologyDataSource(this.treeControl, this.topologyApi);
   hasChild = (_: number, node: FlatNode) => node.hasChildren;
   isSelected = (node: FlatNode) => this.selectionService.selection()?.id === node.id;
+
+  private readonly allNodes = toSignal(this.dataSource.dataChanged$, { initialValue: [] });
+  readonly filteredNodes = computed(() => {
+    const q = this.filter().toLowerCase().trim();
+    if (!q) return [];
+    return this.allNodes().filter(n => n.name.toLowerCase().includes(q));
+  });
 
   contextNode = signal<FlatNode | null>(null);
 

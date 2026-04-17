@@ -16,11 +16,13 @@ import { TopologySelectionService } from '../../services/topology-selection.serv
 export class TopologyPageComponent implements OnInit {
   private readonly layoutService = inject(LayoutService);
   readonly sel = inject(TopologySelectionService);
-  collapsed = signal(false);
+  collapsed    = signal(false);
+  searchQuery  = signal('');
 
   ngOnInit(): void {
     this.layoutService.setPage('Topology');
   }
 
   toggle() { this.collapsed.update(v => !v); }
+  onSearch(event: Event) { this.searchQuery.set((event.target as HTMLInputElement).value); }
 }

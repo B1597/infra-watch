@@ -1,4 +1,35 @@
 <div class="tree-body">
+
+  @if (filter()) {
+    <div class="topology-tree__search-results">
+      @if (filteredNodes().length === 0) {
+        <span class="topology-tree__search-empty">No results for "{{ filter() }}"</span>
+      } @else {
+        @for (node of filteredNodes(); track node.id) {
+          <div class="topology-tree__row"
+               [class.is-selected]="isSelected(node)"
+               [cdkContextMenuTriggerFor]="contextMenu"
+               (cdkContextMenuOpened)="contextNode.set(node)"
+               (click)="openNode(node)">
+            <span class="topology-tree__toggle-placeholder"></span>
+            <div class="topology-tree__content">
+              <mat-icon class="topology-tree__icon">{{ nodeIcons[node.type] }}</mat-icon>
+              <span class="topology-tree__label">{{ node.name }}</span>
+            </div>
+            <span class="topology-tree__spacer"></span>
+            @if (node.status === 'critical') {
+              <span class="topology-tree__status topology-tree__status--red"></span>
+            } @else if (node.status === 'warning' || node.status === 'maintenance') {
+              <span class="topology-tree__status topology-tree__status--yellow"></span>
+            } @else if (node.status === 'offline') {
+              <span class="topology-tree__status topology-tree__status--gray"></span>
+            }
+          </div>
+        }
+      }
+    </div>
+  } @else {
+
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="topology-tree">
 
     <!-- Leaf node -->
@@ -57,8 +88,10 @@
         }
       </div>
     </mat-tree-node>
-
   </mat-tree>
+
+  }
+
 </div>
 
 <ng-template #contextMenu>

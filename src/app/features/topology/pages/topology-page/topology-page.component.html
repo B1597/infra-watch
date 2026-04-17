@@ -5,7 +5,7 @@
       @if (!collapsed()) {
         <mat-form-field appearance="outline" subscriptSizing="dynamic" class="topology-page__search">
           <mat-icon matPrefix>search</mat-icon>
-          <input matInput placeholder="Search topology..." />
+          <input matInput placeholder="Search topology..." [value]="searchQuery()" (input)="onSearch($event)" />
         </mat-form-field>
       }
       <button class="topology-page__toggle" (click)="toggle()">
@@ -14,7 +14,7 @@
     </div>
 
     @if (!collapsed()) {
-      <app-topology-tree />
+      <app-topology-tree [filter]="searchQuery()" />
     }
   </div>
 
