@@ -4,6 +4,12 @@ A demo Angular application simulating an enterprise monitoring platform, providi
 
 ---
 
+## Live Demo
+
+[https://infra-watch-eta.vercel.app](https://infra-watch-eta.vercel.app)
+
+---
+
 ## Screenshots
 
 ### Dashboard
