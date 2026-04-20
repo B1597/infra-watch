@@ -102,10 +102,7 @@ export class TopologyTreeComponent {
 
   selectSearchResult(result: NodeSearchResult): void {
     const ancestorIds = result.path.map(p => p.id);
-    const fullPath: NodePath[] = [...result.path, { id: result.id, name: result.name }];
-    
-    this.selectionService.set({ id: result.id, path: fullPath, type: result.type });
-    this.expandAncestorPath(ancestorIds, result.id, fullPath);
+    this.expandAncestorPath(ancestorIds, result.id, result.path);
     this.router.navigate(['/topology', result.id, this.activeTab()]);
     this.searchResultSelected.emit();
   }

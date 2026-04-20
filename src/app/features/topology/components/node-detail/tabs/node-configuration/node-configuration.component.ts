@@ -119,7 +119,7 @@ export class NodeConfigurationComponent {
   saveConfig(): void {
     const selectedNode = this.selectedNode();
     if (!selectedNode) return;
-    if (this.form.invalid) {
+    if (this.form.pending || this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
@@ -139,7 +139,7 @@ export class NodeConfigurationComponent {
       .pipe(take(1))
       .subscribe({
         next: () => {
-          if (payload.name && payload.name !== selectedNode.name) {
+          if (payload.name) {
             this.treeActions.rename(selectedNode.id, payload.name);
           }
           this.toast.success('Configuration saved');

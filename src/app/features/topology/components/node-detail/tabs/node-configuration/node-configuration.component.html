@@ -45,7 +45,7 @@
 
   <div class="config__actions">
     <button mat-stroked-button type="button" (click)="resetConfig()">Reset</button>
-    <button mat-flat-button color="primary" type="button" (click)="saveConfig()" [disabled]="!form.dirty || form.invalid || form.pending || isSaving()">Save Changes</button>
+    <button mat-flat-button color="primary" type="button" (click)="saveConfig()" [disabled]="!form.dirty || form.invalid || isSaving()">Save Changes</button>
   </div>
 
 </form>

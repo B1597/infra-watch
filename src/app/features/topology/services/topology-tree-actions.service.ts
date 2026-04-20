@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject, tap } from 'rxjs';
+import { Subject, tap, of } from 'rxjs';
 import { TreeItem } from '../models/topology-tree.model';
 import { TopologySelectionService } from './topology-selection.service';
 import { TopologyApiService } from './topology-api.service';
@@ -44,6 +44,7 @@ export class TopologyTreeActionsService {
         message,
         confirmText: 'Delete',
         isDanger: true,
+        onConfirm: () => of(null),
         // onConfirm: () => this.topologyApi.deleteNode(id).pipe(
         //   tap(() => this._event$.next({ type: 'deleted', id }))
         // ),
