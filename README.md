@@ -4,9 +4,11 @@ A demo Angular application simulating an enterprise monitoring platform, providi
 
 ---
 
-## Live Demo
+## Deployment
 
-[https://infra-watch-eta.vercel.app](https://infra-watch-eta.vercel.app)
+**Frontend:** [https://infra-watch-eta.vercel.app](https://infra-watch-eta.vercel.app) — deployed automatically via GitHub Actions on every push to `develop`
+
+**Backend:** hosted on Render free tier — first request may take ~30 seconds if the service is sleeping.
 
 ---
 
@@ -75,7 +77,7 @@ src/app/
 
 ## Data & Backend
 
-Uses mock data for demonstration purposes; backend integration planned via Node.js (NestJS).
+Backend built with NestJS — [https://github.com/B1597/infrawatch-api](https://github.com/B1597/infrawatch-api)
 
 ---
 
