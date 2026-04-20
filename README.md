@@ -94,4 +94,4 @@ Then open: `http://localhost:4200`
 
 ## Status
 
-Work in progress — additional features and backend integration are planned.
+Work in progress — additional features planned.
