@@ -69,6 +69,11 @@ export class TopologyApiService {
     return this.http.get<NodePath[]>(`${this.baseUrl}/topology/nodes/${id}/path`);
   }
 
+  /** DELETE /nodes/:id */
+  deleteNode(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/topology/nodes/${id}`);
+  }
+
   /** GET /nodes/search?q= — returns matched nodes with full ancestor path */
   searchNodes(q: string): Observable<NodeSearchResult[]> {
     return this.http.get<NodeSearchResult[]>(`${this.baseUrl}/topology/nodes/search`, {

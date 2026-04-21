@@ -10,6 +10,7 @@ import { ErrorStateComponent } from '../../../../shared/components/error-state/e
 import { TopologyTreeSkeletonComponent } from '../topology-tree-skeleton/topology-tree-skeleton.component';
 import { filter, take } from 'rxjs';
 import { TopologyApiService } from '../../services/topology-api.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { TopologyDataSource } from '../../services/topology-datasource';
 import { TopologySelectionService } from '../../services/topology-selection.service';
 import { TopologyTreeActionsService } from '../../services/topology-tree-actions.service';
@@ -28,6 +29,7 @@ export class TopologyTreeComponent {
   private readonly topologyApi = inject(TopologyApiService);
   readonly selectionService = inject(TopologySelectionService);
   readonly treeActions = inject(TopologyTreeActionsService);
+  private readonly toast = inject(ToastService);
 
   searchQuery   = input('');
   searchResults = input<NodeSearchResult[]>([]);
@@ -63,7 +65,7 @@ export class TopologyTreeComponent {
           break;
         }
         case 'deleted':
-          // todo
+          this.removeNodeFromTree(event.id);
           break;
         case 'added':
           // todo
@@ -160,6 +162,18 @@ export class TopologyTreeComponent {
       filter(() => this.dataSource.data.some(n => n.parentId === id)),
       take(1),
     ).subscribe(() => this.expandAncestorPath(ancestorIds, targetId, path, index + 1));
+  }
+
+  private removeNodeFromTree(id: string): void {
+    const name = this.dataSource.data.find(n => n.id === id)?.name;
+    this.dataSource.remove(id);
+    const selection = this.selectionService.selection();
+    const isAffected = selection?.id === id || selection?.path.some(p => p.id === id);
+    if (isAffected) {
+      this.selectionService.clear();
+      this.router.navigate(['/topology']);
+    }
+    this.toast.success(name ? `"${name}" deleted` : 'Node deleted');
   }
 
   private selectNodeInTree(nodeId: string, path: NodePath[]): void {

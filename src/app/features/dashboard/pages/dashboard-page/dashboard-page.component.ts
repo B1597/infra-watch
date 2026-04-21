@@ -35,7 +35,7 @@ export class DashboardPageComponent implements OnInit {
   readonly stats = signal<InfraStats | null>(null);
   readonly health = signal<SystemHealth | null>(null);
   readonly alerts = signal<InfraAlert[]>([]);
-  readonly recentAlerts = computed(() => this.alerts().slice(0, 5));
+  readonly recentAlerts = computed(() => this.alerts().slice(0, 3));
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
 

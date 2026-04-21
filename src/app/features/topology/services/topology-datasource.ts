@@ -86,4 +86,13 @@ export class TopologyDataSource implements DataSource<FlatNode> {
       this.dataChange.next(this.data);
     }
   }
+
+  remove(id: string): void {
+    const index = this.data.findIndex(n => n.id === id);
+    if (index === -1) return;
+    const level = this.data[index].level;
+    let count = 1;
+    while (index + count < this.data.length && this.data[index + count].level > level) count++;
+    this.data = this.data.filter((_, i) => i < index || i >= index + count);
+  }
 }

@@ -185,11 +185,13 @@
     <div class="topology-tree__context-divider"></div>
 
     <!-- Delete -->
-    <button class="topology-tree__context-item topology-tree__context-item--danger" cdkMenuItem
-            (click)="treeActions.delete(contextNode()!.id, contextNode()!.name, contextNode()!.type)">
-      <mat-icon>delete_outline</mat-icon>
-      Delete
-    </button>
+    @if (contextNode()?.type !== 'datacenter') {
+      <button class="topology-tree__context-item topology-tree__context-item--danger" cdkMenuItem
+              (click)="treeActions.delete(contextNode()!.id, contextNode()!.name, contextNode()!.type)">
+        <mat-icon>delete_outline</mat-icon>
+        Delete
+      </button>
+    }
 
   </div>
 </ng-template>
