@@ -7,9 +7,9 @@
   </div>
 
   @if (isLoading()) {
-    <div class="alerts-page__loading">
-      <mat-spinner diameter="48" />
-    </div>
+    <app-alerts-skeleton />
+  } @else if (hasError()) {
+    <app-error-state message="Failed to load alerts" (retry)="loadAlerts()" />
   } @else {
     <div class="alert-list">
       @for (alert of alerts(); track alert.id) {

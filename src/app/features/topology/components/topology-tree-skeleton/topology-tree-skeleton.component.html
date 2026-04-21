@@ -1,0 +1,7 @@
+@for (width of rows; track $index) {
+  <div class="tree-skeleton-row">
+    <app-skeleton-block width="20px" height="20px" radius="4px" />
+    <app-skeleton-block width="20px" height="20px" radius="4px" />
+    <app-skeleton-block [width]="width" height="14px" />
+  </div>
+}

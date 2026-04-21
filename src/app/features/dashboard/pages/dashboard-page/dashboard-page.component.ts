@@ -1,5 +1,6 @@
 import { Component, DestroyRef, OnInit, computed, inject, signal } from '@angular/core';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DashboardSkeletonComponent } from '../../components/dashboard-skeleton/dashboard-skeleton.component';
+import { ErrorStateComponent } from '../../../../shared/components/error-state/error-state.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { LayoutService } from '../../../../core/services/layout.service';
@@ -16,7 +17,8 @@ import { RecentAlertsCardComponent } from '../../components/recent-alerts-card/r
   selector: 'app-dashboard-page',
   standalone: true,
   imports: [
-    MatProgressSpinnerModule,
+    DashboardSkeletonComponent,
+    ErrorStateComponent,
     DashboardStatCardsComponent,
     InfrastructureOverviewCardComponent,
     SystemHealthCardComponent,
@@ -35,13 +37,16 @@ export class DashboardPageComponent implements OnInit {
   readonly alerts = signal<InfraAlert[]>([]);
   readonly recentAlerts = computed(() => this.alerts().slice(0, 5));
   readonly isLoading = signal(true);
+  readonly hasError = signal(false);
 
   ngOnInit(): void {
     this.layoutService.setPage('Dashboard');
     this.loadDashboard();
   }
 
-  private loadDashboard(): void {
+  loadDashboard(): void {
+    this.isLoading.set(true);
+    this.hasError.set(false);
     this.dashboardService
       .loadDashboardData()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -56,6 +61,7 @@ export class DashboardPageComponent implements OnInit {
         },
         error: () => {
           this.isLoading.set(false);
+          this.hasError.set(true);
         },
       });
   }

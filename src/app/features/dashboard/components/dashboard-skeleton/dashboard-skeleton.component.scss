@@ -1,0 +1,110 @@
+.dashboard-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stat-cards-skeleton {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.skeleton-card {
+  background: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &:has(.skeleton-card__content) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+
+.overview-grid-skeleton {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.overview-item-skeleton {
+  background: #f8f9fb;
+  border-radius: var(--radius-md);
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.health-list-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 4px;
+}
+
+.health-item-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.alerts-list-skeleton {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4px;
+}
+
+.alert-item-skeleton {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border);
+
+  &:last-child { border-bottom: none; }
+
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.skeleton-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 1100px) {
+  .stat-cards-skeleton { grid-template-columns: repeat(2, 1fr); }
+  .overview-grid-skeleton { grid-template-columns: repeat(3, 1fr); }
+  .skeleton-bottom { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .stat-cards-skeleton { grid-template-columns: 1fr; }
+  .overview-grid-skeleton { grid-template-columns: repeat(2, 1fr); }
+}

@@ -1,6 +1,10 @@
 <div class="tree-body">
 
-  @if (searchQuery()) {
+  @if (loadError()) {
+    <app-error-state message="Failed to load topology" [compact]="true" (retry)="loadRootNodes()" />
+  } @else if (isLoadingRoots()) {
+    <app-topology-tree-skeleton />
+  } @else if (searchQuery()) {
     <div class="topology-tree__search-results">
       @if (searchResults().length === 0) {
         <span class="topology-tree__search-empty">No results for "{{ searchQuery() }}"</span>

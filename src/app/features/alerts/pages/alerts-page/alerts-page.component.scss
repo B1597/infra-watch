@@ -17,11 +17,6 @@
     color: var(--color-text-secondary);
   }
 
-  &__loading {
-    display: flex;
-    justify-content: center;
-    padding: 80px 0;
-  }
 }
 
 .alert-list {
@@ -69,6 +64,7 @@
     justify-content: space-between;
     gap: 12px;
     margin-bottom: 6px;
+    flex-wrap: wrap;
   }
 
   &__title {

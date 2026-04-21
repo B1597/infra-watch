@@ -6,6 +6,8 @@ import { CdkContextMenuTrigger, CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ErrorStateComponent } from '../../../../shared/components/error-state/error-state.component';
+import { TopologyTreeSkeletonComponent } from '../topology-tree-skeleton/topology-tree-skeleton.component';
 import { filter, take } from 'rxjs';
 import { TopologyApiService } from '../../services/topology-api.service';
 import { TopologyDataSource } from '../../services/topology-datasource';
@@ -16,7 +18,7 @@ import { NodePath, NodeSearchResult } from '../../models/topology.model';
 
 @Component({
   selector: 'app-topology-tree',
-  imports: [MatTreeModule, MatIcon, MatProgressSpinnerModule, CdkContextMenuTrigger, CdkMenu, CdkMenuItem],
+  imports: [MatTreeModule, MatIcon, MatProgressSpinnerModule, CdkContextMenuTrigger, CdkMenu, CdkMenuItem, ErrorStateComponent, TopologyTreeSkeletonComponent],
   templateUrl: './topology-tree.component.html',
   styleUrl: './topology-tree.component.scss',
 })
@@ -39,7 +41,9 @@ export class TopologyTreeComponent {
   hasChild = (_: number, node: FlatNode) => node.hasChildren;
   isSelected = (node: FlatNode) => this.selectionService.selection()?.id === node.id;
 
-  contextNode = signal<FlatNode | null>(null);
+  contextNode     = signal<FlatNode | null>(null);
+  loadError       = signal(false);
+  isLoadingRoots  = signal(true);
 
   constructor() {
     this.loadRootNodes();
@@ -71,14 +75,22 @@ export class TopologyTreeComponent {
     });
   }
 
-  private loadRootNodes() {
-    this.topologyApi.getDatacenters().subscribe(items => {
-      this.dataSource.data = items.map(item => new FlatNode(
-        item.id, item.name, item.type, item.status, 0, item.hasChildren,
-      ));
-
-      const nodeId = this.route.firstChild?.snapshot.paramMap.get('nodeId');
-      if (nodeId) this.restoreSelectionByNodeId(nodeId);
+  loadRootNodes() {
+    this.loadError.set(false);
+    this.isLoadingRoots.set(true);
+    this.topologyApi.getDatacenters().subscribe({
+      next: items => {
+        this.dataSource.data = items.map(item => new FlatNode(
+          item.id, item.name, item.type, item.status, 0, item.hasChildren,
+        ));
+        this.isLoadingRoots.set(false);
+        const nodeId = this.route.firstChild?.snapshot.paramMap.get('nodeId');
+        if (nodeId) this.restoreSelectionByNodeId(nodeId);
+      },
+      error: () => {
+        this.isLoadingRoots.set(false);
+        this.loadError.set(true);
+      },
     });
   }
 

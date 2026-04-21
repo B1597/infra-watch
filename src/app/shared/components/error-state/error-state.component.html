@@ -1,0 +1,5 @@
+<div class="error-state" [class.error-state--compact]="compact()">
+  <mat-icon>cloud_off</mat-icon>
+  <p>{{ message() }}</p>
+  <button mat-stroked-button (click)="retry.emit()">Retry</button>
+</div>

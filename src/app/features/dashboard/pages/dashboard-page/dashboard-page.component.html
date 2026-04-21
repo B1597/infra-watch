@@ -7,9 +7,9 @@
   </div>
 
   @if (isLoading()) {
-    <div class="dashboard-page__loading">
-      <mat-spinner diameter="48"></mat-spinner>
-    </div>
+    <app-dashboard-skeleton />
+  } @else if (hasError()) {
+    <app-error-state message="Failed to load dashboard data" (retry)="loadDashboard()" />
   } @else {
     <app-dashboard-stat-cards [stats]="stats()" />
 

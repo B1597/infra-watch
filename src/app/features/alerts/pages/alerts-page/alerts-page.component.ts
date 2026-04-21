@@ -1,7 +1,6 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AlertsApiService } from '../../services/alerts-api.service';
@@ -9,10 +8,12 @@ import { AlertsStoreService } from '../../../../core/services/alerts-store.servi
 import { LayoutService } from '../../../../core/services/layout.service';
 import { InfraAlert, AlertSeverity } from '../../../../shared/models/infrastructure.models';
 import { SEVERITY_ICONS, capitalize } from '../../../../shared/utils/health.utils';
+import { ErrorStateComponent } from '../../../../shared/components/error-state/error-state.component';
+import { AlertsSkeletonComponent } from '../../components/alerts-skeleton/alerts-skeleton.component';
 
 @Component({
   selector: 'app-alerts-page',
-  imports: [MatIconModule, MatButtonModule, MatProgressSpinnerModule],
+  imports: [MatIconModule, MatButtonModule, ErrorStateComponent, AlertsSkeletonComponent],
   templateUrl: './alerts-page.component.html',
   styleUrl: './alerts-page.component.scss',
 })
@@ -24,10 +25,16 @@ export class AlertsPageComponent implements OnInit {
 
   readonly alerts    = signal<InfraAlert[]>([]);
   readonly isLoading = signal(true);
+  readonly hasError  = signal(false);
 
   ngOnInit(): void {
     this.layoutService.setPage('Alerts');
+    this.loadAlerts();
+  }
 
+  loadAlerts(): void {
+    this.isLoading.set(true);
+    this.hasError.set(false);
     this.apiService
       .getAlerts()
       .pipe(
@@ -39,7 +46,10 @@ export class AlertsPageComponent implements OnInit {
           this.alerts.set(alerts);
           this.isLoading.set(false);
         },
-        error: () => this.isLoading.set(false),
+        error: () => {
+          this.isLoading.set(false);
+          this.hasError.set(true);
+        },
       });
   }
 
