@@ -20,5 +20,6 @@ export interface InfraAlert {
   time:            string;
   timestamp:       string;
   acknowledgedBy?: string;
+  nodeId?:         string | null;
 }
 

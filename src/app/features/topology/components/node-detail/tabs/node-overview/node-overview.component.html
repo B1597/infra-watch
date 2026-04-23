@@ -46,6 +46,22 @@
         </div>
       }
 
+      @if (n.stats?.storageUsage !== undefined) {
+        <div class="overview__stat-card">
+          <div class="overview__stat-header">
+            <mat-icon>storage</mat-icon>
+            <span>Storage Usage</span>
+          </div>
+          <div class="overview__stat-value">{{ n.stats!.storageUsage }}%</div>
+          @if (storageSparkline(); as opt) {
+            <div echarts [options]="opt" class="overview__sparkline"></div>
+          }
+          <div class="overview__progress">
+            <div class="overview__progress-fill" [style.width.%]="n.stats!.storageUsage" [class]="progressClass(n.stats!.storageUsage!)"></div>
+          </div>
+        </div>
+      }
+
       @if (n.stats?.networkIO) {
         <div class="overview__stat-card">
           <div class="overview__stat-header">

@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, computed, inject, OnInit, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { tap } from 'rxjs/operators';
@@ -6,7 +6,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AlertsApiService } from '../../services/alerts-api.service';
 import { AlertsStoreService } from '../../../../core/services/alerts-store.service';
 import { LayoutService } from '../../../../core/services/layout.service';
-import { InfraAlert, AlertSeverity } from '../../../../shared/models/infrastructure.models';
+import { AlertSeverity } from '../../../../shared/models/infrastructure.models';
 import { SEVERITY_ICONS, capitalize } from '../../../../shared/utils/health.utils';
 import { ErrorStateComponent } from '../../../../shared/components/error-state/error-state.component';
 import { AlertsSkeletonComponent } from '../../components/alerts-skeleton/alerts-skeleton.component';
@@ -23,9 +23,12 @@ export class AlertsPageComponent implements OnInit {
   private readonly alertsStore   = inject(AlertsStoreService);
   private readonly layoutService = inject(LayoutService);
 
-  readonly alerts    = signal<InfraAlert[]>([]);
   readonly isLoading = signal(true);
   readonly hasError  = signal(false);
+
+  readonly alerts = computed(() =>
+    this.alertsStore.alerts().filter((a) => a.status !== 'resolved'),
+  );
 
   ngOnInit(): void {
     this.layoutService.setPage('Alerts');
@@ -42,10 +45,7 @@ export class AlertsPageComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe({
-        next: (alerts) => {
-          this.alerts.set(alerts);
-          this.isLoading.set(false);
-        },
+        next: () => this.isLoading.set(false),
         error: () => {
           this.isLoading.set(false);
           this.hasError.set(true);
@@ -58,11 +58,7 @@ export class AlertsPageComponent implements OnInit {
       .acknowledgeAlert(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (updated) => {
-          const alerts = this.alerts().map((a) => (a.id === id ? updated : a));
-          this.alerts.set(alerts);
-          this.alertsStore.setAlerts(alerts);
-        },
+        next: (updated) => this.alertsStore.updateAlert(updated),
       });
   }
 
@@ -71,11 +67,7 @@ export class AlertsPageComponent implements OnInit {
       .resolveAlert(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => {
-          const alerts = this.alerts().filter((a) => a.id !== id);
-          this.alerts.set(alerts);
-          this.alertsStore.setAlerts(alerts);
-        },
+        next: () => this.alertsStore.removeAlert(id),
       });
   }
 

@@ -8,9 +8,10 @@ export interface NodePath {
 }
 
 export interface MetricsValues {
-  cpu:     number[];
-  memory:  number[];
-  network: { in: number[]; out: number[] };
+  cpu:      number[];
+  memory:   number[];
+  network:  { in: number[]; out: number[] };
+  storage?: number[];
 }
 export type NodeType = 'datacenter' | 'rack' | 'server' | 'vm' | 'service' | 'switch' | 'router' | 'storage';
 
@@ -33,6 +34,7 @@ export interface NodeHardware {
 export interface NodeStats {
   cpuUsage?: number;
   memoryUsage?: number;
+  storageUsage?: number;
   networkIO?: string;
   networkOut?: string;
   uptimeDays?: number;

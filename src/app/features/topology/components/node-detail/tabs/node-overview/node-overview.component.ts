@@ -9,7 +9,7 @@ import { TopologySelectionService } from '../../../../services/topology-selectio
 import { TopologyApiService } from '../../../../services/topology-api.service';
 
 function buildSparkline(values: number[], current: number): EChartsOption {
-  const color = current >= 80 ? '#ef4444' : current >= 60 ? '#f59e0b' : '#008d00';
+  const color = current >= 90 ? '#ef4444' : current >= 85 ? '#f59e0b' : '#008d00';
   return {
     animation: false,
     grid: { top: 2, right: 0, bottom: 2, left: 0, containLabel: false },
@@ -60,9 +60,15 @@ export class NodeOverviewComponent {
     return values?.length && current !== undefined ? buildSparkline(values, current) : null;
   });
 
+  storageSparkline = computed<EChartsOption | null>(() => {
+    const values = this.metrics()?.storage;
+    const current = this.node()?.stats?.storageUsage;
+    return values?.length && current !== undefined ? buildSparkline(values, current) : null;
+  });
+
   progressClass(value: number): string {
-    if (value >= 80) return 'overview__progress-fill--danger';
-    if (value >= 60) return 'overview__progress-fill--warning';
+    if (value >= 90) return 'overview__progress-fill--danger';
+    if (value >= 85) return 'overview__progress-fill--warning';
     return 'overview__progress-fill--success';
   }
 }

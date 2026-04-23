@@ -32,11 +32,6 @@
   border-radius: var(--radius-md);
   padding: 18px 20px;
   border: 1px solid var(--color-border);
-  border-left: 4px solid transparent;
-
-  &--critical { border-left-color: var(--color-danger);  }
-  &--warning  { border-left-color: var(--color-warning); }
-  &--info     { border-left-color: var(--color-info);    }
 
   &__icon-col {
     flex-shrink: 0;
@@ -44,9 +39,9 @@
   }
 
   &__icon {
-    font-size: 22px;
-    width: 22px;
-    height: 22px;
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
 
     &--critical { color: var(--color-danger);  }
     &--warning  { color: var(--color-warning); }
@@ -98,7 +93,6 @@
     font-size: 12px;
     font-weight: 500;
     background: #f1f5f9;
-    border: 1px solid var(--color-border);
     border-radius: 4px;
     padding: 2px 8px;
     color: var(--color-text-primary);
@@ -175,12 +169,51 @@
   }
 
   &--acknowledge {
-    color: var(--color-warning);
-    border-color: var(--color-warning) !important;
+    color: var(--color-warning) !important;
+    border-color: transparent !important;
+    background: rgba(245, 158, 11, 0.1);
   }
 
   &--resolve {
-    color: var(--color-success);
-    border-color: var(--color-success) !important;
+    color: var(--color-success) !important;
+    border-color: transparent !important;
+    background: rgba(34, 197, 94, 0.1);
   }
+
+  &--explain {
+    color: #6366f1 !important;
+    border-color: transparent !important;
+    background: rgba(99, 102, 241, 0.1);
+    position: relative;
+    overflow: hidden;
+    .action-btn__ai-icon {
+      background: linear-gradient(135deg, #6366f1, #a78bfa, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 17px !important;
+      width: 17px !important;
+      height: 17px !important;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.5) 50%, transparent 80%);
+      transition: none;
+    }
+
+    &:hover::before {
+      animation: ai-shine 0.8s ease forwards;
+    }
+  }
+}
+
+@keyframes ai-shine {
+  from { left: -100%; }
+  to   { left: 150%; }
 }
